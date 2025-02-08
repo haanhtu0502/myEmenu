@@ -22,9 +22,9 @@ class AppProvider extends ChangeNotifier {
   Locale currentLocale = const Locale('vi', '');
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  void setTheme(themeValue, valueSavePref) async {
+  void setTheme(themeValue, valueSavePref) {
     theme = themeValue;
-    await SharedPreferencesService().setString('theme', valueSavePref);
+    SharedPreferencesService().setString('theme', valueSavePref);
     notifyListeners();
   }
 
@@ -39,11 +39,11 @@ class AppProvider extends ChangeNotifier {
     return themeData;
   }
 
-  void setLanguage(String langCode) async {
+  void setLanguage(String langCode) {
     languageCode = langCode;
     currentLocale = S.delegate.supportedLocales
         .firstWhere((locale) => locale.languageCode == langCode);
-    await SharedPreferencesService().setString('langCode', langCode);
+    SharedPreferencesService().setString('langCode', langCode);
     notifyListeners();
   }
 
