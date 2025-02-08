@@ -5,6 +5,7 @@ class ThemeConfig {
   static Color secondaryColor = const Color(0xFFFF6F2C);
   static Color hintColor = const Color(0xFF646982);
   static Color redColor = const Color(0xFFE01E1E);
+  static Color greenColor = const Color(0xFF00B14F);
 
   static ThemeData lightTheme = ThemeData(
     primaryColor: primaryColor,
