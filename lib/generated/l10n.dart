@@ -59,6 +59,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Welcome customer!`
+  String get welcomeCustomer {
+    return Intl.message(
+      'Welcome customer!',
+      name: 'welcomeCustomer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please provide your name and phone number so we can serve you better!`
+  String get pleaseProvideNamePhone {
+    return Intl.message(
+      'Please provide your name and phone number so we can serve you better!',
+      name: 'pleaseProvideNamePhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your name`
+  String get yourName {
+    return Intl.message(
+      'Your name',
+      name: 'yourName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone number`
+  String get phone {
+    return Intl.message(
+      'Phone number',
+      name: 'phone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your phone number`
+  String get yourPhone {
+    return Intl.message(
+      'Your phone number',
+      name: 'yourPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start ordering`
+  String get startOrder {
+    return Intl.message(
+      'Start ordering',
+      name: 'startOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Powered by`
+  String get poweredBy {
+    return Intl.message(
+      'Powered by',
+      name: 'poweredBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tiếng Việt`
+  String get vietnamese {
+    return Intl.message(
+      'Tiếng Việt',
+      name: 'vietnamese',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message(
+      'English',
+      name: 'english',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

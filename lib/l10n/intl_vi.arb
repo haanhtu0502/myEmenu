@@ -1,3 +1,13 @@
 {
-    "hello": "Xin chào"
+    "hello": "Xin chào",
+    "welcomeCustomer": "Xin chào quý khách!",
+    "pleaseProvideNamePhone": "Vui lòng cung cấp tên và số điện thoại của bạn để chúng tôi có thể phục vụ bạn tốt hơn!",
+    "name": "Tên",
+    "yourName": "Tên của bạn",
+    "phone": "Số điện thoại",
+    "yourPhone": "Số điện thoại của bạn",
+    "startOrder": "Bắt đầu gọi món",
+    "poweredBy": "Powered by",
+    "vietnamese": "Tiếng Việt",
+    "english": "English"
 }
