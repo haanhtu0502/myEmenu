@@ -8,6 +8,9 @@ class BuildCustomButton extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final EdgeInsets? padding;
+  final double? radius;
+  final bool isVertical;
+  final double? width;
 
   const BuildCustomButton({
     super.key,
@@ -18,14 +21,17 @@ class BuildCustomButton extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.padding,
+    this.radius,
+    this.isVertical = false,
+    this.width,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: width ?? double.infinity,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(radius ?? 8),
         color: color ?? Theme.of(context).primaryColor,
       ),
       child: ElevatedButton(
@@ -33,33 +39,56 @@ class BuildCustomButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(radius ?? 8),
           ),
           backgroundColor: color ?? Theme.of(context).primaryColor,
           padding: padding ?? const EdgeInsets.symmetric(vertical: 15),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            if (prefixIcon != null) ...[
-              prefixIcon!,
-              const SizedBox(width: 10),
-            ],
-            Text(
-              text,
-              style: TextStyle(
-                color: textColor ?? Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+        child: !isVertical
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (prefixIcon != null) ...[
+                    prefixIcon!,
+                    const SizedBox(width: 10),
+                  ],
+                  Text(
+                    text,
+                    style: TextStyle(
+                      color: textColor ?? Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  if (suffixIcon != null) ...[
+                    const SizedBox(width: 10),
+                    suffixIcon!,
+                  ],
+                ],
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (prefixIcon != null) ...[
+                    prefixIcon!,
+                    const SizedBox(height: 10),
+                  ],
+                  Text(
+                    text,
+                    style: TextStyle(
+                      color: textColor ?? Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  if (suffixIcon != null) ...[
+                    const SizedBox(height: 10),
+                    suffixIcon!,
+                  ],
+                ],
               ),
-            ),
-            if (suffixIcon != null) ...[
-              const SizedBox(width: 10),
-              suffixIcon!,
-            ],
-          ],
-        ),
       ),
     );
   }

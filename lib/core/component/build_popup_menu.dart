@@ -5,8 +5,13 @@ class MenuItem {
   final String text;
   final TextStyle? textStyle;
   final String value;
-  MenuItem(
-      {this.icon, required this.text, this.textStyle, required this.value});
+
+  MenuItem({
+    this.icon,
+    required this.text,
+    this.textStyle,
+    required this.value,
+  });
 }
 
 class PopupMenuButtonCustom extends StatelessWidget {
@@ -18,6 +23,7 @@ class PopupMenuButtonCustom extends StatelessWidget {
     this.icon,
     this.width,
   });
+
   final void Function(String)? onSelected;
   final List<MenuItem> items;
   final Color? backgroundColor;
@@ -33,6 +39,7 @@ class PopupMenuButtonCustom extends StatelessWidget {
         border: Border.all(
           color: Theme.of(context).primaryColor,
         ),
+        color: backgroundColor,
       ),
       child: PopupMenuButton(
         color: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
