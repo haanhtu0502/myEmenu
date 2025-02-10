@@ -9,5 +9,15 @@
     "startOrder": "Bắt đầu gọi món",
     "poweredBy": "Powered by",
     "vietnamese": "Tiếng Việt",
-    "english": "English"
+    "english": "English",
+    "morning": "Buổi sáng",
+    "afternoon": "Buổi trưa",
+    "evening": "Buổi tối",
+    "goodMorning": "Chào buổi sáng",
+    "goodAfternoon": "Chào buổi trưa",
+    "goodEvening": "Chào buổi tối",
+    "youAreSitAt": "Bạn đang ngồi tại",
+    "callPayment": "Gọi thanh toán",
+    "callEmployee": "Gọi nhân viên",
+    "orderFoodHear": "Gọi món tại đây"
 }

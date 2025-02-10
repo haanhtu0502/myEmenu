@@ -159,6 +159,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Morning`
+  String get morning {
+    return Intl.message(
+      'Morning',
+      name: 'morning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Afternoon`
+  String get afternoon {
+    return Intl.message(
+      'Afternoon',
+      name: 'afternoon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Evening`
+  String get evening {
+    return Intl.message(
+      'Evening',
+      name: 'evening',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good morning`
+  String get goodMorning {
+    return Intl.message(
+      'Good morning',
+      name: 'goodMorning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good afternoon`
+  String get goodAfternoon {
+    return Intl.message(
+      'Good afternoon',
+      name: 'goodAfternoon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good evening`
+  String get goodEvening {
+    return Intl.message(
+      'Good evening',
+      name: 'goodEvening',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are sitting at`
+  String get youAreSitAt {
+    return Intl.message(
+      'You are sitting at',
+      name: 'youAreSitAt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Call payment`
+  String get callPayment {
+    return Intl.message(
+      'Call payment',
+      name: 'callPayment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Call employee`
+  String get callEmployee {
+    return Intl.message(
+      'Call employee',
+      name: 'callEmployee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order food here`
+  String get orderFoodHear {
+    return Intl.message(
+      'Order food here',
+      name: 'orderFoodHear',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

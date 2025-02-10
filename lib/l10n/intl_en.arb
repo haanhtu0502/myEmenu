@@ -9,5 +9,15 @@
     "startOrder": "Start ordering",
     "poweredBy": "Powered by",
     "vietnamese": "Tiếng Việt",
-    "english": "English"
+    "english": "English",
+    "morning": "Morning",
+    "afternoon": "Afternoon",
+    "evening": "Evening",
+    "goodMorning": "Good morning",
+    "goodAfternoon": "Good afternoon",
+    "goodEvening": "Good evening",
+    "youAreSitAt": "You are sitting at",
+    "callPayment": "Call payment",
+    "callEmployee": "Call employee",
+    "orderFoodHear": "Order food here"
 }

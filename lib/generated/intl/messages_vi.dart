@@ -22,9 +22,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "afternoon": MessageLookupByLibrary.simpleMessage("Buổi trưa"),
+        "callEmployee": MessageLookupByLibrary.simpleMessage("Gọi nhân viên"),
+        "callPayment": MessageLookupByLibrary.simpleMessage("Gọi thanh toán"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
+        "evening": MessageLookupByLibrary.simpleMessage("Buổi tối"),
+        "goodAfternoon": MessageLookupByLibrary.simpleMessage("Chào buổi trưa"),
+        "goodEvening": MessageLookupByLibrary.simpleMessage("Chào buổi tối"),
+        "goodMorning": MessageLookupByLibrary.simpleMessage("Chào buổi sáng"),
         "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
+        "morning": MessageLookupByLibrary.simpleMessage("Buổi sáng"),
         "name": MessageLookupByLibrary.simpleMessage("Tên"),
+        "orderFoodHear":
+            MessageLookupByLibrary.simpleMessage("Gọi món tại đây"),
         "phone": MessageLookupByLibrary.simpleMessage("Số điện thoại"),
         "pleaseProvideNamePhone": MessageLookupByLibrary.simpleMessage(
             "Vui lòng cung cấp tên và số điện thoại của bạn để chúng tôi có thể phục vụ bạn tốt hơn!"),
@@ -33,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
         "welcomeCustomer":
             MessageLookupByLibrary.simpleMessage("Xin chào quý khách!"),
+        "youAreSitAt":
+            MessageLookupByLibrary.simpleMessage("Bạn đang ngồi tại"),
         "yourName": MessageLookupByLibrary.simpleMessage("Tên của bạn"),
         "yourPhone":
             MessageLookupByLibrary.simpleMessage("Số điện thoại của bạn")

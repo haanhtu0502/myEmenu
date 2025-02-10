@@ -22,9 +22,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "afternoon": MessageLookupByLibrary.simpleMessage("Afternoon"),
+        "callEmployee": MessageLookupByLibrary.simpleMessage("Call employee"),
+        "callPayment": MessageLookupByLibrary.simpleMessage("Call payment"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
+        "evening": MessageLookupByLibrary.simpleMessage("Evening"),
+        "goodAfternoon": MessageLookupByLibrary.simpleMessage("Good afternoon"),
+        "goodEvening": MessageLookupByLibrary.simpleMessage("Good evening"),
+        "goodMorning": MessageLookupByLibrary.simpleMessage("Good morning"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello"),
+        "morning": MessageLookupByLibrary.simpleMessage("Morning"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "orderFoodHear":
+            MessageLookupByLibrary.simpleMessage("Order food here"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone number"),
         "pleaseProvideNamePhone": MessageLookupByLibrary.simpleMessage(
             "Please provide your name and phone number so we can serve you better!"),
@@ -33,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
         "welcomeCustomer":
             MessageLookupByLibrary.simpleMessage("Welcome customer!"),
+        "youAreSitAt":
+            MessageLookupByLibrary.simpleMessage("You are sitting at"),
         "yourName": MessageLookupByLibrary.simpleMessage("Your name"),
         "yourPhone": MessageLookupByLibrary.simpleMessage("Your phone number")
       };
