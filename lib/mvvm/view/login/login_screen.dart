@@ -1,6 +1,6 @@
+import 'package:emenu/core/component/build_app_popup_menu_button.dart';
 import 'package:emenu/core/component/build_custom_button.dart';
 import 'package:emenu/core/component/build_input_field.dart';
-import 'package:emenu/core/component/build_popup_menu.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/generated/l10n.dart';
@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<StatefulWidget> createState() => _LoginScreenState();
@@ -24,14 +24,14 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              const Color(0xFF2D7FF9).withOpacity(0.3),
-              const Color(0xFFFFFFFF),
-            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
+            colors: [
+              Color.fromRGBO(45, 127, 249, 0.2),
+              Color.fromRGBO(255, 255, 255, 0.2),
+            ],
           ),
         ),
         child: Column(
@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 12),
                   _buildFormInput(context),
                   const SizedBox(height: 16),
-                  _buildPopupMenuButton(context),
+                  const BuildAppPopupMenuButton(),
                 ],
               ),
             ),
@@ -133,71 +133,6 @@ class _LoginScreenState extends State<LoginScreen> {
             color: Theme.of(context).dividerColor,
           ),
         ),
-      ],
-    );
-  }
-
-  Widget _buildPopupMenuButton(BuildContext context) {
-    return Selector<AppProvider, String>(
-        selector: (context, provider) => provider.languageCode,
-        shouldRebuild: (previous, next) => previous != next,
-        builder: (context, value, child) {
-          return PopupMenuButtonCustom(
-            width: 150,
-            items: [
-              MenuItem(
-                icon: _buildImageAsset(
-                    ImageConst.vietnamFlag, S.of(context).vietnamese),
-                text: '',
-                value: 'vi',
-              ),
-              MenuItem(
-                icon:
-                    _buildImageAsset(ImageConst.ukFlag, S.of(context).english),
-                text: '',
-                value: 'en',
-              ),
-            ],
-            onSelected: (value) {
-              _appProvider.setLanguage(value);
-            },
-            icon: _buildImageAsset(
-              value == 'vi' ? ImageConst.vietnamFlag : ImageConst.ukFlag,
-              value == 'vi' ? S.of(context).vietnamese : S.of(context).english,
-              showIcon: true,
-            ),
-          );
-        });
-  }
-
-  Widget _buildImageAsset(String assets, String title,
-      {bool showIcon = false}) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(32.0),
-          child: Image.asset(
-            assets,
-            height: 24,
-            width: 24,
-            fit: BoxFit.cover,
-          ),
-        ),
-        const SizedBox(width: 4.0),
-        Text(
-          title,
-          style: context.titleSmall.copyWith(
-              color: Theme.of(context).primaryColor,
-              fontWeight: FontWeight.bold),
-        ),
-        if (showIcon) ...[
-          const SizedBox(width: 4.0),
-          Icon(
-            Icons.arrow_drop_down,
-            color: Theme.of(context).primaryColor,
-          ),
-        ],
       ],
     );
   }
