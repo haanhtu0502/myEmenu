@@ -91,6 +91,7 @@ flutter:
     - assets/images/ic_uk.png
     - assets/images/ic_viet_nam.png
     - assets/images/food_banner.png
+    - assets/images/food_category.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

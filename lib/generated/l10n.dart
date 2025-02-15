@@ -259,6 +259,36 @@ class S {
       args: [],
     );
   }
+
+  /// `All category`
+  String get allCategory {
+    return Intl.message(
+      'All category',
+      name: 'allCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View all`
+  String get viewAll {
+    return Intl.message(
+      'View all',
+      name: 'viewAll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price from`
+  String get priceFrom {
+    return Intl.message(
+      'Price from',
+      name: 'priceFrom',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

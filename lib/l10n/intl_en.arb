@@ -19,5 +19,8 @@
     "youAreSitAt": "You are sitting at",
     "callPayment": "Call payment",
     "callEmployee": "Call employee",
-    "orderFoodHear": "Order food here"
+    "orderFoodHear": "Order food here",
+    "allCategory": "All category",
+    "viewAll": "View all",
+    "priceFrom": "Price from"
 }

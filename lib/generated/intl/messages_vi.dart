@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "afternoon": MessageLookupByLibrary.simpleMessage("Buổi trưa"),
+        "allCategory": MessageLookupByLibrary.simpleMessage("Tất cả danh mục"),
         "callEmployee": MessageLookupByLibrary.simpleMessage("Gọi nhân viên"),
         "callPayment": MessageLookupByLibrary.simpleMessage("Gọi thanh toán"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
@@ -39,8 +40,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseProvideNamePhone": MessageLookupByLibrary.simpleMessage(
             "Vui lòng cung cấp tên và số điện thoại của bạn để chúng tôi có thể phục vụ bạn tốt hơn!"),
         "poweredBy": MessageLookupByLibrary.simpleMessage("Powered by"),
+        "priceFrom": MessageLookupByLibrary.simpleMessage("Giá từ"),
         "startOrder": MessageLookupByLibrary.simpleMessage("Bắt đầu gọi món"),
         "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
+        "viewAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
         "welcomeCustomer":
             MessageLookupByLibrary.simpleMessage("Xin chào quý khách!"),
         "youAreSitAt":

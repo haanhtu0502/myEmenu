@@ -73,7 +73,7 @@ class BuildCustomButton extends StatelessWidget {
                 children: [
                   if (prefixIcon != null) ...[
                     prefixIcon!,
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 4),
                   ],
                   Text(
                     text,
