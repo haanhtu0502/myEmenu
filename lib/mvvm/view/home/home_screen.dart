@@ -1,4 +1,5 @@
 import 'package:emenu/core/component/build_app_popup_menu_button.dart';
+import 'package:emenu/core/component/build_cart_layout.dart';
 import 'package:emenu/core/component/build_custom_button.dart';
 import 'package:emenu/core/component/build_product_card_item.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
@@ -19,32 +20,34 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 14,
-        vertical: 12,
-      ),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color.fromRGBO(45, 127, 249, 0.2),
-            Color.fromRGBO(255, 255, 255, 0.2),
-          ],
+    return BuildCartLayout(
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: 12,
         ),
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildTitle(context),
-            const SizedBox(height: 12),
-            _buildBanner(context),
-            const SizedBox(height: 18),
-            _buildButtons(context),
-            const SizedBox(height: 18),
-            _buildCategories(context),
-          ],
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromRGBO(45, 127, 249, 0.2),
+              Color.fromRGBO(255, 255, 255, 0.2),
+            ],
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildTitle(context),
+              const SizedBox(height: 12),
+              _buildBanner(context),
+              const SizedBox(height: 18),
+              _buildButtons(context),
+              const SizedBox(height: 18),
+              _buildCategories(context),
+            ],
+          ),
         ),
       ),
     );

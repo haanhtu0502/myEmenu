@@ -45,6 +45,7 @@ dependencies:
   retrofit: ^4.4.2
   get_it: ^7.7.0
   injectable: ^2.4.2
+  flutter_svg: ^2.0.9
   
 
 dev_dependencies:
@@ -92,6 +93,7 @@ flutter:
     - assets/images/ic_viet_nam.png
     - assets/images/food_banner.png
     - assets/images/food_category.png
+    - assets/images/icons/shopping_bag.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

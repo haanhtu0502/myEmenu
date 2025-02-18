@@ -4,4 +4,5 @@ class ImageConst {
   static String ukFlag = 'assets/images/ic_uk.png';
   static String foodBanner = 'assets/images/food_banner.png';
   static String foodCategory = 'assets/images/food_category.png';
+  static String shoppingBag = 'assets/images/icons/shopping_bag.svg';
 }
