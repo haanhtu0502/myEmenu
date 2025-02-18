@@ -29,6 +29,7 @@ class _ProductCardItemState extends State<ProductCardItem> {
     return MouseRegion(
       onEnter: (event) => _imageTopPosition.value = -45,
       onExit: (event) => _imageTopPosition.value = -40,
+      cursor: MaterialStateMouseCursor.clickable,
       child: Stack(
         clipBehavior: Clip.none,
         alignment: Alignment.center,
