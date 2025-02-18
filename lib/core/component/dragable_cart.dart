@@ -39,6 +39,15 @@ class _DragableCartState extends State<DragableCart> {
     super.initState();
   }
 
+  @override
+  void didUpdateWidget(covariant DragableCart oldWidget) {
+    if (oldWidget.screenHeight != widget.screenHeight ||
+        oldWidget.screenWidth != widget.screenWidth) {
+      _resetPosition();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
   void _resetPosition() {
     setState(() {
       _positionTop = widget.screenHeight / 3 + 50;
