@@ -1,3 +1,4 @@
+import 'package:emenu/core/component/custom_scroll_behavior.dart';
 import 'package:emenu/core/configurations/configuration.dart';
 import 'package:emenu/core/configurations/env/env_dev.dart';
 import 'package:emenu/core/design_system/resource/constant.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp.router(
           title: Constant.appName,
           debugShowCheckedModeBanner: false,
+          scrollBehavior: CustomScrollBehavior(),
           theme: provider.theme,
           key: provider.key,
           localizationsDelegates: const [
