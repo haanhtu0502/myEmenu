@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Vui lòng cung cấp tên và số điện thoại của bạn để chúng tôi có thể phục vụ bạn tốt hơn!"),
         "poweredBy": MessageLookupByLibrary.simpleMessage("Powered by"),
         "priceFrom": MessageLookupByLibrary.simpleMessage("Giá từ"),
+        "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
         "startOrder": MessageLookupByLibrary.simpleMessage("Bắt đầu gọi món"),
         "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
         "viewAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),

@@ -280,11 +280,21 @@ class S {
     );
   }
 
-  /// `Price from`
+  /// `From`
   String get priceFrom {
     return Intl.message(
-      'Price from',
+      'From',
       name: 'priceFrom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
       desc: '',
       args: [],
     );

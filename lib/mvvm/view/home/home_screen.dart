@@ -5,10 +5,12 @@ import 'package:emenu/core/component/build_product_card_item.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/generated/l10n.dart';
+import 'package:emenu/routes/app_pages.dart';
 import 'package:emenu/theme/theme_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -174,7 +176,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.white,
                 ),
                 radius: 20,
-                onPressed: () {},
+                onPressed: () {
+                  context.go(AppPages.listProduct);
+                },
               ),
             ),
           ],
@@ -193,7 +197,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: context.titleMedium)),
             // const Spacer(),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                context.push(AppPages.listProduct);
+              },
               style: ElevatedButton.styleFrom(
                 elevation: 0,
                 backgroundColor: Colors.transparent,

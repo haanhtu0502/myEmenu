@@ -4,4 +4,5 @@ class AppPages {
   //     '/home/:tenantId/:orgId/:tableId/:floorId/:posTerminalId/:tableNo/:floorNo/:priceListId';
   static const String home = '/home';
   static const String login = '/login';
+  static const String listProduct = '/list-product';
 }

@@ -22,5 +22,6 @@
     "orderFoodHear": "Order food here",
     "allCategory": "All category",
     "viewAll": "View all",
-    "priceFrom": "Price from"
+    "priceFrom": "From",
+    "search": "Search"
 }
