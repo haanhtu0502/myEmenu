@@ -250,8 +250,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildCategoryItem(BuildContext context) {
     return ProductCardItem(
       imageUrl: ImageConst.foodCategory,
-      title: 'Món ăn ngon',
-      price: '100.000đ',
       width: 150,
       content: Column(
         children: [

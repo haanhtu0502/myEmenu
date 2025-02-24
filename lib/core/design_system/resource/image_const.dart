@@ -6,4 +6,6 @@ class ImageConst {
   static String foodCategory = 'assets/images/food_category.png';
   static String shoppingBag = 'assets/images/icons/shopping_bag.svg';
   static String shopIcon = 'assets/images/icons/shop.svg';
+  static String addIcon = 'assets/images/icons/add_icon.svg';
+  static String foodImage = 'assets/images/food_image.png';
 }

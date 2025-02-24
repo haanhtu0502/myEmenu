@@ -95,6 +95,8 @@ flutter:
     - assets/images/food_category.png
     - assets/images/icons/shopping_bag.svg
     - assets/images/icons/shop.svg
+    - assets/images/icons/add_icon.svg
+    - assets/images/food_image.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
