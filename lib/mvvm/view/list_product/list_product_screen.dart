@@ -1,3 +1,4 @@
+import 'package:emenu/core/component/build_cart_layout.dart';
 import 'package:emenu/core/component/build_product_card_item.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
@@ -7,6 +8,7 @@ import 'package:emenu/mvvm/data/model/product_model.dart';
 import 'package:emenu/mvvm/view/list_product/dummy/dummy_product_list.dart';
 import 'package:emenu/mvvm/view/list_product/widget/e_vertical_tabbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ListProductScreen extends StatefulWidget {
@@ -22,18 +24,20 @@ class _ListProductScreenState extends State<ListProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: 10,
-          left: 12,
-          right: 12,
-        ),
-        child: Column(
-          children: [
-            _buildHeader(context),
-            const SizedBox(height: 12),
-            _buildListProduct(context),
-          ],
+      body: BuildCartLayout(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 10,
+            left: 12,
+            right: 12,
+          ),
+          child: Column(
+            children: [
+              _buildHeader(context),
+              const SizedBox(height: 12),
+              _buildListProduct(context),
+            ],
+          ),
         ),
       ),
     );
@@ -119,7 +123,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: 1.65,
-            crossAxisSpacing: 12,
+            // crossAxisSpacing: 12,
             mainAxisSpacing: 60,
           ),
           itemCount: item.products.length,
@@ -127,6 +131,32 @@ class _ListProductScreenState extends State<ListProductScreen> {
             return _buildProductCardItem(context, item.products[index]);
           },
         ),
+        const SizedBox(height: 14),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: () {},
+              child: Row(
+                children: [
+                  Text(
+                    S.of(context).viewMoreProduct,
+                    style: context.titleMedium.copyWith(
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  SvgPicture.asset(
+                    ImageConst.arrowRightIcon,
+                    width: 12,
+                    height: 16,
+                  ),
+                ],
+              ),
+            )
+          ],
+        )
       ],
     );
   }
@@ -135,7 +165,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
     return ProductCardItem(
       imageUrl: ImageConst.foodImage,
       isBorder: true,
-      width: 170,
+      width: 200,
       content: Column(
         children: [
           Row(

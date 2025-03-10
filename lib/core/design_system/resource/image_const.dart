@@ -8,4 +8,5 @@ class ImageConst {
   static String shopIcon = 'assets/images/icons/shop.svg';
   static String addIcon = 'assets/images/icons/add_icon.svg';
   static String foodImage = 'assets/images/food_image.png';
+  static String arrowRightIcon = 'assets/images/icons/arrow_right_alt.svg';
 }

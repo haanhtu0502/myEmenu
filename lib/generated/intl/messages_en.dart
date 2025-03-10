@@ -45,6 +45,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "startOrder": MessageLookupByLibrary.simpleMessage("Start ordering"),
         "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
         "viewAll": MessageLookupByLibrary.simpleMessage("View all"),
+        "viewMoreProduct":
+            MessageLookupByLibrary.simpleMessage("View more product"),
         "welcomeCustomer":
             MessageLookupByLibrary.simpleMessage("Welcome customer!"),
         "youAreSitAt":

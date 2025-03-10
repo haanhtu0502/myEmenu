@@ -299,6 +299,16 @@ class S {
       args: [],
     );
   }
+
+  /// `View more product`
+  String get viewMoreProduct {
+    return Intl.message(
+      'View more product',
+      name: 'viewMoreProduct',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

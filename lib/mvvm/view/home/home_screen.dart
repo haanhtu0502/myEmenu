@@ -198,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // const Spacer(),
             ElevatedButton(
               onPressed: () {
-                context.push(AppPages.listProduct);
+                context.go(AppPages.listProduct);
               },
               style: ElevatedButton.styleFrom(
                 elevation: 0,

@@ -45,6 +45,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "startOrder": MessageLookupByLibrary.simpleMessage("Bắt đầu gọi món"),
         "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
         "viewAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
+        "viewMoreProduct":
+            MessageLookupByLibrary.simpleMessage("Xem thêm sản phẩm"),
         "welcomeCustomer":
             MessageLookupByLibrary.simpleMessage("Xin chào quý khách!"),
         "youAreSitAt":
