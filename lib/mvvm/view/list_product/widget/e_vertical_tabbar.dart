@@ -1,4 +1,5 @@
 import 'package:emenu/mvvm/data/model/category_model.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
 
 class EVerticalTabbar extends StatefulWidget {
@@ -18,10 +19,10 @@ class EVerticalTabbar extends StatefulWidget {
 class _EVerticalTabbarState extends State<EVerticalTabbar>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final ScrollController _scrollController = ScrollController();
-
-  final ValueNotifier<List<GlobalKey>> _keys =
-      ValueNotifier<List<GlobalKey>>([]);
+  final ItemScrollController _scrollController = ItemScrollController();
+  final ItemPositionsListener _positionsListener =
+      ItemPositionsListener.create();
+  final ScrollOffsetListener _offsetListener = ScrollOffsetListener.create();
 
   final ValueNotifier<bool> _isScrolling = ValueNotifier<bool>(false);
 
@@ -29,49 +30,30 @@ class _EVerticalTabbarState extends State<EVerticalTabbar>
   void initState() {
     _tabController = TabController(length: widget.tabs.length, vsync: this);
 
-    _scrollController.addListener(_handleScroll);
-
-    _keys.value = List.generate(widget.tabs.length, (index) => GlobalKey());
+    _positionsListener.itemPositions.addListener(_handleScroll);
     super.initState();
   }
 
   void _onTabChange(int index) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_keys.value[index].currentContext == null) return;
-      final RenderBox renderBox =
-          _keys.value[index].currentContext!.findRenderObject() as RenderBox;
-
-      final position = renderBox.localToGlobal(Offset.zero);
-
-      _scrollController.animateTo(
-        position.dy,
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOut,
-      );
-      _tabController.animateTo(index);
-    });
+    _isScrolling.value = true;
+    _scrollController.scrollTo(
+      index: index,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeOut,
+    );
+    _isScrolling.value = false;
+    // _tabController.animateTo(index);
   }
 
   void _handleScroll() {
     if (_isScrolling.value) return;
     _isScrolling.value = true;
-    final offSet = _scrollController.offset;
-    for (int i = 0; i < widget.tabs.length; i++) {
-      final position = _getPosition(i);
-      if (offSet >= position && offSet < position + 10) {
-        _tabController.animateTo(i);
-        break;
-      }
+    final positions = _positionsListener.itemPositions.value;
+    final firstIndex = positions.isNotEmpty ? positions.first.index : 0;
+    if (_tabController.index != firstIndex) {
+      _tabController.animateTo(firstIndex);
     }
     _isScrolling.value = false;
-  }
-
-  double _getPosition(int index) {
-    if (_keys.value[index].currentContext == null) return 0;
-    final RenderBox renderBox =
-        _keys.value[index].currentContext!.findRenderObject() as RenderBox;
-    final position = renderBox.localToGlobal(Offset.zero);
-    return position.dy;
   }
 
   @override
@@ -94,9 +76,6 @@ class _EVerticalTabbarState extends State<EVerticalTabbar>
                     ),
                   ))
               .toList(),
-          // indicatorPadding: const EdgeInsets.symmetric(
-          //   horizontal: 16,
-          // ),
           indicatorColor: Theme.of(context).primaryColor,
           labelColor: Theme.of(context).primaryColor,
           labelStyle: const TextStyle(
@@ -111,20 +90,13 @@ class _EVerticalTabbarState extends State<EVerticalTabbar>
         ),
         const SizedBox(height: 12),
         Expanded(
-            child: ValueListenableBuilder(
-          valueListenable: _keys,
-          builder: (context, value, child) {
-            if (_keys.value.isEmpty) return const SizedBox();
-            return ListView.builder(
-              controller: _scrollController,
-              itemCount: widget.children.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  key: _keys.value[index],
-                  child: widget.children[index],
-                );
-              },
-            );
+            child: ScrollablePositionedList.builder(
+          itemScrollController: _scrollController,
+          itemPositionsListener: _positionsListener,
+          scrollOffsetListener: _offsetListener,
+          itemCount: widget.children.length,
+          itemBuilder: (context, index) {
+            return widget.children[index];
           },
         )),
       ],
