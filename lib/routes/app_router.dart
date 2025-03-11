@@ -1,6 +1,7 @@
 import 'package:emenu/mvvm/view/home/home_screen.dart';
 import 'package:emenu/mvvm/view/list_product/list_product_screen.dart';
 import 'package:emenu/mvvm/view/login/login_screen.dart';
+import 'package:emenu/mvvm/view/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'app_pages.dart';
@@ -18,7 +19,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       parentNavigatorKey: appNavigationKey,
       path: AppPages.splash,
-      builder: (context, state) => const Text('Splash Screen'),
+      builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(
       parentNavigatorKey: appNavigationKey,
