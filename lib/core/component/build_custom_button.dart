@@ -11,6 +11,7 @@ class BuildCustomButton extends StatelessWidget {
   final double? radius;
   final bool isVertical;
   final double? width;
+  final bool textBold;
 
   const BuildCustomButton({
     super.key,
@@ -24,6 +25,7 @@ class BuildCustomButton extends StatelessWidget {
     this.radius,
     this.isVertical = false,
     this.width,
+    this.textBold = true,
   });
 
   @override
@@ -58,7 +60,8 @@ class BuildCustomButton extends StatelessWidget {
                     style: TextStyle(
                       color: textColor ?? Colors.white,
                       fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                      fontWeight:
+                          textBold ? FontWeight.bold : FontWeight.normal,
                     ),
                   ),
                   if (suffixIcon != null) ...[
@@ -80,7 +83,8 @@ class BuildCustomButton extends StatelessWidget {
                     style: TextStyle(
                       color: textColor ?? Colors.white,
                       fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                      fontWeight:
+                          textBold ? FontWeight.bold : FontWeight.normal,
                     ),
                   ),
                   if (suffixIcon != null) ...[

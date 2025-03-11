@@ -1,6 +1,7 @@
 import 'package:emenu/mvvm/view/home/home_screen.dart';
 import 'package:emenu/mvvm/view/list_product/list_product_screen.dart';
 import 'package:emenu/mvvm/view/login/login_screen.dart';
+import 'package:emenu/mvvm/view/product_detail/product_detail_screen.dart';
 import 'package:emenu/mvvm/view/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -45,6 +46,13 @@ final GoRouter appRouter = GoRouter(
       parentNavigatorKey: appNavigationKey,
       path: AppPages.listProduct,
       builder: (context, state) => const ListProductScreen(),
+      routes: [
+        GoRoute(
+          parentNavigatorKey: appNavigationKey,
+          path: AppPages.detailProduct,
+          builder: (context, state) => const ProductDetailScreen(),
+        )
+      ],
     ),
   ],
 );

@@ -22,12 +22,16 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "addToCart": MessageLookupByLibrary.simpleMessage("Thêm vào giỏ hàng"),
         "afternoon": MessageLookupByLibrary.simpleMessage("Buổi trưa"),
         "allCategory": MessageLookupByLibrary.simpleMessage("Tất cả danh mục"),
         "callEmployee": MessageLookupByLibrary.simpleMessage("Gọi nhân viên"),
         "callPayment": MessageLookupByLibrary.simpleMessage("Gọi thanh toán"),
+        "component": MessageLookupByLibrary.simpleMessage("Thành phần"),
+        "detail": MessageLookupByLibrary.simpleMessage("Chi tiết"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "evening": MessageLookupByLibrary.simpleMessage("Buổi tối"),
+        "extra": MessageLookupByLibrary.simpleMessage("Món thêm"),
         "goodAfternoon": MessageLookupByLibrary.simpleMessage("Chào buổi trưa"),
         "goodEvening": MessageLookupByLibrary.simpleMessage("Chào buổi tối"),
         "goodMorning": MessageLookupByLibrary.simpleMessage("Chào buổi sáng"),

@@ -7,9 +7,11 @@ import 'package:emenu/mvvm/data/model/category_product_model.dart';
 import 'package:emenu/mvvm/data/model/product_model.dart';
 import 'package:emenu/mvvm/view/list_product/dummy/dummy_product_list.dart';
 import 'package:emenu/mvvm/view/list_product/widget/e_vertical_tabbar.dart';
+import 'package:emenu/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class ListProductScreen extends StatefulWidget {
   const ListProductScreen({super.key});
@@ -162,58 +164,65 @@ class _ListProductScreenState extends State<ListProductScreen> {
   }
 
   Widget _buildProductCardItem(BuildContext context, ProductModel item) {
-    return ProductCardItem(
-      imageUrl: ImageConst.foodImage,
-      isBorder: true,
-      width: 200,
-      content: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                item.name ?? '',
-                style: context.titleMedium.copyWith(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.start,
-              ),
-            ],
-          ),
-          if (item.description != null) ...[
-            const SizedBox(height: 4),
+    return GestureDetector(
+      onTap: () {
+        context.go(
+          '${AppPages.listProduct}${AppPages.detailProduct}',
+        );
+      },
+      child: ProductCardItem(
+        imageUrl: ImageConst.foodImage,
+        isBorder: true,
+        width: 200,
+        content: Column(
+          children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  item.description ?? '',
+                  item.name ?? '',
                   style: context.titleMedium.copyWith(
-                    color: Theme.of(context).dividerColor,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
                   ),
+                  textAlign: TextAlign.start,
                 ),
               ],
             ),
-          ],
-          const SizedBox(height: 4),
-          Row(
-            children: [
-              Text(
-                item.salesPrice?.toString() ?? '',
-                style: context.titleMedium.copyWith(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Spacer(),
-              SvgPicture.asset(
-                ImageConst.addIcon,
-                width: 24,
-                height: 24,
+            if (item.description != null) ...[
+              const SizedBox(height: 4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    item.description ?? '',
+                    style: context.titleMedium.copyWith(
+                      color: Theme.of(context).dividerColor,
+                    ),
+                  ),
+                ],
               ),
             ],
-          )
-        ],
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                Text(
+                  item.salesPrice?.toString() ?? '',
+                  style: context.titleMedium.copyWith(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Spacer(),
+                SvgPicture.asset(
+                  ImageConst.addIcon,
+                  width: 24,
+                  height: 24,
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

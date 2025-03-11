@@ -24,5 +24,9 @@
     "viewAll": "Xem tất cả",
     "priceFrom": "Giá từ",
     "search": "Tìm kiếm",
-    "viewMoreProduct": "Xem thêm sản phẩm"
+    "viewMoreProduct": "Xem thêm sản phẩm",
+    "detail": "Chi tiết",
+    "component": "Thành phần",
+    "extra": "Món thêm",
+    "addToCart": "Thêm vào giỏ hàng"
 }

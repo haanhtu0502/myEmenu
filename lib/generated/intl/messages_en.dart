@@ -22,12 +22,16 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "addToCart": MessageLookupByLibrary.simpleMessage("Add to cart"),
         "afternoon": MessageLookupByLibrary.simpleMessage("Afternoon"),
         "allCategory": MessageLookupByLibrary.simpleMessage("All category"),
         "callEmployee": MessageLookupByLibrary.simpleMessage("Call employee"),
         "callPayment": MessageLookupByLibrary.simpleMessage("Call payment"),
+        "component": MessageLookupByLibrary.simpleMessage("Component"),
+        "detail": MessageLookupByLibrary.simpleMessage("Detail"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "evening": MessageLookupByLibrary.simpleMessage("Evening"),
+        "extra": MessageLookupByLibrary.simpleMessage("Extra"),
         "goodAfternoon": MessageLookupByLibrary.simpleMessage("Good afternoon"),
         "goodEvening": MessageLookupByLibrary.simpleMessage("Good evening"),
         "goodMorning": MessageLookupByLibrary.simpleMessage("Good morning"),

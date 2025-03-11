@@ -24,5 +24,9 @@
     "viewAll": "View all",
     "priceFrom": "From",
     "search": "Search",
-    "viewMoreProduct": "View more product"
+    "viewMoreProduct": "View more product",
+    "detail": "Detail",
+    "component": "Component",
+    "extra": "Extra",
+    "addToCart": "Add to cart"
 }

@@ -99,6 +99,7 @@ flutter:
     - assets/images/icons/add_icon.svg
     - assets/images/food_image.png
     - assets/images/icons/arrow_right_alt.svg
+    - assets/images/icons/back_icon.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

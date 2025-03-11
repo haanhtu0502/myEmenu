@@ -5,4 +5,5 @@ class AppPages {
   static const String home = '/home';
   static const String login = '/login';
   static const String listProduct = '/list-product';
+  static const String detailProduct = '/detail-product';
 }
