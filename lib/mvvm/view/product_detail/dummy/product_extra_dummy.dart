@@ -31,9 +31,4 @@ List<ProductExtraDummy> listProductExtras = [
     price: 40000,
     qty: 4,
   ),
-  ProductExtraDummy(
-    name: 'Extra 5',
-    price: 50000,
-    qty: 5,
-  ),
 ];

@@ -149,10 +149,13 @@ class _ListProductScreenState extends State<ListProductScreen> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  SvgPicture.asset(
-                    ImageConst.arrowRightIcon,
-                    width: 12,
-                    height: 16,
+                  InkWell(
+                    onTap: () {},
+                    child: SvgPicture.asset(
+                      ImageConst.arrowRightIcon,
+                      width: 12,
+                      height: 12,
+                    ),
                   ),
                 ],
               ),

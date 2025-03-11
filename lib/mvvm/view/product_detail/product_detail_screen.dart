@@ -272,9 +272,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               Expanded(
                 child: Text(
                   '49.000',
-                  style: context.titleLargeS22.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: context.titleLargeS22
+                      .copyWith(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
               ),
               BuildCountQty(
