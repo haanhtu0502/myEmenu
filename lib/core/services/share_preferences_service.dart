@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPreferencesService {
   static final SharedPreferencesService _instance =
       SharedPreferencesService._();
-  late final SharedPreferences _prefs;
+  static late final SharedPreferences prefs;
 
   factory SharedPreferencesService() {
     return _instance;
@@ -12,26 +12,38 @@ class SharedPreferencesService {
   SharedPreferencesService._();
 
   Future<void> init() async {
-    _prefs = await SharedPreferences.getInstance();
+    prefs = await SharedPreferences.getInstance();
   }
 
-  void setString(String key, String value) {
-    _prefs.setString(key, value);
+  static void setString(String key, String value) {
+    prefs.setString(key, value);
   }
 
-  String? getString(String key) {
-    return _prefs.getString(key);
+  static String? getString(String key) {
+    return prefs.getString(key);
   }
 
-  void setBool(String key, bool value) {
-    _prefs.setBool(key, value);
+  static void setBool(String key, bool value) {
+    prefs.setBool(key, value);
   }
 
-  bool? getBool(String key) {
-    return _prefs.getBool(key);
+  static bool? getBool(String key) {
+    return prefs.getBool(key);
   }
 
-  void remove(String key) {
-    _prefs.remove(key);
+  static void remove(String key) {
+    prefs.remove(key);
+  }
+}
+
+class CommonAppSettingPref {
+  static const String _accessToken = "_accessToken";
+
+  static void setAccessToken(String value) {
+    return SharedPreferencesService.setString(_accessToken, value);
+  }
+
+  static String getAccessToken() {
+    return SharedPreferencesService.getString(_accessToken) ?? "";
   }
 }

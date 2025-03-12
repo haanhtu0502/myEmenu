@@ -24,13 +24,13 @@ class AppProvider extends ChangeNotifier {
 
   void setTheme(themeValue, valueSavePref) {
     theme = themeValue;
-    SharedPreferencesService().setString('theme', valueSavePref);
+    SharedPreferencesService.setString('theme', valueSavePref);
     notifyListeners();
   }
 
   ThemeData checkTheme() {
     ThemeData themeData;
-    String themeKey = SharedPreferencesService().getString('theme') ?? 'light';
+    String themeKey = SharedPreferencesService.getString('theme') ?? 'light';
     if (themeKey == 'light') {
       themeData = ThemeConfig.lightTheme;
     } else {
@@ -43,12 +43,12 @@ class AppProvider extends ChangeNotifier {
     languageCode = langCode;
     currentLocale = S.delegate.supportedLocales
         .firstWhere((locale) => locale.languageCode == langCode);
-    SharedPreferencesService().setString('langCode', langCode);
+    SharedPreferencesService.setString('langCode', langCode);
     notifyListeners();
   }
 
   String checkLanguage() {
-    String langCode = SharedPreferencesService().getString('langCode') ?? 'vi';
+    String langCode = SharedPreferencesService.getString('langCode') ?? 'vi';
     return langCode;
   }
 }
