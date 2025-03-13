@@ -1,10 +1,12 @@
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
+import 'package:emenu/routes/app_pages.dart';
 import 'package:emenu/theme/theme_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 const double cartWidth = 50;
 const double cartHeight = 50;
@@ -140,29 +142,34 @@ class _DragableCartState extends State<DragableCart> {
               onExit: (event) {
                 _onMouseExit();
               },
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 100),
-                height: _cartBubbleHeight,
-                width: _cartBubbleWidth,
-                padding: const EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(50),
-                  border: Border.all(color: Colors.transparent, width: 0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: SvgPicture.asset(
-                  ImageConst.shoppingBag,
-                  width: _cartBubbleWidth - 30,
-                  height: _cartBubbleHeight - 30,
-                  fit: BoxFit.contain,
+              child: GestureDetector(
+                onTap: () {
+                  // context.go(AppPages.home);
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 100),
+                  height: _cartBubbleHeight,
+                  width: _cartBubbleWidth,
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(color: Colors.transparent, width: 0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: SvgPicture.asset(
+                    ImageConst.shoppingBag,
+                    width: _cartBubbleWidth - 30,
+                    height: _cartBubbleHeight - 30,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ),
