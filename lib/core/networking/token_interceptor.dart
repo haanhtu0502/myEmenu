@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:emenu/core/services/share_preferences_service.dart';
+import 'package:emenu/core/di/di.dart';
+import 'package:emenu/mvvm/data/data_source/local/home_info_local_storage.dart';
+import 'package:emenu/mvvm/data/request/get_token_request.dart';
+import 'package:emenu/mvvm/repository/auth_repositories.dart';
 
 class TokenInterceptor extends Interceptor {
   @override
@@ -37,6 +41,18 @@ class TokenInterceptor extends Interceptor {
   }
 
   Future<String> getRemoteAccessToken() async {
-    return "";
+    final result = await injector
+        .get<AuthRepositories>()
+        .getTokens(GetTokenRequest(
+          userName: 'WebService',
+          passWord: 'WebService',
+          dTenantId:
+              injector.get<HomeInfoLocalStorage>().getHomeInfo()?.tenantId ?? 0,
+          dOrgId:
+              injector.get<HomeInfoLocalStorage>().getHomeInfo()?.orgId ?? 0,
+          language: SharedPreferencesService.getString("language") ?? "vi",
+        ));
+    if (result == null) return '';
+    return result.jwtToken;
   }
 }
