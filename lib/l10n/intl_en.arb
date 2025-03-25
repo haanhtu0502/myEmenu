@@ -28,5 +28,9 @@
     "detail": "Detail",
     "component": "Component",
     "extra": "Extra",
-    "addToCart": "Add to cart"
+    "addToCart": "Add to cart",
+    "myCart": "My cart",
+    "orderList": "Order list",
+    "orderHistory": "Order history",
+    "addNote": "Add note"
 }

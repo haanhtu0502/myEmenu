@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 
 import 'di.config.dart';
 
-final getIt = GetIt.instance;
+final injector = GetIt.instance;
 
 @InjectableInit(
   initializerName: 'init', // default
@@ -16,7 +16,7 @@ Future<void> configureDependencies({
   EnvironmentFilter? environmentFilter,
 }) async =>
     await init(
-      getIt,
+      injector,
       environment: environment,
       environmentFilter: environmentFilter,
     );

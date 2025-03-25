@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "addNote": MessageLookupByLibrary.simpleMessage("Thêm ghi chú"),
         "addToCart": MessageLookupByLibrary.simpleMessage("Thêm vào giỏ hàng"),
         "afternoon": MessageLookupByLibrary.simpleMessage("Buổi trưa"),
         "allCategory": MessageLookupByLibrary.simpleMessage("Tất cả danh mục"),
@@ -37,9 +38,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "goodMorning": MessageLookupByLibrary.simpleMessage("Chào buổi sáng"),
         "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
         "morning": MessageLookupByLibrary.simpleMessage("Buổi sáng"),
+        "myCart": MessageLookupByLibrary.simpleMessage("Giỏ hàng của tôi"),
         "name": MessageLookupByLibrary.simpleMessage("Tên"),
         "orderFoodHear":
             MessageLookupByLibrary.simpleMessage("Gọi món tại đây"),
+        "orderHistory": MessageLookupByLibrary.simpleMessage("Lịch sử gọi món"),
+        "orderList": MessageLookupByLibrary.simpleMessage("Danh sách gọi món"),
         "phone": MessageLookupByLibrary.simpleMessage("Số điện thoại"),
         "pleaseProvideNamePhone": MessageLookupByLibrary.simpleMessage(
             "Vui lòng cung cấp tên và số điện thoại của bạn để chúng tôi có thể phục vụ bạn tốt hơn!"),

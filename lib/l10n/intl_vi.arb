@@ -28,5 +28,9 @@
     "detail": "Chi tiết",
     "component": "Thành phần",
     "extra": "Món thêm",
-    "addToCart": "Thêm vào giỏ hàng"
+    "addToCart": "Thêm vào giỏ hàng",
+    "myCart": "Giỏ hàng của tôi",
+    "orderList": "Danh sách gọi món",
+    "orderHistory": "Lịch sử gọi món",
+    "addNote": "Thêm ghi chú"
 }

@@ -1,3 +1,4 @@
+import 'package:emenu/mvvm/view/cart/cart_screen.dart';
 import 'package:emenu/mvvm/view/home/home_screen.dart';
 import 'package:emenu/mvvm/view/list_product/list_product_screen.dart';
 import 'package:emenu/mvvm/view/login/login_screen.dart';
@@ -53,6 +54,11 @@ final GoRouter appRouter = GoRouter(
           builder: (context, state) => const ProductDetailScreen(),
         )
       ],
+    ),
+    GoRoute(
+      parentNavigatorKey: appNavigationKey,
+      path: AppPages.cart,
+      builder: (context, state) => const CartScreen(),
     ),
   ],
 );
