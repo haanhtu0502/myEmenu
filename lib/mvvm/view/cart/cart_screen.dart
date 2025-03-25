@@ -39,7 +39,9 @@ class _CartScreenState extends State<CartScreen>
       appBar: AppBar(
         title: Text(
           S.of(context).myCart,
-          style: context.titleLarge,
+          style: context.titleLarge.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: Colors.white,
         elevation: 0.0,

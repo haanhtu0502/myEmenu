@@ -50,15 +50,21 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
               ],
             ),
           ),
-          const SizedBox(width: 4),
-          Expanded(flex: 3, child: _buildOrderInfo(context)),
-          const SizedBox(width: 4),
+          const SizedBox(width: 6),
+          Expanded(
+            flex: 3,
+            child: _buildOrderInfo(context),
+          ),
           Expanded(
             flex: 2,
-            child: BuildCountQty(
-              width: double.infinity,
-              value: 1,
-              onChanged: (p0) {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                BuildCountQty(
+                  value: 1,
+                  onChanged: (p0) {},
+                ),
+              ],
             ),
           )
         ],
