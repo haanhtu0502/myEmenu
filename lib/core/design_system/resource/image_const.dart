@@ -10,4 +10,6 @@ class ImageConst {
   static String foodImage = 'assets/images/food_image.png';
   static String arrowRightIcon = 'assets/images/icons/arrow_right_alt.svg';
   static String backIcon = 'assets/images/icons/back_icon.svg';
+  static String qrCodeIcon = 'assets/images/icons/qr_code.svg';
+  static String bagIcon = 'assets/images/icons/bag.svg';
 }
