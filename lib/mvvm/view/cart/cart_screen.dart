@@ -77,31 +77,43 @@ class _CartScreenState extends State<CartScreen>
   }
 
   Widget _buildTabBar(BuildContext context) {
-    return SizedBox(
+    return Container(
+      margin: const EdgeInsets.all(8),
       width: double.infinity,
       child: TabBar(
-        tabAlignment: TabAlignment.start,
         controller: _tabController,
-        isScrollable: true,
+        isScrollable: false,
         tabs: [
           Tab(
             height: 40,
-            child: Text(
-              S.of(context).orderList,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  S.of(context).orderList,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ),
           Tab(
             height: 40,
-            child: Text(
-              S.of(context).orderHistory,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  S.of(context).orderHistory,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ),
         ],
@@ -113,6 +125,7 @@ class _CartScreenState extends State<CartScreen>
         ),
         unselectedLabelColor: const Color.fromRGBO(162, 162, 162, 1.0),
         indicatorSize: TabBarIndicatorSize.tab,
+        padding: const EdgeInsets.all(4.0),
         indicatorWeight: 3,
         dividerColor: Colors.transparent,
         onTap: (selectedIndex) {
