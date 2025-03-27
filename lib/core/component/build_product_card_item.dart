@@ -6,6 +6,7 @@ class ProductCardItem extends StatefulWidget {
   final double? width;
   final Widget content;
   final bool isBorder;
+  final double imageTopPosition;
 
   const ProductCardItem({
     super.key,
@@ -13,6 +14,7 @@ class ProductCardItem extends StatefulWidget {
     this.width,
     required this.content,
     this.isBorder = false,
+    this.imageTopPosition = -40,
   });
 
   @override
@@ -23,10 +25,16 @@ class _ProductCardItemState extends State<ProductCardItem> {
   final ValueNotifier<double> _imageTopPosition = ValueNotifier<double>(-40);
 
   @override
+  void initState() {
+    _imageTopPosition.value = widget.imageTopPosition;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onEnter: (event) => _imageTopPosition.value = -45,
-      onExit: (event) => _imageTopPosition.value = -40,
+      onEnter: (event) => _imageTopPosition.value = _imageTopPosition.value - 5,
+      onExit: (event) => _imageTopPosition.value = widget.imageTopPosition + 5,
       cursor: MaterialStateMouseCursor.clickable,
       child: Stack(
         clipBehavior: Clip.none,
@@ -35,7 +43,7 @@ class _ProductCardItemState extends State<ProductCardItem> {
           Container(
             width: widget.width ?? double.infinity,
             padding: const EdgeInsets.only(
-              top: 70,
+              top: 60,
               bottom: 12,
               left: 12,
               right: 12,

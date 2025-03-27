@@ -36,5 +36,6 @@
     "dishList": "Dish list",
     "totalAmount": "Total amount",
     "addDish": "Add dish",
-    "requestOrder": "Request order"
+    "requestOrder": "Request order",
+    "description": "Description"
 }

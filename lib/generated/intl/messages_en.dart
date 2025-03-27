@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "callEmployee": MessageLookupByLibrary.simpleMessage("Call employee"),
         "callPayment": MessageLookupByLibrary.simpleMessage("Call payment"),
         "component": MessageLookupByLibrary.simpleMessage("Component"),
+        "description": MessageLookupByLibrary.simpleMessage("Description"),
         "detail": MessageLookupByLibrary.simpleMessage("Detail"),
         "dishList": MessageLookupByLibrary.simpleMessage("Dish list"),
         "english": MessageLookupByLibrary.simpleMessage("English"),

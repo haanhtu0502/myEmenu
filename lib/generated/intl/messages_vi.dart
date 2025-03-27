@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "callEmployee": MessageLookupByLibrary.simpleMessage("Gọi nhân viên"),
         "callPayment": MessageLookupByLibrary.simpleMessage("Gọi thanh toán"),
         "component": MessageLookupByLibrary.simpleMessage("Thành phần"),
+        "description": MessageLookupByLibrary.simpleMessage("Mô tả"),
         "detail": MessageLookupByLibrary.simpleMessage("Chi tiết"),
         "dishList": MessageLookupByLibrary.simpleMessage("Danh sách món"),
         "english": MessageLookupByLibrary.simpleMessage("English"),

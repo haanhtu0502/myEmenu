@@ -36,5 +36,6 @@
     "dishList": "Danh sách món",
     "totalAmount": "Tổng tiền hàng",
     "addDish": "Thêm món",
-    "requestOrder": "Gọi món"
+    "requestOrder": "Gọi món",
+    "description": "Mô tả"
 }

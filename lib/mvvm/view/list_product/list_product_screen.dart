@@ -124,8 +124,8 @@ class _ListProductScreenState extends State<ListProductScreen> {
           // physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 1.65,
-            // crossAxisSpacing: 12,
+            // childAspectRatio: 1.65,
+            crossAxisSpacing: 12,
             mainAxisSpacing: 60,
           ),
           itemCount: item.products.length,
@@ -176,8 +176,10 @@ class _ListProductScreenState extends State<ListProductScreen> {
       child: ProductCardItem(
         imageUrl: ImageConst.foodImage,
         isBorder: true,
+        imageTopPosition: -30,
         width: 200,
         content: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -192,20 +194,18 @@ class _ListProductScreenState extends State<ListProductScreen> {
                 ),
               ],
             ),
-            if (item.description != null) ...[
-              const SizedBox(height: 4),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    item.description ?? '',
-                    style: context.titleMedium.copyWith(
-                      color: Theme.of(context).dividerColor,
-                    ),
+            const SizedBox(height: 4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  '${S.of(context).description} : ${item.description ?? ''}',
+                  style: context.titleSmall.copyWith(
+                    color: Theme.of(context).dividerColor,
                   ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
             const SizedBox(height: 4),
             Row(
               children: [
