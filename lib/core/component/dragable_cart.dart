@@ -144,7 +144,7 @@ class _DragableCartState extends State<DragableCart> {
               },
               child: GestureDetector(
                 onTap: () {
-                  context.go(AppPages.cart);
+                  context.push(AppPages.cart);
                 },
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 100),

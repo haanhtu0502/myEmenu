@@ -32,5 +32,9 @@
     "myCart": "My cart",
     "orderList": "Order list",
     "orderHistory": "Order history",
-    "addNote": "Add note"
+    "addNote": "Add note",
+    "dishList": "Dish list",
+    "totalAmount": "Total amount",
+    "addDish": "Add dish",
+    "requestOrder": "Request order"
 }

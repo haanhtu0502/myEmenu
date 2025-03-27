@@ -32,5 +32,9 @@
     "myCart": "Giỏ hàng của tôi",
     "orderList": "Danh sách gọi món",
     "orderHistory": "Lịch sử gọi món",
-    "addNote": "Thêm ghi chú"
+    "addNote": "Thêm ghi chú",
+    "dishList": "Danh sách món",
+    "totalAmount": "Tổng tiền hàng",
+    "addDish": "Thêm món",
+    "requestOrder": "Gọi món"
 }

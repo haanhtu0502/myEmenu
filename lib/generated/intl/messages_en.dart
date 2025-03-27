@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "addDish": MessageLookupByLibrary.simpleMessage("Add dish"),
         "addNote": MessageLookupByLibrary.simpleMessage("Add note"),
         "addToCart": MessageLookupByLibrary.simpleMessage("Add to cart"),
         "afternoon": MessageLookupByLibrary.simpleMessage("Afternoon"),
@@ -30,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "callPayment": MessageLookupByLibrary.simpleMessage("Call payment"),
         "component": MessageLookupByLibrary.simpleMessage("Component"),
         "detail": MessageLookupByLibrary.simpleMessage("Detail"),
+        "dishList": MessageLookupByLibrary.simpleMessage("Dish list"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "evening": MessageLookupByLibrary.simpleMessage("Evening"),
         "extra": MessageLookupByLibrary.simpleMessage("Extra"),
@@ -49,8 +51,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please provide your name and phone number so we can serve you better!"),
         "poweredBy": MessageLookupByLibrary.simpleMessage("Powered by"),
         "priceFrom": MessageLookupByLibrary.simpleMessage("From"),
+        "requestOrder": MessageLookupByLibrary.simpleMessage("Request order"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "startOrder": MessageLookupByLibrary.simpleMessage("Start ordering"),
+        "totalAmount": MessageLookupByLibrary.simpleMessage("Total amount"),
         "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
         "viewAll": MessageLookupByLibrary.simpleMessage("View all"),
         "viewMoreProduct":

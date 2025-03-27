@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "addDish": MessageLookupByLibrary.simpleMessage("Thêm món"),
         "addNote": MessageLookupByLibrary.simpleMessage("Thêm ghi chú"),
         "addToCart": MessageLookupByLibrary.simpleMessage("Thêm vào giỏ hàng"),
         "afternoon": MessageLookupByLibrary.simpleMessage("Buổi trưa"),
@@ -30,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "callPayment": MessageLookupByLibrary.simpleMessage("Gọi thanh toán"),
         "component": MessageLookupByLibrary.simpleMessage("Thành phần"),
         "detail": MessageLookupByLibrary.simpleMessage("Chi tiết"),
+        "dishList": MessageLookupByLibrary.simpleMessage("Danh sách món"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "evening": MessageLookupByLibrary.simpleMessage("Buổi tối"),
         "extra": MessageLookupByLibrary.simpleMessage("Món thêm"),
@@ -49,8 +51,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Vui lòng cung cấp tên và số điện thoại của bạn để chúng tôi có thể phục vụ bạn tốt hơn!"),
         "poweredBy": MessageLookupByLibrary.simpleMessage("Powered by"),
         "priceFrom": MessageLookupByLibrary.simpleMessage("Giá từ"),
+        "requestOrder": MessageLookupByLibrary.simpleMessage("Gọi món"),
         "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
         "startOrder": MessageLookupByLibrary.simpleMessage("Bắt đầu gọi món"),
+        "totalAmount": MessageLookupByLibrary.simpleMessage("Tổng tiền hàng"),
         "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
         "viewAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
         "viewMoreProduct":

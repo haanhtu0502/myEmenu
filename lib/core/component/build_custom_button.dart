@@ -12,6 +12,7 @@ class BuildCustomButton extends StatelessWidget {
   final bool isVertical;
   final double? width;
   final bool textBold;
+  final Color? borderColor;
 
   const BuildCustomButton({
     super.key,
@@ -26,6 +27,7 @@ class BuildCustomButton extends StatelessWidget {
     this.isVertical = false,
     this.width,
     this.textBold = true,
+    this.borderColor,
   });
 
   @override
@@ -42,6 +44,10 @@ class BuildCustomButton extends StatelessWidget {
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius ?? 8),
+            side: BorderSide(
+              color: borderColor ?? Colors.transparent,
+              width: 1,
+            ),
           ),
           backgroundColor: color ?? Theme.of(context).primaryColor,
           padding: padding ?? const EdgeInsets.symmetric(vertical: 15),
@@ -51,23 +57,27 @@ class BuildCustomButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  if (prefixIcon != null) ...[
-                    prefixIcon!,
-                    const SizedBox(width: 10),
-                  ],
-                  Text(
-                    text,
-                    style: TextStyle(
-                      color: textColor ?? Colors.white,
-                      fontSize: 16,
-                      fontWeight:
-                          textBold ? FontWeight.bold : FontWeight.normal,
+                  Expanded(
+                    flex: 1,
+                    child: prefixIcon != null ? prefixIcon! : const SizedBox(),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      text,
+                      style: TextStyle(
+                        color: textColor ?? Colors.white,
+                        fontSize: 16,
+                        fontWeight:
+                            textBold ? FontWeight.bold : FontWeight.normal,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                  if (suffixIcon != null) ...[
-                    const SizedBox(width: 10),
-                    suffixIcon!,
-                  ],
+                  Expanded(
+                    flex: 1,
+                    child: suffixIcon != null ? suffixIcon! : const SizedBox(),
+                  ),
                 ],
               )
             : Column(
