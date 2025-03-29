@@ -10,7 +10,7 @@ class ThemeConfig {
 
   static ThemeData lightTheme = ThemeData(
     primaryColor: primaryColor,
-    // hintColor: hintColor,
+    hintColor: hintColor,
     dividerColor: dividerColor,
     secondaryHeaderColor: secondaryColor,
     scaffoldBackgroundColor: Colors.white,

@@ -37,5 +37,8 @@
     "totalAmount": "Tổng tiền hàng",
     "addDish": "Thêm món",
     "requestOrder": "Gọi món",
-    "description": "Mô tả"
+    "description": "Mô tả",
+    "inputNote": "Nhập ghi chú",
+    "note": "Ghi chú",
+    "back": "Quay lại"
 }

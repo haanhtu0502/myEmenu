@@ -2,6 +2,7 @@ import 'package:emenu/core/component/build_count_qty.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/generated/l10n.dart';
+import 'package:emenu/mvvm/view/cart/cart_coordinator.dart';
 import 'package:flutter/material.dart';
 
 class BuildOrderListItem extends StatefulWidget {
@@ -99,10 +100,15 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
         const SizedBox(height: 4),
         Row(
           children: [
-            Text(
-              S.of(context).addNote,
-              style: context.titleMedium.copyWith(
-                color: Theme.of(context).dividerColor,
+            InkWell(
+              onTap: () {
+                context.showAddNoteDialog();
+              },
+              child: Text(
+                S.of(context).addNote,
+                style: context.titleMedium.copyWith(
+                  color: Theme.of(context).dividerColor,
+                ),
               ),
             ),
           ],
