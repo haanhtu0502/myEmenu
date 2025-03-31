@@ -98,20 +98,26 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
           ),
         ),
         const SizedBox(height: 4),
-        Row(
-          children: [
-            InkWell(
-              onTap: () {
-                context.showAddNoteDialog();
-              },
-              child: Text(
+        InkWell(
+          onTap: () async {
+            await context.showAddNoteDialog();
+          },
+          child: Row(
+            children: [
+              Icon(
+                Icons.book,
+                size: 18,
+                color: Theme.of(context).dividerColor,
+              ),
+              const SizedBox(width: 4),
+              Text(
                 S.of(context).addNote,
                 style: context.titleMedium.copyWith(
                   color: Theme.of(context).dividerColor,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         const SizedBox(height: 4),
         Text(

@@ -33,7 +33,8 @@ class _OrderListTabState extends State<OrderListTab> {
                     const SizedBox(width: 10),
                     RichText(
                       text: TextSpan(
-                        text: 'Chào Duyên, bạn đang ngồi tại ',
+                        text:
+                            '${S.of(context).hi} Duyên, ${S.of(context).youAreSittingAt} ',
                         style: context.titleMedium,
                         children: <TextSpan>[
                           TextSpan(

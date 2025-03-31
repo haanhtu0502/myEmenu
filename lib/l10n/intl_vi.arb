@@ -40,5 +40,13 @@
     "description": "Mô tả",
     "inputNote": "Nhập ghi chú",
     "note": "Ghi chú",
-    "back": "Quay lại"
+    "back": "Quay lại",
+    "hi": "Chào",
+    "youAreSittingAt": "Bạn đang ngồi tại",
+    "orderMore": "Gọi thêm",
+    "priorityProcess": "Ưu tiên chế biến",
+    "paymentRequest": "Yêu cầu thanh toán",
+    "paymentInfo": "Thông tin thanh toán",
+    "total": "Tổng cộng",
+    "tax": "Thuế"
 }

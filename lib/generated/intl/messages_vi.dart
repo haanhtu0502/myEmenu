@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "goodEvening": MessageLookupByLibrary.simpleMessage("Chào buổi tối"),
         "goodMorning": MessageLookupByLibrary.simpleMessage("Chào buổi sáng"),
         "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
+        "hi": MessageLookupByLibrary.simpleMessage("Chào"),
         "inputNote": MessageLookupByLibrary.simpleMessage("Nhập ghi chú"),
         "morning": MessageLookupByLibrary.simpleMessage("Buổi sáng"),
         "myCart": MessageLookupByLibrary.simpleMessage("Giỏ hàng của tôi"),
@@ -50,14 +51,23 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Gọi món tại đây"),
         "orderHistory": MessageLookupByLibrary.simpleMessage("Lịch sử gọi món"),
         "orderList": MessageLookupByLibrary.simpleMessage("Danh sách gọi món"),
+        "orderMore": MessageLookupByLibrary.simpleMessage("Gọi thêm"),
+        "paymentInfo":
+            MessageLookupByLibrary.simpleMessage("Thông tin thanh toán"),
+        "paymentRequest":
+            MessageLookupByLibrary.simpleMessage("Yêu cầu thanh toán"),
         "phone": MessageLookupByLibrary.simpleMessage("Số điện thoại"),
         "pleaseProvideNamePhone": MessageLookupByLibrary.simpleMessage(
             "Vui lòng cung cấp tên và số điện thoại của bạn để chúng tôi có thể phục vụ bạn tốt hơn!"),
         "poweredBy": MessageLookupByLibrary.simpleMessage("Powered by"),
         "priceFrom": MessageLookupByLibrary.simpleMessage("Giá từ"),
+        "priorityProcess":
+            MessageLookupByLibrary.simpleMessage("Ưu tiên chế biến"),
         "requestOrder": MessageLookupByLibrary.simpleMessage("Gọi món"),
         "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
         "startOrder": MessageLookupByLibrary.simpleMessage("Bắt đầu gọi món"),
+        "tax": MessageLookupByLibrary.simpleMessage("Thuế"),
+        "total": MessageLookupByLibrary.simpleMessage("Tổng cộng"),
         "totalAmount": MessageLookupByLibrary.simpleMessage("Tổng tiền hàng"),
         "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
         "viewAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
@@ -66,6 +76,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "welcomeCustomer":
             MessageLookupByLibrary.simpleMessage("Xin chào quý khách!"),
         "youAreSitAt":
+            MessageLookupByLibrary.simpleMessage("Bạn đang ngồi tại"),
+        "youAreSittingAt":
             MessageLookupByLibrary.simpleMessage("Bạn đang ngồi tại"),
         "yourName": MessageLookupByLibrary.simpleMessage("Tên của bạn"),
         "yourPhone":

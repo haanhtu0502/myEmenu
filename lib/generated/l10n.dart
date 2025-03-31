@@ -469,6 +469,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Hi`
+  String get hi {
+    return Intl.message(
+      'Hi',
+      name: 'hi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are sitting at`
+  String get youAreSittingAt {
+    return Intl.message(
+      'You are sitting at',
+      name: 'youAreSittingAt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order more`
+  String get orderMore {
+    return Intl.message(
+      'Order more',
+      name: 'orderMore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Priority process`
+  String get priorityProcess {
+    return Intl.message(
+      'Priority process',
+      name: 'priorityProcess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment request`
+  String get paymentRequest {
+    return Intl.message(
+      'Payment request',
+      name: 'paymentRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment information`
+  String get paymentInfo {
+    return Intl.message(
+      'Payment information',
+      name: 'paymentInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total`
+  String get total {
+    return Intl.message(
+      'Total',
+      name: 'total',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tax`
+  String get tax {
+    return Intl.message(
+      'Tax',
+      name: 'tax',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

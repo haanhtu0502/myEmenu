@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "goodEvening": MessageLookupByLibrary.simpleMessage("Good evening"),
         "goodMorning": MessageLookupByLibrary.simpleMessage("Good morning"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello"),
+        "hi": MessageLookupByLibrary.simpleMessage("Hi"),
         "inputNote": MessageLookupByLibrary.simpleMessage("Input note"),
         "morning": MessageLookupByLibrary.simpleMessage("Morning"),
         "myCart": MessageLookupByLibrary.simpleMessage("My cart"),
@@ -50,14 +51,23 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Order food here"),
         "orderHistory": MessageLookupByLibrary.simpleMessage("Order history"),
         "orderList": MessageLookupByLibrary.simpleMessage("Order list"),
+        "orderMore": MessageLookupByLibrary.simpleMessage("Order more"),
+        "paymentInfo":
+            MessageLookupByLibrary.simpleMessage("Payment information"),
+        "paymentRequest":
+            MessageLookupByLibrary.simpleMessage("Payment request"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone number"),
         "pleaseProvideNamePhone": MessageLookupByLibrary.simpleMessage(
             "Please provide your name and phone number so we can serve you better!"),
         "poweredBy": MessageLookupByLibrary.simpleMessage("Powered by"),
         "priceFrom": MessageLookupByLibrary.simpleMessage("From"),
+        "priorityProcess":
+            MessageLookupByLibrary.simpleMessage("Priority process"),
         "requestOrder": MessageLookupByLibrary.simpleMessage("Request order"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "startOrder": MessageLookupByLibrary.simpleMessage("Start ordering"),
+        "tax": MessageLookupByLibrary.simpleMessage("Tax"),
+        "total": MessageLookupByLibrary.simpleMessage("Total"),
         "totalAmount": MessageLookupByLibrary.simpleMessage("Total amount"),
         "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
         "viewAll": MessageLookupByLibrary.simpleMessage("View all"),
@@ -66,6 +76,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "welcomeCustomer":
             MessageLookupByLibrary.simpleMessage("Welcome customer!"),
         "youAreSitAt":
+            MessageLookupByLibrary.simpleMessage("You are sitting at"),
+        "youAreSittingAt":
             MessageLookupByLibrary.simpleMessage("You are sitting at"),
         "yourName": MessageLookupByLibrary.simpleMessage("Your name"),
         "yourPhone": MessageLookupByLibrary.simpleMessage("Your phone number")

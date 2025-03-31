@@ -1,5 +1,6 @@
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/generated/l10n.dart';
+import 'package:emenu/mvvm/view/cart/sub_tab/history_list_tab.dart';
 import 'package:emenu/mvvm/view/cart/sub_tab/order_list_tab.dart';
 import 'package:flutter/material.dart';
 
@@ -67,7 +68,9 @@ class _CartScreenState extends State<CartScreen>
                     child: OrderListTab(),
                   );
                 case 1:
-                  return const SizedBox();
+                  return const Expanded(
+                    child: HistoryListTab(),
+                  );
                 default:
                   return const SizedBox();
               }

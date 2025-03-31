@@ -40,5 +40,13 @@
     "description": "Description",
     "inputNote": "Input note",
     "note": "Note",
-    "back": "Back"
+    "back": "Back",
+    "hi": "Hi",
+    "youAreSittingAt": "You are sitting at",
+    "orderMore": "Order more",
+    "priorityProcess": "Priority process",
+    "paymentRequest": "Payment request",
+    "paymentInfo": "Payment information",
+    "total": "Total",
+    "tax": "Tax"
 }

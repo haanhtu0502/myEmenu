@@ -57,27 +57,24 @@ class BuildCustomButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Expanded(
-                    flex: 1,
-                    child: prefixIcon != null ? prefixIcon! : const SizedBox(),
+                  prefixIcon != null ? prefixIcon! : const SizedBox(),
+                  const SizedBox(
+                    width: 4,
                   ),
-                  Expanded(
-                    flex: 3,
-                    child: Text(
-                      text,
-                      style: TextStyle(
-                        color: textColor ?? Colors.white,
-                        fontSize: 16,
-                        fontWeight:
-                            textBold ? FontWeight.bold : FontWeight.normal,
-                      ),
-                      textAlign: TextAlign.center,
+                  Text(
+                    text,
+                    style: TextStyle(
+                      color: textColor ?? Colors.white,
+                      fontSize: 16,
+                      fontWeight:
+                          textBold ? FontWeight.bold : FontWeight.normal,
                     ),
+                    textAlign: TextAlign.center,
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: suffixIcon != null ? suffixIcon! : const SizedBox(),
+                  const SizedBox(
+                    width: 4,
                   ),
+                  suffixIcon != null ? suffixIcon! : const SizedBox(),
                 ],
               )
             : Column(
