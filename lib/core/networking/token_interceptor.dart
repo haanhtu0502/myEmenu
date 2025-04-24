@@ -4,6 +4,7 @@ import 'package:emenu/core/di/di.dart';
 import 'package:emenu/mvvm/data/data_source/local/home_info_local_storage.dart';
 import 'package:emenu/mvvm/data/request/get_token_request.dart';
 import 'package:emenu/mvvm/repository/auth_repositories.dart';
+import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
 
 class TokenInterceptor extends Interceptor {
   @override
@@ -16,7 +17,7 @@ class TokenInterceptor extends Interceptor {
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     if (options.uri.toString().contains("auth") ||
-        options.uri.toString().contains("getbyDomain")) {
+        options.uri.toString().contains("getParam")) {
       return handler.next(options);
     } else {
       String accessToken = CommonAppSettingPref.getAccessToken();
@@ -41,17 +42,18 @@ class TokenInterceptor extends Interceptor {
   }
 
   Future<String> getRemoteAccessToken() async {
-    final result = await injector
-        .get<AuthRepositories>()
-        .getTokens(GetTokenRequest(
-          userName: 'WebService',
-          passWord: 'WebService',
-          dTenantId:
-              injector.get<HomeInfoLocalStorage>().getHomeInfo()?.tenantId ?? 0,
-          dOrgId:
-              injector.get<HomeInfoLocalStorage>().getHomeInfo()?.orgId ?? 0,
-          language: SharedPreferencesService.getString("language") ?? "vi",
-        ));
+    if (AppInformation().tenantId == null || AppInformation().orgId == null) {
+      return '';
+    }
+
+    final result =
+        await injector.get<AuthRepositories>().getTokens(GetTokenRequest(
+              userName: 'WebService',
+              passWord: 'WebService',
+              dTenantId: AppInformation().tenantId!,
+              dOrgId: AppInformation().orgId!,
+              language: SharedPreferencesService.getString("language") ?? "vi",
+            ));
     if (result == null) return '';
     return result.jwtToken;
   }
