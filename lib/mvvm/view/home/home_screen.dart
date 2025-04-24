@@ -5,12 +5,14 @@ import 'package:emenu/core/component/build_product_card_item.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/generated/l10n.dart';
+import 'package:emenu/mvvm/viewmodel/home/home_provider.dart';
 import 'package:emenu/routes/app_pages.dart';
 import 'package:emenu/theme/theme_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,34 +25,38 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BuildCartLayout(
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 14,
-          vertical: 12,
-        ),
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromRGBO(45, 127, 249, 0.2),
-              Color.fromRGBO(255, 255, 255, 0.2),
-            ],
-          ),
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _buildTitle(context),
-              const SizedBox(height: 12),
-              _buildBanner(context),
-              const SizedBox(height: 18),
-              _buildButtons(context),
-              const SizedBox(height: 18),
-              _buildCategories(context),
-            ],
-          ),
-        ),
+      child: Consumer<HomeProvider>(
+        builder: (context, provider, _) {
+          return Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 14,
+              vertical: 12,
+            ),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromRGBO(45, 127, 249, 0.2),
+                  Color.fromRGBO(255, 255, 255, 0.2),
+                ],
+              ),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildTitle(context),
+                  const SizedBox(height: 12),
+                  _buildBanner(context),
+                  const SizedBox(height: 18),
+                  _buildButtons(context),
+                  const SizedBox(height: 18),
+                  _buildCategories(context),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

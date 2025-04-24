@@ -1,6 +1,7 @@
 import 'package:emenu/core/component/custom_scroll_behavior.dart';
 import 'package:emenu/core/configurations/configuration.dart';
 import 'package:emenu/core/configurations/env/env_dev.dart';
+import 'package:emenu/core/configurations/env/env_prod.dart';
 import 'package:emenu/core/design_system/resource/constant.dart';
 import 'package:emenu/core/di/di.dart';
 import 'package:emenu/core/services/share_preferences_service.dart';
@@ -15,9 +16,9 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  usePathUrlStrategy();
-  Configurations().setConfigurationValues(environmentDev);
-  await configureDependencies(environment: Environment.dev);
+
+  Configurations().setConfigurationValues(environmentProd);
+  await configureDependencies(environment: Environment.prod);
   await SharedPreferencesService().init();
   runApp(MultiProvider(
     providers: [
