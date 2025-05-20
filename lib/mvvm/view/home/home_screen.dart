@@ -1,3 +1,4 @@
+import 'package:emenu/app_coordinator.dart';
 import 'package:emenu/core/component/build_app_popup_menu_button.dart';
 import 'package:emenu/core/component/build_cart_layout.dart';
 import 'package:emenu/core/component/build_custom_button.dart';
@@ -24,6 +25,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<HomeProvider>().state;
+    if (state.isLoading) {}
+    if (state.isError) {
+      context.showSnackbar(state.message ?? '', isError: true);
+    }
+    if (state.isSuccess) {}
     return BuildCartLayout(
       child: Consumer<HomeProvider>(
         builder: (context, provider, _) {

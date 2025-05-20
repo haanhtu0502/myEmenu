@@ -1,9 +1,12 @@
-import 'package:emenu/core/networking/view_state.dart';
 import 'package:emenu/core/services/share_preferences_service.dart';
+import 'package:emenu/mvvm/data/request/get_pos_order_request.dart';
+import 'package:emenu/mvvm/data/request/get_request_order_request.dart';
 import 'package:emenu/mvvm/data/request/get_token_request.dart';
 import 'package:emenu/mvvm/repository/auth_repositories.dart';
 import 'package:emenu/mvvm/repository/emenu_config_repositories.dart';
 import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
+import 'package:emenu/mvvm/viewmodel/home/view_state/home_view_state.dart';
+import 'package:emenu/mvvm/viewmodel/login/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
@@ -14,39 +17,74 @@ class HomeProvider extends ChangeNotifier {
   String? hashParam;
   final AuthRepositories _authRepositories;
   final EmenuConfigRepositories _emenuConfigRepositories;
+  final LoginProvider _loginProvider;
 
-  ViewState _state = const ViewState.idle();
-  ViewState get state => _state;
+  HomeViewState _state = const HomeViewState.idle();
+  HomeViewState get state => _state;
 
   HomeProvider(
     @factoryParam this.hashParam,
     this._authRepositories,
     this._emenuConfigRepositories,
+    this._loginProvider,
   ) {
     hashParam = hashParam;
     initData();
   }
 
   void initData() async {
-    // Initialize data here if needed
-    print(AppInformation().toString());
     await getAppInfo();
     await getToken();
+    await getCustomerInformation();
     notifyListeners();
   }
 
-  void setCustomerName(String name) {
-    customerName = name;
-    notifyListeners();
+  Future<void> getCustomerInformation() async {
+    final result = await _emenuConfigRepositories.getRequestOrder(
+        request: GetRequestOrderRequest(
+      page: 0,
+      pageSize: 1,
+      tableId: AppInformation().tableId ?? 0,
+      floorId: AppInformation().floorId ?? 0,
+    ));
+    result.fold(
+      (l) => _state = HomeViewState.error(l.message),
+      (r) {
+        if (r.data.isNotEmpty) {
+          _loginProvider.setCustomerName(r.data.first.customer?.name ?? '');
+          _loginProvider.setCustomerPhone(r.data.first.customer?.phone1 ?? '');
+          _state = const HomeViewState.getCustomerInfomationSuccess();
+          notifyListeners();
+        } else {
+          getPosOrderCus();
+        }
+      },
+    );
   }
 
-  void setCustomerPhone(String phone) {
-    customerPhone = phone;
-    notifyListeners();
+  Future<void> getPosOrderCus() async {
+    final result = await _emenuConfigRepositories.getPosOrder(
+      request: GetPosOrderRequest(
+        page: 0,
+        pageSize: 1,
+        tableId: AppInformation().tableId ?? 0,
+        floorId: AppInformation().floorId ?? 0,
+      ),
+    );
+    result.fold(
+      (l) => _state = HomeViewState.error(l.message),
+      (r) {
+        if (r.data.isNotEmpty) {
+          _loginProvider.setCustomerName(r.data.first.customerName ?? '');
+          _loginProvider.setCustomerPhone(r.data.first.phone ?? '');
+          _state = const HomeViewState.getCustomerInfomationSuccess();
+          notifyListeners();
+        }
+      },
+    );
   }
 
   Future<void> getAppInfo() async {
-    print("getAppInfo: start");
     final appInfo = AppInformation();
     if (appInfo.isInitialized() || hashParam == null) {
       return;
@@ -56,12 +94,11 @@ class HomeProvider extends ChangeNotifier {
         "param": hashParam,
       },
     );
-    print("getAppInfo: ${result.toString()}");
     result.fold(
-      (l) => _state = ViewState.error(l.message),
+      (l) => _state = HomeViewState.error(l.message),
       (r) {
         if (r.data == null) {
-          _state = ViewState.error(r.message);
+          _state = HomeViewState.error(r.message);
         } else {
           AppInformation().updateData(
             tenantId: r.data!.tenantId,
@@ -73,7 +110,7 @@ class HomeProvider extends ChangeNotifier {
             floorNo: r.data!.floorNo,
             priceListId: r.data!.priceListId,
           );
-          _state = ViewState.success(r.message);
+          _state = HomeViewState.success(r.message);
         }
       },
     );
@@ -93,13 +130,13 @@ class HomeProvider extends ChangeNotifier {
     );
     if (result == null) {
       // Handle error case
-      _state = const ViewState.error("Lấy token thất bại");
+      _state = const HomeViewState.error("Lấy token thất bại");
       notifyListeners();
 
       return;
     }
     CommonAppSettingPref.setAccessToken(result.jwtToken);
-    _state = const ViewState.success("Lấy token thành công");
+    _state = const HomeViewState.success("Lấy token thành công");
 
     notifyListeners();
   }

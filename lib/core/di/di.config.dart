@@ -72,6 +72,7 @@ Future<_i1.GetIt> init(
         hashParam,
         gh<_i9.AuthRepositories>(),
         gh<_i5.EmenuConfigRepositories>(),
+        gh<_i7.LoginProvider>(),
       ));
   return getIt;
 }

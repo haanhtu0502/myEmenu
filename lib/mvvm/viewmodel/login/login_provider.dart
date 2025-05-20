@@ -3,8 +3,18 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class LoginProvider extends ChangeNotifier {
-  String? username;
-  String? phoneNumber;
+  String? customerName;
+  String? customerPhone;
 
   LoginProvider();
+
+  void setCustomerName(String name) {
+    customerName = name;
+    notifyListeners();
+  }
+
+  void setCustomerPhone(String phone) {
+    customerPhone = phone;
+    notifyListeners();
+  }
 }
