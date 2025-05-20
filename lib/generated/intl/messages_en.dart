@@ -57,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "paymentRequest":
             MessageLookupByLibrary.simpleMessage("Payment request"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone number"),
+        "pleaseInput": MessageLookupByLibrary.simpleMessage("Please input"),
         "pleaseProvideNamePhone": MessageLookupByLibrary.simpleMessage(
             "Please provide your name and phone number so we can serve you better!"),
         "poweredBy": MessageLookupByLibrary.simpleMessage("Powered by"),

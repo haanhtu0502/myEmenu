@@ -7,6 +7,8 @@ class EmenuParam {
   String? tableNo;
   String? floorNo;
   int? priceListId;
+  String? orgName;
+  String? address;
 
   EmenuParam({
     this.tenantId,
@@ -17,6 +19,8 @@ class EmenuParam {
     this.tableNo,
     this.floorNo,
     this.priceListId,
+    this.orgName,
+    this.address,
   });
 
   EmenuParam copyWith({
@@ -28,6 +32,8 @@ class EmenuParam {
     String? tableNo,
     String? floorNo,
     int? priceListId,
+    String? orgName,
+    String? address,
   }) {
     return EmenuParam(
       tenantId: tenantId ?? this.tenantId,
@@ -38,6 +44,8 @@ class EmenuParam {
       tableNo: tableNo ?? this.tableNo,
       floorNo: floorNo ?? this.floorNo,
       priceListId: priceListId ?? this.priceListId,
+      orgName: orgName ?? this.orgName,
+      address: address ?? this.address,
     );
   }
 
@@ -51,6 +59,8 @@ class EmenuParam {
       tableNo: json['tableNo'] as String?,
       floorNo: json['floorNo'] as String?,
       priceListId: json['priceListId'] as int?,
+      orgName: json['orgName'] as String?,
+      address: json['address'] as String?,
     );
   }
 }

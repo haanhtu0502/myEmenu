@@ -1,3 +1,4 @@
+import 'package:emenu/core/component/image_render.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -76,14 +77,12 @@ class _ProductCardItemState extends State<ProductCardItem> {
               return AnimatedPositioned(
                 duration: const Duration(milliseconds: 200),
                 top: _imageTopPosition.value,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
-                    widget.imageUrl,
-                    width: widget.width != null ? (widget.width! - 34) : 80,
-                    height: 100,
-                    fit: BoxFit.contain,
-                  ),
+                child: ImageRender(
+                  fit: BoxFit.contain,
+                  imageUrl: widget.imageUrl,
+                  height: 100,
+                  width: widget.width != null ? (widget.width! - 34) : 80,
+                  radius: 15,
                 ),
               );
             },

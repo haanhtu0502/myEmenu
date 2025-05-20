@@ -549,6 +549,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Please input`
+  String get pleaseInput {
+    return Intl.message(
+      'Please input',
+      name: 'pleaseInput',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

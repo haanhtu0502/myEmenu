@@ -6,7 +6,10 @@ import 'package:emenu/core/component/build_product_card_item.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/generated/l10n.dart';
+import 'package:emenu/mvvm/data/model/category_model.dart';
+import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
 import 'package:emenu/mvvm/viewmodel/home/home_provider.dart';
+import 'package:emenu/mvvm/viewmodel/login/login_provider.dart';
 import 'package:emenu/routes/app_pages.dart';
 import 'package:emenu/theme/theme_config.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,6 +26,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  HomeProvider get _homeProvider => context.read<HomeProvider>();
+  LoginProvider get _loginProvider => context.read<LoginProvider>();
+  final AppInformation _appInformation = AppInformation();
+
+  @override
+  void initState() {
+    super.initState();
+    _homeProvider.getCategory();
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = context.watch<HomeProvider>().state;
@@ -74,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Row(
           children: [
             Text(
-              'Nhà hàng ẩm thực Dbiz',
+              _appInformation.orgName ?? '',
               style: context.titleLarge.copyWith(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -117,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         const SizedBox(height: 12),
         Text(
-          '${S.of(context).goodMorning} Duyên !',
+          '${S.of(context).goodMorning} ${_loginProvider.customerName} !',
           style: context.titleMedium.copyWith(
             color: Colors.black,
           ),
@@ -131,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             children: [
               TextSpan(
-                text: 'Bàn 20',
+                text: _appInformation.tableNo ?? '',
                 style: context.titleSmall.copyWith(
                   color: Theme.of(context).primaryColor,
                 ),
@@ -242,10 +255,9 @@ class _HomeScreenState extends State<HomeScreen> {
           clipBehavior: Clip.none,
           child: Row(
             children: [
-              ...List.generate(
-                7,
-                (index) {
-                  return _buildCategoryItem(context);
+              ..._homeProvider.categories.map(
+                (item) {
+                  return _buildCategoryItem(context, item);
                 },
               ).expand(
                 (element) => [
@@ -260,22 +272,25 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildCategoryItem(BuildContext context) {
+  Widget _buildCategoryItem(BuildContext context, CategoryModel item) {
     return ProductCardItem(
-      imageUrl: ImageConst.foodCategory,
+      imageUrl: item.imageUrl ?? ImageConst.defaultCategoryImg,
       width: 150,
       content: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                'Món ăn ngon',
-                style: context.titleMedium.copyWith(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: Text(
+                  item.name ?? '',
+                  style: context.titleMedium.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                textAlign: TextAlign.start,
               ),
             ],
           ),

@@ -48,5 +48,6 @@
     "paymentRequest": "Payment request",
     "paymentInfo": "Payment information",
     "total": "Total",
-    "tax": "Tax"
+    "tax": "Tax",
+    "pleaseInput": "Please input"
 }

@@ -1,31 +1,88 @@
 class CategoryModel {
   CategoryModel({
     this.id,
-    this.uid,
+    this.orgId,
+    this.pcTerminalAccessId,
     this.name,
-    this.code,
+    this.productCategoryParentId,
+    this.parentName,
     this.isActive,
-    this.isMenu,
-    this.productCategoryParent,
-    this.qtyProduct,
+    this.indexSequence,
+    this.posTerminalId,
     this.isSummary,
+    this.code,
+    this.imageUrl,
   });
 
   int? id;
 
-  String? uid;
+  int? orgId;
+
+  int? pcTerminalAccessId;
 
   String? name;
 
-  String? code;
+  int? productCategoryParentId;
+
+  String? parentName;
 
   String? isActive;
 
-  String? isMenu;
+  int? indexSequence;
 
-  CategoryModel? productCategoryParent;
-
-  num? qtyProduct;
+  int? posTerminalId;
 
   String? isSummary;
+
+  String? code;
+
+  String? imageUrl;
+
+  CategoryModel copyWith({
+    int? id,
+    int? orgId,
+    int? pcTerminalAccessId,
+    String? name,
+    int? productCategoryParentId,
+    String? parentName,
+    String? isActive,
+    int? indexSequence,
+    int? posTerminalId,
+    String? isSummary,
+    String? code,
+    String? imageUrl,
+  }) {
+    return CategoryModel(
+      id: id ?? this.id,
+      orgId: orgId ?? this.orgId,
+      pcTerminalAccessId: pcTerminalAccessId ?? this.pcTerminalAccessId,
+      name: name ?? this.name,
+      productCategoryParentId:
+          productCategoryParentId ?? this.productCategoryParentId,
+      parentName: parentName ?? this.parentName,
+      isActive: isActive ?? this.isActive,
+      indexSequence: indexSequence ?? this.indexSequence,
+      posTerminalId: posTerminalId ?? this.posTerminalId,
+      isSummary: isSummary ?? this.isSummary,
+      code: code ?? this.code,
+      imageUrl: imageUrl ?? this.imageUrl,
+    );
+  }
+
+  factory CategoryModel.fromJson(Map<String, dynamic> json) {
+    return CategoryModel(
+      id: json['id'] as int?,
+      orgId: json['orgId'] as int?,
+      pcTerminalAccessId: json['pcTerminalAccessId'] as int?,
+      name: json['name'] as String?,
+      productCategoryParentId: json['productCategoryParentId'] as int?,
+      parentName: json['parentName'] as String?,
+      isActive: json['isActive'] as String?,
+      indexSequence: json['indexSequence'] as int?,
+      posTerminalId: json['posTerminalId'] as int?,
+      isSummary: json['isSummary'] as String?,
+      code: json['code'] as String?,
+      imageUrl: json['imageUrl'] as String?,
+    );
+  }
 }

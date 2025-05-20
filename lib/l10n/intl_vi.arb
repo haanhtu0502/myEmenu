@@ -48,5 +48,6 @@
     "paymentRequest": "Yêu cầu thanh toán",
     "paymentInfo": "Thông tin thanh toán",
     "total": "Tổng cộng",
-    "tax": "Thuế"
+    "tax": "Thuế",
+    "pleaseInput": "Vui lòng nhập"
 }

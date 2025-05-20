@@ -6,27 +6,22 @@ final List<CategoryModel> dummyCateList = [
   CategoryModel(
     id: 1,
     name: 'Category 1',
-    qtyProduct: 2,
   ),
   CategoryModel(
     id: 2,
     name: 'Category 2',
-    qtyProduct: 3,
   ),
   CategoryModel(
     id: 3,
     name: 'Category 3',
-    qtyProduct: 4,
   ),
   CategoryModel(
     id: 4,
     name: 'Category 4',
-    qtyProduct: 5,
   ),
   CategoryModel(
     id: 5,
     name: 'Category 5',
-    qtyProduct: 6,
   ),
 ];
 

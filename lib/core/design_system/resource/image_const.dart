@@ -12,4 +12,5 @@ class ImageConst {
   static String backIcon = 'assets/images/icons/back_icon.svg';
   static String qrCodeIcon = 'assets/images/icons/qr_code.svg';
   static String bagIcon = 'assets/images/icons/bag.svg';
+  static String defaultCategoryImg = 'assets/images/default_category_img.png';
 }

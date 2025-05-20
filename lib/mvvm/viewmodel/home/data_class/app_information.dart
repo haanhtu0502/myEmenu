@@ -7,6 +7,8 @@ class AppInformation {
   String? _tableNo;
   String? _floorNo;
   int? _priceListId;
+  String? _orgName;
+  String? _address;
 
   static final AppInformation _instance = AppInformation._internal();
   factory AppInformation() {
@@ -23,6 +25,8 @@ class AppInformation {
     String? tableNo,
     String? floorNo,
     int? priceListId,
+    String? orgName,
+    String? address,
   }) {
     _orgId = orgId;
     _tenantId = tenantId;
@@ -32,6 +36,8 @@ class AppInformation {
     _tableNo = tableNo;
     _floorNo = floorNo;
     _priceListId = priceListId;
+    _orgName = orgName;
+    _address = address;
   }
 
   void updateData({
@@ -43,6 +49,8 @@ class AppInformation {
     String? tableNo,
     String? floorNo,
     int? priceListId,
+    String? orgName,
+    String? address,
   }) {
     _orgId = orgId ?? _orgId;
     _tenantId = tenantId ?? _tenantId;
@@ -52,6 +60,8 @@ class AppInformation {
     _tableNo = tableNo ?? _tableNo;
     _floorNo = floorNo ?? _floorNo;
     _priceListId = priceListId ?? _priceListId;
+    _orgName = orgName ?? _orgName;
+    _address = address ?? _address;
   }
 
   bool isInitialized() {
@@ -62,12 +72,14 @@ class AppInformation {
         _posTerminalId != null &&
         _tableNo != null &&
         _floorNo != null &&
-        _priceListId != null;
+        _priceListId != null &&
+        _orgName != null &&
+        _address != null;
   }
 
   @override
   String toString() {
-    return 'AppInformation{_orgId: $_orgId, _tenantId: $_tenantId, _tableId: $_tableId, _floorId: $_floorId, _posTerminalId: $_posTerminalId, _tableNo: $_tableNo, _floorNo: $_floorNo, _priceListId: $_priceListId}';
+    return 'AppInformation{_orgId: $_orgId, _tenantId: $_tenantId, _tableId: $_tableId, _floorId: $_floorId, _posTerminalId: $_posTerminalId, _tableNo: $_tableNo, _floorNo: $_floorNo, _priceListId: $_priceListId, _orgName: $_orgName, _address: $_address}';
   }
 
   int? get orgId => _orgId;
@@ -78,4 +90,6 @@ class AppInformation {
   String? get tableNo => _tableNo;
   String? get floorNo => _floorNo;
   int? get priceListId => _priceListId;
+  String? get orgName => _orgName;
+  String? get address => _address;
 }
