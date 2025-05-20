@@ -17,4 +17,6 @@ class LoginProvider extends ChangeNotifier {
     customerPhone = phone;
     notifyListeners();
   }
+
+  bool get isLogin => customerName != null && customerPhone != null;
 }

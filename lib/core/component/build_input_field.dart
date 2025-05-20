@@ -10,6 +10,7 @@ class BuilTextdInputField extends StatelessWidget {
     this.width,
     this.margin,
     this.isRequired = false,
+    this.controller,
   });
 
   final double? width;
@@ -17,6 +18,7 @@ class BuilTextdInputField extends StatelessWidget {
   final String label;
   final String? hint;
   final bool isRequired;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,13 @@ class BuilTextdInputField extends StatelessWidget {
             height: 10,
           ),
           TextFormField(
+            controller: controller,
+            validator: (value) {
+              if ((value == null || value.isEmpty) && isRequired) {
+                return 'Vui lòng nhập $label';
+              }
+              return null;
+            },
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: context.titleSmall.copyWith(

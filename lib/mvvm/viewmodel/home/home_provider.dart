@@ -1,9 +1,12 @@
 import 'package:emenu/core/services/share_preferences_service.dart';
+import 'package:emenu/mvvm/data/model/category_model.dart';
 import 'package:emenu/mvvm/data/request/get_pos_order_request.dart';
 import 'package:emenu/mvvm/data/request/get_request_order_request.dart';
 import 'package:emenu/mvvm/data/request/get_token_request.dart';
+import 'package:emenu/mvvm/data/request/product_category/get_category_request.dart';
 import 'package:emenu/mvvm/repository/auth_repositories.dart';
 import 'package:emenu/mvvm/repository/emenu_config_repositories.dart';
+import 'package:emenu/mvvm/repository/product_category_repositories.dart';
 import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
 import 'package:emenu/mvvm/viewmodel/home/view_state/home_view_state.dart';
 import 'package:emenu/mvvm/viewmodel/login/login_provider.dart';
@@ -15,8 +18,12 @@ class HomeProvider extends ChangeNotifier {
   String? customerName;
   String? customerPhone;
   String? hashParam;
+
+  List<CategoryModel> categories = [];
+
   final AuthRepositories _authRepositories;
   final EmenuConfigRepositories _emenuConfigRepositories;
+  final ProductCategoryRepositories _productCategoryRepositories;
   final LoginProvider _loginProvider;
 
   HomeViewState _state = const HomeViewState.idle();
@@ -26,10 +33,10 @@ class HomeProvider extends ChangeNotifier {
     @factoryParam this.hashParam,
     this._authRepositories,
     this._emenuConfigRepositories,
+    this._productCategoryRepositories,
     this._loginProvider,
   ) {
     hashParam = hashParam;
-    initData();
   }
 
   void initData() async {
@@ -85,8 +92,7 @@ class HomeProvider extends ChangeNotifier {
   }
 
   Future<void> getAppInfo() async {
-    final appInfo = AppInformation();
-    if (appInfo.isInitialized() || hashParam == null) {
+    if (hashParam == null) {
       return;
     }
     final result = await _emenuConfigRepositories.getParams(
@@ -109,6 +115,8 @@ class HomeProvider extends ChangeNotifier {
             tableNo: r.data!.tableNo,
             floorNo: r.data!.floorNo,
             priceListId: r.data!.priceListId,
+            orgName: r.data!.orgName,
+            address: r.data!.address,
           );
           _state = HomeViewState.success(r.message);
         }
@@ -118,7 +126,6 @@ class HomeProvider extends ChangeNotifier {
   }
 
   Future<void> getToken() async {
-    print("getToken: start");
     final result = await _authRepositories.getTokens(
       GetTokenRequest(
         userName: 'WebService',
@@ -138,6 +145,33 @@ class HomeProvider extends ChangeNotifier {
     CommonAppSettingPref.setAccessToken(result.jwtToken);
     _state = const HomeViewState.success("Lấy token thành công");
 
+    notifyListeners();
+  }
+
+  Future<void> getCategory() async {
+    _state = const HomeViewState.loadingGetCategroy();
+    notifyListeners();
+    final result = await _productCategoryRepositories.getCategory(
+      request: GetCategoryRequest(
+        page: 0,
+        pageSize: 100,
+        tenantId: AppInformation().tenantId ?? 0,
+        orgId: AppInformation().orgId ?? 0,
+        posTerminalId: AppInformation().posTerminalId ?? 0,
+        isMenu: 'Y',
+      ),
+    );
+    result.fold(
+      (l) => _state = HomeViewState.error(l.message),
+      (r) {
+        if (r.data == null) {
+          _state = HomeViewState.error(r.message);
+        } else {
+          _state = const HomeViewState.getCategorySuccess();
+          categories = r.data!;
+        }
+      },
+    );
     notifyListeners();
   }
 }

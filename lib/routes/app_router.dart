@@ -1,8 +1,8 @@
 import 'package:emenu/core/di/di.dart';
 import 'package:emenu/mvvm/view/cart/view/cart_screen.dart';
-import 'package:emenu/mvvm/view/home/home_screen.dart';
+import 'package:emenu/mvvm/view/home_main/home_main_screen.dart';
 import 'package:emenu/mvvm/view/list_product/list_product_screen.dart';
-import 'package:emenu/mvvm/view/login/login_screen.dart';
+import 'package:emenu/mvvm/view/home_main/login/login_screen.dart';
 import 'package:emenu/mvvm/view/product_detail/product_detail_screen.dart';
 import 'package:emenu/mvvm/view/splash/splash_screen.dart';
 import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
@@ -48,7 +48,7 @@ final GoRouter appRouter = GoRouter(
               create: (context) => injector.get<LoginProvider>(),
             ),
           ],
-          child: const HomeScreen(),
+          child: const HomeMainScreen(),
         );
       },
     ),
@@ -85,7 +85,7 @@ final GoRouter appRouter = GoRouter(
               create: (context) => injector.get<LoginProvider>(),
             ),
           ],
-          child: const HomeScreen(),
+          child: const HomeMainScreen(),
         );
       },
     ),
