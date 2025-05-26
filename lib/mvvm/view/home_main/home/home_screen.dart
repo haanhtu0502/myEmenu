@@ -7,9 +7,9 @@ import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/generated/l10n.dart';
 import 'package:emenu/mvvm/data/model/category_model.dart';
+import 'package:emenu/mvvm/viewmodel/app_provider.dart';
 import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
 import 'package:emenu/mvvm/viewmodel/home/home_provider.dart';
-import 'package:emenu/mvvm/viewmodel/login/login_provider.dart';
 import 'package:emenu/routes/app_pages.dart';
 import 'package:emenu/theme/theme_config.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,7 +28,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   HomeProvider get _homeProvider => context.read<HomeProvider>();
-  LoginProvider get _loginProvider => context.read<LoginProvider>();
+  AppProvider get _appProvider => context.read<AppProvider>();
   final AppInformation _appInformation = AppInformation();
 
   @override
@@ -39,11 +40,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<HomeProvider>().state;
-    if (state.isLoading) {}
-    if (state.isError) {
-      context.showSnackbar(state.message ?? '', isError: true);
-    }
-    if (state.isSuccess) {}
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (state.isLoading) {}
+      if (state.isError) {
+        context.showTopSnackbar(state.message ?? '', isError: true);
+      }
+      if (state.isSuccess) {}
+    });
+
     return BuildCartLayout(
       child: Consumer<HomeProvider>(
         builder: (context, provider, _) {
@@ -71,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 18),
                   _buildButtons(context),
                   const SizedBox(height: 18),
-                  _buildCategories(context),
+                  _buildCategories(context, provider),
                 ],
               ),
             ),
@@ -109,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Theme.of(context).dividerColor,
           ),
           Text(
-            ' 11D5 Khu Thảo Nguyên, Long Thạnh Mỹ, TP. Thủ Đức',
+            ' ${_appInformation.address ?? ''}',
             style: context.titleSmall.copyWith(
               color: Theme.of(context).dividerColor,
             ),
@@ -130,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         const SizedBox(height: 12),
         Text(
-          '${S.of(context).goodMorning} ${_loginProvider.customerName} !',
+          '${S.of(context).goodMorning} ${_appProvider.customerName} !',
           style: context.titleMedium.copyWith(
             color: Colors.black,
           ),
@@ -213,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildCategories(BuildContext context) {
+  Widget _buildCategories(BuildContext context, HomeProvider provider) {
     return Column(
       children: [
         Row(
@@ -250,24 +254,46 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         const SizedBox(height: 52),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          clipBehavior: Clip.none,
-          child: Row(
-            children: [
-              ..._homeProvider.categories.map(
-                (item) {
-                  return _buildCategoryItem(context, item);
-                },
-              ).expand(
-                (element) => [
-                  const SizedBox(width: 12),
-                  element,
-                ],
-              ),
-            ],
-          ),
-        )
+        provider.state.isLoadingGetCategroy
+            ? Skeletonizer(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  clipBehavior: Clip.none,
+                  child: Row(
+                    children: [
+                      ...List.generate(
+                        3,
+                        (index) => _buildCategoryItem(
+                          context,
+                          CategoryModel(
+                            id: index,
+                            name: '',
+                            imageUrl: null,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            : SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                clipBehavior: Clip.none,
+                child: Row(
+                  children: [
+                    ..._homeProvider.categories.map(
+                      (item) {
+                        return _buildCategoryItem(context, item);
+                      },
+                    ).expand(
+                      (element) => [
+                        const SizedBox(width: 12),
+                        element,
+                      ],
+                    ),
+                  ],
+                ),
+              )
       ],
     );
   }

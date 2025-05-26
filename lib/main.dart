@@ -1,6 +1,5 @@
 import 'package:emenu/core/component/custom_scroll_behavior.dart';
 import 'package:emenu/core/configurations/configuration.dart';
-import 'package:emenu/core/configurations/env/env_dev.dart';
 import 'package:emenu/core/configurations/env/env_prod.dart';
 import 'package:emenu/core/design_system/resource/constant.dart';
 import 'package:emenu/core/di/di.dart';
@@ -12,7 +11,6 @@ import 'package:injectable/injectable.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +20,7 @@ void main() async {
   await SharedPreferencesService().init();
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (context) => AppProvider()),
+      ChangeNotifierProvider(create: (context) => injector.get<AppProvider>()),
     ],
     child: const MyApp(),
   ));

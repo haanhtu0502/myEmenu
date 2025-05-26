@@ -49,10 +49,16 @@ class _ListProductScreenState extends State<ListProductScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SvgPicture.asset(
-          ImageConst.shopIcon,
-          // width: 24,
-          // height: 24,
+        InkWell(
+          onTap: () {
+            context.go(
+                '${AppPages.home}/AA9D1AAAAAAAD0JbAA9CRgAAAAAAAAAKVEJMMTAwMDAyNgAAAAcxMDAwMDAyAAAAGU5ow6AgaMOgbmcgSMawxqFuZyBCaeG7g24AAAArMTFENSwgS2h1IFRo4bqjbyBOZ3V5w6puLCBMb25nIFRo4bqhbmggTeG7uQAAAAA');
+          },
+          child: SvgPicture.asset(
+            ImageConst.shopIcon,
+            // width: 24,
+            // height: 24,
+          ),
         ),
         const SizedBox(width: 12),
         Expanded(

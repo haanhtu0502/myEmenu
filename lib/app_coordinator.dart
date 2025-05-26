@@ -1,21 +1,22 @@
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:another_flushbar/flushbar.dart';
 
 extension AppCoordinator<T> on BuildContext {
-  void showSnackbar(String message, {bool isError = false}) {
-    final snackBar = SnackBar(
-      content: Text(
+  void showTopSnackbar(String message, {bool isError = false}) {
+    Flushbar(
+      messageText: Text(
         message,
-        style: titleMedium,
+        style:
+            Theme.of(this).textTheme.titleMedium?.copyWith(color: Colors.white),
       ),
-      behavior: SnackBarBehavior.floating,
-      margin: const EdgeInsets.only(top: 30, left: 16, right: 16),
       backgroundColor: isError ? Colors.red : Colors.green,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      margin: const EdgeInsets.all(16),
+      borderRadius: BorderRadius.circular(12),
       duration: const Duration(seconds: 2),
-    );
-    ScaffoldMessenger.of(this).showSnackBar(snackBar);
+      flushbarPosition: FlushbarPosition.TOP,
+      flushbarStyle: FlushbarStyle.FLOATING,
+      animationDuration: const Duration(milliseconds: 300),
+    ).show(this);
   }
 }

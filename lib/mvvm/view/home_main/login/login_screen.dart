@@ -5,7 +5,6 @@ import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/generated/l10n.dart';
 import 'package:emenu/mvvm/viewmodel/app_provider.dart';
-import 'package:emenu/mvvm/viewmodel/login/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +17,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   AppProvider get _appProvider => context.read<AppProvider>();
-  LoginProvider get _loginProvider => context.read<LoginProvider>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
@@ -118,8 +116,8 @@ class _LoginScreenState extends State<LoginScreen> {
             text: S.of(context).startOrder,
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                _loginProvider.setCustomerName(_nameController.text);
-                _loginProvider.setCustomerPhone(_phoneController.text);
+                _appProvider.setCustomerName(_nameController.text);
+                _appProvider.setCustomerPhone(_phoneController.text);
               }
             },
           ),

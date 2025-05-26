@@ -5,9 +5,9 @@ import 'package:emenu/mvvm/view/list_product/list_product_screen.dart';
 import 'package:emenu/mvvm/view/home_main/login/login_screen.dart';
 import 'package:emenu/mvvm/view/product_detail/product_detail_screen.dart';
 import 'package:emenu/mvvm/view/splash/splash_screen.dart';
+import 'package:emenu/mvvm/viewmodel/app_provider.dart';
 import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
 import 'package:emenu/mvvm/viewmodel/home/home_provider.dart';
-import 'package:emenu/mvvm/viewmodel/login/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -38,16 +38,11 @@ final GoRouter appRouter = GoRouter(
       path: '${AppPages.home}/:hashParam',
       builder: (context, state) {
         final hashParam = state.pathParameters['hashParam'];
-        return MultiProvider(
-          providers: [
-            ChangeNotifierProvider(
-              create: (context) =>
-                  injector.get<HomeProvider>(param1: hashParam),
-            ),
-            ChangeNotifierProvider(
-              create: (context) => injector.get<LoginProvider>(),
-            ),
-          ],
+        return ChangeNotifierProvider(
+          create: (context) => injector.get<HomeProvider>(
+            param1: hashParam,
+            param2: Provider.of<AppProvider>(context, listen: false),
+          ),
           child: const HomeMainScreen(),
         );
       },
@@ -76,15 +71,10 @@ final GoRouter appRouter = GoRouter(
           floorNo: floorNo,
           priceListId: int.tryParse(priceListId ?? ''),
         );
-        return MultiProvider(
-          providers: [
-            ChangeNotifierProvider(
-              create: (context) => injector.get<HomeProvider>(),
-            ),
-            ChangeNotifierProvider(
-              create: (context) => injector.get<LoginProvider>(),
-            ),
-          ],
+        return ChangeNotifierProvider(
+          create: (context) => injector.get<HomeProvider>(
+            param2: Provider.of<AppProvider>(context, listen: false),
+          ),
           child: const HomeMainScreen(),
         );
       },

@@ -80,7 +80,7 @@ class _ProductCardItemState extends State<ProductCardItem> {
                 child: ImageRender(
                   fit: BoxFit.contain,
                   imageUrl: widget.imageUrl,
-                  height: 100,
+                  height: 90,
                   width: widget.width != null ? (widget.width! - 34) : 80,
                   radius: 15,
                 ),

@@ -55,7 +55,7 @@ class EmenuParam {
       orgId: json['orgId'] as int?,
       tableId: json['tableId'] as int?,
       floorId: json['floorId'] as int?,
-      posTerminalId: json['posTerminalId'] as int?,
+      posTerminalId: json['terminalId'] as int?,
       tableNo: json['tableNo'] as String?,
       floorNo: json['floorNo'] as String?,
       priceListId: json['priceListId'] as int?,

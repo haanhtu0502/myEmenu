@@ -1,7 +1,8 @@
+import 'package:emenu/core/utils/logger.dart';
 import 'package:emenu/mvvm/view/home_main/home/home_screen.dart';
 import 'package:emenu/mvvm/view/home_main/login/login_screen.dart';
+import 'package:emenu/mvvm/viewmodel/app_provider.dart';
 import 'package:emenu/mvvm/viewmodel/home/home_provider.dart';
-import 'package:emenu/mvvm/viewmodel/login/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<LoginProvider>(
+    return Consumer<AppProvider>(
       builder: (context, value, child) {
         return value.isLogin ? const HomeScreen() : const LoginScreen();
       },
