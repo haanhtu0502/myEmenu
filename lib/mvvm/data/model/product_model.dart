@@ -1,3 +1,5 @@
+import 'package:emenu/mvvm/data/model/product_component/product_component.dart';
+
 class ProductModel {
   int? productId;
   int? orgId;
@@ -9,6 +11,8 @@ class ProductModel {
   String? isActive;
   int? taxId;
   String? description;
+  List<ProductComponent>? components;
+  List<ProductComponent>? extraItems;
 
   ProductModel({
     this.productId,
@@ -21,6 +25,8 @@ class ProductModel {
     this.isActive,
     this.taxId,
     this.description,
+    this.components,
+    this.extraItems,
   });
 
   ProductModel.fromJson(Map<String, dynamic> json) {
@@ -34,5 +40,11 @@ class ProductModel {
     isActive = json['isActive'];
     taxId = json['taxId'];
     description = json['description'];
+    components = (json['components'] as List?)
+        ?.map((e) => ProductComponent.fromJson(e))
+        .toList();
+    extraItems = (json['extraItems'] as List?)
+        ?.map((e) => ProductComponent.fromJson(e))
+        .toList();
   }
 }

@@ -82,6 +82,12 @@ class _DragableCartState extends State<DragableCart> {
       } else {
         _positionLeft = widget.screenWidth - _cartBubbleWidth - 10;
       }
+
+      if (details.offset.dy < 0) {
+        _positionTop = 10;
+      } else if (details.offset.dy > widget.screenHeight - _cartBubbleHeight) {
+        _positionTop = widget.screenHeight - _cartBubbleHeight - 10;
+      }
     });
   }
 

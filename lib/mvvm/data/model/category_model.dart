@@ -12,6 +12,7 @@ class CategoryModel {
     this.isSummary,
     this.code,
     this.imageUrl,
+    this.fromPrice,
   });
 
   int? id;
@@ -38,6 +39,8 @@ class CategoryModel {
 
   String? imageUrl;
 
+  num? fromPrice;
+
   CategoryModel copyWith({
     int? id,
     int? orgId,
@@ -51,6 +54,7 @@ class CategoryModel {
     String? isSummary,
     String? code,
     String? imageUrl,
+    num? fromPrice,
   }) {
     return CategoryModel(
       id: id ?? this.id,
@@ -66,6 +70,7 @@ class CategoryModel {
       isSummary: isSummary ?? this.isSummary,
       code: code ?? this.code,
       imageUrl: imageUrl ?? this.imageUrl,
+      fromPrice: fromPrice ?? this.fromPrice,
     );
   }
 
@@ -83,6 +88,7 @@ class CategoryModel {
       isSummary: json['isSummary'] as String?,
       code: json['code'] as String?,
       imageUrl: json['imageUrl'] as String?,
+      fromPrice: json['fromPrice'] as num?,
     );
   }
 }

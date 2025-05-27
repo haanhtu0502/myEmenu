@@ -25,8 +25,9 @@ import '../../mvvm/repository/emenu_config_repositories.dart' as _i6;
 import '../../mvvm/repository/product_category_repositories.dart' as _i9;
 import '../../mvvm/viewmodel/app_provider.dart' as _i3;
 import '../../mvvm/viewmodel/home/home_provider.dart' as _i15;
-import 'module/data_source_module.dart' as _i16;
-import 'module/hive_module.dart' as _i17;
+import '../../mvvm/viewmodel/list_product/list_product_provider.dart' as _i16;
+import 'module/data_source_module.dart' as _i17;
+import 'module/hive_module.dart' as _i18;
 
 const String _prod = 'prod';
 const String _dev = 'dev';
@@ -82,9 +83,11 @@ Future<_i1.GetIt> init(
         gh<_i6.EmenuConfigRepositories>(),
         gh<_i9.ProductCategoryRepositories>(),
       ));
+  gh.factory<_i16.ListProductProvider>(
+      () => _i16.ListProductProvider(gh<_i9.ProductCategoryRepositories>()));
   return getIt;
 }
 
-class _$DataSourceModule extends _i16.DataSourceModule {}
+class _$DataSourceModule extends _i17.DataSourceModule {}
 
-class _$HiveModule extends _i17.HiveModule {}
+class _$HiveModule extends _i18.HiveModule {}

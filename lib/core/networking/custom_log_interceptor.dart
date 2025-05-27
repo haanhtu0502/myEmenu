@@ -70,9 +70,9 @@ class CustomInterceptorLog extends Interceptor {
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
     logPrint('💡💡💡*** Response ***💡💡💡', printType: PrintType.log);
     logPrint('uri: ${response.requestOptions.uri}', printType: PrintType.log);
-    _printResponse(response, PrintType.log);
+    // _printResponse(response, PrintType.log);
     handler.next(response);
-    logPrint('💡💡💡💡💡💡', printType: PrintType.log);
+    // logPrint('💡💡💡💡💡💡', printType: PrintType.log);
   }
 
   @override

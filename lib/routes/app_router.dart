@@ -8,6 +8,7 @@ import 'package:emenu/mvvm/view/splash/splash_screen.dart';
 import 'package:emenu/mvvm/viewmodel/app_provider.dart';
 import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
 import 'package:emenu/mvvm/viewmodel/home/home_provider.dart';
+import 'package:emenu/mvvm/viewmodel/list_product/list_product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -82,7 +83,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       parentNavigatorKey: appNavigationKey,
       path: AppPages.listProduct,
-      builder: (context, state) => const ListProductScreen(),
+      builder: (context, state) => ChangeNotifierProvider(
+        create: (context) => injector.get<ListProductProvider>(),
+        child: const ListProductScreen(),
+      ),
       routes: [
         GoRoute(
           parentNavigatorKey: appNavigationKey,

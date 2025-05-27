@@ -2,17 +2,21 @@ import 'package:emenu/core/component/build_cart_layout.dart';
 import 'package:emenu/core/component/build_product_card_item.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
+import 'package:emenu/core/extensions/num_extension.dart';
 import 'package:emenu/generated/l10n.dart';
 import 'package:emenu/mvvm/data/model/category_product_model.dart';
 import 'package:emenu/mvvm/data/model/product_model.dart';
 import 'package:emenu/mvvm/view/list_product/dummy/dummy_product_list.dart';
 import 'package:emenu/mvvm/view/list_product/widget/e_vertical_tabbar.dart';
 import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
+import 'package:emenu/mvvm/viewmodel/list_product/list_product_provider.dart';
 import 'package:emenu/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class ListProductScreen extends StatefulWidget {
   const ListProductScreen({super.key});
@@ -23,6 +27,13 @@ class ListProductScreen extends StatefulWidget {
 
 class _ListProductScreenState extends State<ListProductScreen> {
   final TextEditingController _searchController = TextEditingController();
+  ListProductProvider get _provider => context.read<ListProductProvider>();
+
+  @override
+  void initState() {
+    _provider.initData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +42,19 @@ class _ListProductScreenState extends State<ListProductScreen> {
         child: Padding(
           padding: const EdgeInsets.only(
             top: 10,
-            left: 12,
-            right: 12,
+            left: 5,
+            right: 5,
           ),
-          child: Column(
-            children: [
-              _buildHeader(context),
-              const SizedBox(height: 12),
-              _buildListProduct(context),
-            ],
-          ),
+          child: Consumer<ListProductProvider>(
+              builder: (context, provider, child) {
+            return Column(
+              children: [
+                _buildHeader(context),
+                const SizedBox(height: 12),
+                _buildListProduct(context, provider),
+              ],
+            );
+          }),
         ),
       ),
     );
@@ -103,19 +117,35 @@ class _ListProductScreenState extends State<ListProductScreen> {
     );
   }
 
-  Widget _buildListProduct(BuildContext context) {
+  Widget _buildListProduct(BuildContext context, ListProductProvider provider) {
     return Expanded(
-      child: EVerticalTabbar(
-        tabs: dummyCateList,
-        children: [
-          ...dummyCateProductList.map((e) => _buildProductCateItem(context, e)),
-        ],
-      ),
+      child: provider.state.isLoadingGetCategory ||
+              provider.state.isLoadingGetProductByCategory
+          ? Skeletonizer(
+              child: EVerticalTabbar(
+                tabs: dummyCateList,
+                children: [
+                  ...dummyCateProductList.map(
+                    (item) =>
+                        _buildProductCateItem(context, item, isLoading: true),
+                  )
+                ],
+              ),
+            )
+          : EVerticalTabbar(
+              tabs:
+                  provider.listCategoryProduct.map((e) => e.category).toList(),
+              children: [
+                ...provider.listCategoryProduct.map(
+                  (item) => _buildProductCateItem(context, item),
+                )
+              ],
+            ),
     );
   }
 
-  Widget _buildProductCateItem(
-      BuildContext context, CategoryProductModel item) {
+  Widget _buildProductCateItem(BuildContext context, CategoryProductModel item,
+      {bool isLoading = false}) {
     return Column(
       children: [
         const SizedBox(height: 12),
@@ -139,43 +169,75 @@ class _ListProductScreenState extends State<ListProductScreen> {
           ),
           itemCount: item.products.length,
           itemBuilder: (context, index) {
-            return _buildProductCardItem(context, item.products[index]);
+            return _buildProductCardItem(context, item.products[index],
+                isLoading: isLoading);
           },
         ),
-        const SizedBox(height: 14),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: () {},
-              child: Row(
-                children: [
-                  Text(
-                    S.of(context).viewMoreProduct,
-                    style: context.titleMedium.copyWith(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  InkWell(
-                    onTap: () {},
-                    child: SvgPicture.asset(
-                      ImageConst.arrowRightIcon,
-                      width: 12,
-                      height: 12,
-                    ),
-                  ),
-                ],
+        if (item.loadingGetMoreProduct) ...[
+          const SizedBox(height: 60),
+          Skeletonizer(
+            child: GridView.builder(
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 60,
               ),
-            )
-          ],
-        )
+              itemCount: 2,
+              itemBuilder: (context, index) {
+                return _buildProductCardItem(context, item.products[index],
+                    isLoading: isLoading);
+              },
+            ),
+          )
+        ],
+        const SizedBox(height: 14),
+        if (!isLoading &&
+            item.productPage < item.productTotalPage - 1 &&
+            item.products.isNotEmpty &&
+            !item.loadingGetMoreProduct)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  _provider.getMoreProductByCategory(
+                    item.category.id ?? 0,
+                    item.productPage + 1,
+                  );
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      S.of(context).viewMoreProduct,
+                      style: context.titleMedium.copyWith(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    InkWell(
+                      onTap: () {},
+                      child: SvgPicture.asset(
+                        ImageConst.arrowRightIcon,
+                        width: 12,
+                        height: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )
       ],
     );
   }
 
-  Widget _buildProductCardItem(BuildContext context, ProductModel item) {
+  Widget _buildProductCardItem(
+    BuildContext context,
+    ProductModel item, {
+    bool isLoading = false,
+  }) {
     return GestureDetector(
       onTap: () {
         context.go(
@@ -183,23 +245,27 @@ class _ListProductScreenState extends State<ListProductScreen> {
         );
       },
       child: ProductCardItem(
-        imageUrl: ImageConst.foodImage,
+        imageUrl: item.imageUrl ?? ImageConst.foodImage,
         isBorder: true,
         imageTopPosition: -30,
-        width: 200,
+        imageFit: BoxFit.cover,
+        width: 180,
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  item.name ?? '',
-                  style: context.titleMedium.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                Expanded(
+                  child: Text(
+                    item.name ?? '',
+                    style: context.titleMedium.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  textAlign: TextAlign.start,
                 ),
               ],
             ),
@@ -219,22 +285,51 @@ class _ListProductScreenState extends State<ListProductScreen> {
             Row(
               children: [
                 Text(
-                  item.salesPrice?.toString() ?? '',
+                  item.salesPrice?.toCurrencyFormat ?? '',
                   style: context.titleMedium.copyWith(
                     color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const Spacer(),
-                SvgPicture.asset(
-                  ImageConst.addIcon,
-                  width: 24,
-                  height: 24,
-                ),
+                if (isLoading)
+                  const SizedBox(
+                    width: 24,
+                    height: 24,
+                    // child: CircularProgressIndicator(),
+                  )
+                else
+                  SvgPicture.asset(
+                    ImageConst.addIcon,
+                    width: 24,
+                    height: 24,
+                  ),
               ],
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildListSearchProduct(
+      BuildContext context, List<ProductModel> products,
+      {bool isLoading = false}) {
+    return Expanded(
+      child: GridView.builder(
+        shrinkWrap: true,
+        // physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          // childAspectRatio: 1.65,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 60,
+        ),
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          return _buildProductCardItem(context, products[index],
+              isLoading: isLoading);
+        },
       ),
     );
   }

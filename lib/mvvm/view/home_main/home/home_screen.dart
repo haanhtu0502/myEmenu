@@ -5,6 +5,7 @@ import 'package:emenu/core/component/build_custom_button.dart';
 import 'package:emenu/core/component/build_product_card_item.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
+import 'package:emenu/core/extensions/num_extension.dart';
 import 'package:emenu/generated/l10n.dart';
 import 'package:emenu/mvvm/data/model/category_model.dart';
 import 'package:emenu/mvvm/viewmodel/app_provider.dart';
@@ -301,6 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildCategoryItem(BuildContext context, CategoryModel item) {
     return ProductCardItem(
       imageUrl: item.imageUrl ?? ImageConst.defaultCategoryImg,
+      imageFit: BoxFit.contain,
       width: 150,
       content: Column(
         children: [
@@ -332,7 +334,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const Spacer(),
               Text(
-                '49.000',
+                item.fromPrice?.toCurrencyFormat ?? '',
                 style: context.titleMedium.copyWith(
                   color: Theme.of(context).dividerColor,
                 ),

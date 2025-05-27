@@ -110,6 +110,7 @@ flutter:
     - assets/images/icons/qr_code.svg
     - assets/images/icons/bag.svg
     - assets/images/default_category_img.png
+    - assets/images/no_image_found.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
