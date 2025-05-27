@@ -4,7 +4,9 @@ enum HomeViewStatus {
   success,
   getCustomerInfomationSuccess,
   loadingGetCategroy,
+  loadingInitial,
   getCategorySuccess,
+  initialSuccess,
   error,
 }
 
@@ -24,6 +26,9 @@ class HomeViewState {
       : this._(HomeViewStatus.error, message);
   const HomeViewState.loadingGetCategroy()
       : this._(HomeViewStatus.loadingGetCategroy);
+  const HomeViewState.loadingInitial() : this._(HomeViewStatus.loadingInitial);
+  const HomeViewState.initialSuccess([String? message])
+      : this._(HomeViewStatus.initialSuccess, message);
   const HomeViewState.getCategorySuccess([String? message])
       : this._(HomeViewStatus.getCategorySuccess, message);
 
@@ -35,4 +40,6 @@ class HomeViewState {
       status == HomeViewStatus.getCustomerInfomationSuccess;
   bool get isLoadingGetCategroy => status == HomeViewStatus.loadingGetCategroy;
   bool get isGetCategorySuccess => status == HomeViewStatus.getCategorySuccess;
+  bool get isLoadingInitial => status == HomeViewStatus.loadingInitial;
+  bool get isInitialSuccess => status == HomeViewStatus.initialSuccess;
 }

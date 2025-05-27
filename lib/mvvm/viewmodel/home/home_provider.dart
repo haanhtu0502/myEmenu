@@ -50,6 +50,7 @@ class HomeProvider extends ChangeNotifier {
 
   Future<void> getCustomerInformation() async {
     if (_appProvider.isLogin) {
+      _state = const HomeViewState.getCustomerInfomationSuccess();
       return;
     }
     final result = await _emenuConfigRepositories.getRequestOrder(
@@ -122,8 +123,8 @@ class HomeProvider extends ChangeNotifier {
             priceListId: r.data!.priceListId,
             orgName: r.data!.orgName,
             address: r.data!.address,
+            hashParam: hashParam,
           );
-          _state = HomeViewState.success(r.message);
         }
       },
     );
@@ -148,7 +149,6 @@ class HomeProvider extends ChangeNotifier {
       return;
     }
     CommonAppSettingPref.setAccessToken(result.jwtToken);
-    _state = const HomeViewState.success("Lấy token thành công");
 
     notifyListeners();
   }

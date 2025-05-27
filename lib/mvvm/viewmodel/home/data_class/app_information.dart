@@ -9,6 +9,7 @@ class AppInformation {
   int? _priceListId;
   String? _orgName;
   String? _address;
+  String? _hashParam;
 
   static final AppInformation _instance = AppInformation._internal();
   factory AppInformation() {
@@ -27,6 +28,7 @@ class AppInformation {
     int? priceListId,
     String? orgName,
     String? address,
+    String? hashParam,
   }) {
     _orgId = orgId;
     _tenantId = tenantId;
@@ -38,6 +40,7 @@ class AppInformation {
     _priceListId = priceListId;
     _orgName = orgName;
     _address = address;
+    _hashParam = hashParam;
   }
 
   void updateData({
@@ -51,6 +54,7 @@ class AppInformation {
     int? priceListId,
     String? orgName,
     String? address,
+    String? hashParam,
   }) {
     _orgId = orgId ?? _orgId;
     _tenantId = tenantId ?? _tenantId;
@@ -62,6 +66,7 @@ class AppInformation {
     _priceListId = priceListId ?? _priceListId;
     _orgName = orgName ?? _orgName;
     _address = address ?? _address;
+    _hashParam = hashParam ?? _hashParam;
   }
 
   bool isInitialized() {
@@ -92,4 +97,5 @@ class AppInformation {
   int? get priceListId => _priceListId;
   String? get orgName => _orgName;
   String? get address => _address;
+  String? get hashParam => _hashParam;
 }
