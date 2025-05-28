@@ -10,6 +10,7 @@ class BuildCountQty extends StatefulWidget {
     this.padding,
     required this.value,
     required this.onChanged,
+    this.minValue = 0,
   });
 
   final double? width;
@@ -17,6 +18,7 @@ class BuildCountQty extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final int value;
   final Function(int) onChanged;
+  final int minValue;
 
   @override
   State<BuildCountQty> createState() => _BuildCountQtyState();
@@ -53,7 +55,7 @@ class _BuildCountQtyState extends State<BuildCountQty> {
               color: Colors.white,
             ),
             onPressed: () {
-              if (_value.value > 0) {
+              if (_value.value > widget.minValue) {
                 _value.value--;
                 widget.onChanged(_value.value);
               }

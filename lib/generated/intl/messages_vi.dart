@@ -46,6 +46,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "morning": MessageLookupByLibrary.simpleMessage("Buổi sáng"),
         "myCart": MessageLookupByLibrary.simpleMessage("Giỏ hàng của tôi"),
         "name": MessageLookupByLibrary.simpleMessage("Tên"),
+        "noComponentAvailable":
+            MessageLookupByLibrary.simpleMessage("Không có thành phần nào"),
+        "noExtraAvailable":
+            MessageLookupByLibrary.simpleMessage("Không có món thêm nào"),
         "note": MessageLookupByLibrary.simpleMessage("Ghi chú"),
         "orderFoodHear":
             MessageLookupByLibrary.simpleMessage("Gọi món tại đây"),

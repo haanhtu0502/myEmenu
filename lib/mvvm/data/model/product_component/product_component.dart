@@ -10,6 +10,7 @@ class ProductComponent {
   String? uomName;
   String? taxName;
   num? taxRate;
+  int? quantity;
 
   ProductComponent({
     required this.id,
@@ -23,6 +24,7 @@ class ProductComponent {
     this.uomName,
     this.taxName,
     this.taxRate,
+    this.quantity,
   });
 
   ProductComponent.fromJson(Map<String, dynamic> json)
@@ -36,7 +38,8 @@ class ProductComponent {
         uomCode = json['uomCode'],
         uomName = json['uomName'],
         taxName = json['taxName'],
-        taxRate = json['taxRate'];
+        taxRate = json['taxRate'],
+        quantity = json['qty'];
 
   Map<String, dynamic> toJson() {
     return {
@@ -51,6 +54,7 @@ class ProductComponent {
       'uomName': uomName,
       'taxName': taxName,
       'taxRate': taxRate,
+      'qty': quantity,
     };
   }
 }

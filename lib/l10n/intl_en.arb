@@ -49,5 +49,7 @@
     "paymentInfo": "Payment information",
     "total": "Total",
     "tax": "Tax",
-    "pleaseInput": "Please input"
+    "pleaseInput": "Please input",
+    "noExtraAvailable": "No extra available",
+    "noComponentAvailable": "No component available"
 }

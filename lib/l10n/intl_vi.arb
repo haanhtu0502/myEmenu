@@ -49,5 +49,7 @@
     "paymentInfo": "Thông tin thanh toán",
     "total": "Tổng cộng",
     "tax": "Thuế",
-    "pleaseInput": "Vui lòng nhập"
+    "pleaseInput": "Vui lòng nhập",
+    "noExtraAvailable": "Không có món thêm nào",
+    "noComponentAvailable": "Không có thành phần nào"
 }

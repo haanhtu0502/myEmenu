@@ -2,25 +2,33 @@ import 'package:emenu/core/component/build_cart_layout.dart';
 import 'package:emenu/core/component/build_count_qty.dart';
 import 'package:emenu/core/component/build_custom_button.dart';
 import 'package:emenu/core/component/build_scaffold_footer.dart';
+import 'package:emenu/core/component/image_render.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/core/extensions/num_extension.dart';
 import 'package:emenu/generated/l10n.dart';
-import 'package:emenu/mvvm/view/product_detail/dummy/product_extra_dummy.dart';
-import 'package:emenu/mvvm/view/product_detail/dummy/proudct_component_dummy.dart';
+import 'package:emenu/mvvm/data/model/product_component/product_component.dart';
+import 'package:emenu/mvvm/data/model/product_model.dart';
 import 'package:emenu/mvvm/view/product_detail/widget/build_list_row_item.dart';
+import 'package:emenu/mvvm/viewmodel/product_detail/product_detail_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-  const ProductDetailScreen({super.key});
+  const ProductDetailScreen({
+    super.key,
+  });
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  ProductDetailProvider get _provider =>
+      Provider.of<ProductDetailProvider>(context, listen: false);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,9 +72,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         horizontal: 20,
                       ),
                       child: TextField(
-                        maxLines: 4, // Số dòng tối đa (null để không giới hạn)
+                        maxLines: 4,
+                        onChanged: (value) {
+                          _provider.note = value;
+                        },
                         decoration: InputDecoration(
-                          hintText: 'Ghi chú',
+                          hintText: S.of(context).note,
                           hintStyle: TextStyle(
                             color: Theme.of(context).hintColor,
                           ),
@@ -104,51 +115,55 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   Widget _buildProductInformation(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(32),
-                ),
-                child: Image.asset(
-                  ImageConst.foodImage,
-                  width: double.infinity,
-                  height: 230,
-                  fit: BoxFit.cover,
+    return Selector<ProductDetailProvider, ProductModel>(
+        selector: (p0, p1) => p1.product,
+        builder: (context, product, child) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(32),
+                      ),
+                      child: ImageRender(
+                        imageUrl: product.imageUrl ?? ImageConst.foodImage,
+                        width: double.infinity,
+                        height: 230,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 14),
+              Text(
+                product.name ?? '',
+                style: context.titleLarge.copyWith(
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            )
-          ],
-        ),
-        const SizedBox(height: 14),
-        Text(
-          'Lẩu gà lá é Phú Yên',
-          style: context.titleLarge.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 14),
-        Text(
-          '100.000 VND',
-          style: context.titleMedium.copyWith(
-            color: Theme.of(context).secondaryHeaderColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 14),
-        Text(
-          'Mô tả: Lẩu gà lá é Phú Yên',
-          style: context.titleSmall.copyWith(
-            color: Theme.of(context).hintColor,
-          ),
-        ),
-      ],
-    );
+              const SizedBox(height: 14),
+              Text(
+                '${product.salesPrice?.toCurrencyFormat ?? ''} VND',
+                style: context.titleMedium.copyWith(
+                  color: Theme.of(context).secondaryHeaderColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 14),
+              Text(
+                '${S.of(context).description}: ${product.description ?? ''}',
+                style: context.titleSmall.copyWith(
+                  color: Theme.of(context).hintColor,
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   Widget _buildProductComponent(BuildContext context) {
@@ -164,132 +179,157 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         const SizedBox(
           height: 12,
         ),
-        BuildListRowItem(
-          height: 100,
-          items: listProductComponents,
-          itemBuilder: (item) => Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text(
-                    item.name ?? '',
-                    style: context.titleSmall,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.start,
+        Selector<ProductDetailProvider, ProductModel>(
+          selector: (p0, p1) => p1.product,
+          builder: (context, product, child) {
+            return BuildListRowItem<ProductComponent>(
+              items: product.components ?? [],
+              emptyMessage: S.of(context).noComponentAvailable,
+              itemBuilder: (item) => Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Text(
+                        item.name ?? '',
+                        style: context.titleSmall,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.start,
+                      ),
+                    ),
                   ),
-                ),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      item.quantity?.toString() ?? '',
+                      style: context.titleSmall,
+                      textAlign: TextAlign.end,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      item.uomName ?? '',
+                      style: context.titleSmall,
+                      textAlign: TextAlign.end,
+                    ),
+                  ),
+                ],
               ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  item.qty ?? '',
-                  style: context.titleSmall,
-                  textAlign: TextAlign.end,
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  item.uomName ?? '',
-                  style: context.titleSmall,
-                  textAlign: TextAlign.end,
-                ),
-              ),
-            ],
-          ),
+            );
+          },
         )
       ],
     );
   }
 
   Widget _buildProductExtra(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          S.of(context).extra,
-          style: context.titleMedium.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        BuildListRowItem(
-          height: 200,
-          items: listProductExtras,
-          itemBuilder: (item) => Row(
+    return Selector<ProductDetailProvider, ProductModel>(
+        selector: (p0, provider) => provider.product,
+        builder: (context, value, _) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text(
-                    item.name ?? '',
-                    style: context.titleSmall
-                        .copyWith(color: Theme.of(context).hintColor),
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.start,
-                  ),
+              Text(
+                S.of(context).extra,
+                style: context.titleMedium.copyWith(
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  item.price?.toCurrencyFormat ?? '',
-                  style: context.titleSmall,
-                  textAlign: TextAlign.end,
-                ),
+              const SizedBox(
+                height: 12,
               ),
-              Expanded(
-                flex: 2,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+              BuildListRowItem<ProductComponent>(
+                items: value.extraItems ?? [],
+                emptyMessage: S.of(context).noExtraAvailable,
+                itemBuilder: (item) => Row(
                   children: [
-                    BuildCountQty(
-                      // width: 100,
-                      value: item.qty ?? 0,
-                      onChanged: (value) {},
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Text(
+                          item.name ?? '',
+                          style: context.titleSmall
+                              .copyWith(color: Theme.of(context).hintColor),
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        item.salePrice?.toCurrencyFormat ?? '',
+                        style: context.titleSmall,
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          BuildCountQty(
+                            // width: 100,
+                            value: 0,
+                            onChanged: (value) {
+                              _provider.changeQuantityProductExtra(
+                                id: item.id,
+                                value: value,
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
-              ),
+              )
             ],
-          ),
-        )
-      ],
-    );
+          );
+        });
   }
 
   Widget _buildFooter(BuildContext context) {
     return BuildScaffoldFooter(
-      child: Column(
-        children: [
-          Row(
+      child: Consumer<ProductDetailProvider>(
+        builder: (context, provider, child) {
+          return Column(
             children: [
-              Expanded(
-                child: Text(
-                  '49.000',
-                  style: context.titleLargeS22
-                      .copyWith(fontWeight: FontWeight.bold, fontSize: 24),
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      provider.product
+                          .getTotalPrice(provider.quantity)
+                          .toCurrencyFormat,
+                      style: context.titleLargeS22.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      ),
+                    ),
+                  ),
+                  BuildCountQty(
+                    value: provider.quantity,
+                    minValue: 1,
+                    onChanged: (value) {
+                      provider.changeQuantity(value);
+                    },
+                  )
+                ],
               ),
-              BuildCountQty(
-                value: 1,
-                onChanged: (value) {},
+              const SizedBox(height: 12),
+              BuildCustomButton(
+                text: S.of(context).addToCart,
+                textBold: false,
+                radius: 12,
+                onPressed: () {},
               )
             ],
-          ),
-          const SizedBox(height: 12),
-          BuildCustomButton(
-            text: S.of(context).addToCart,
-            textBold: false,
-            radius: 12,
-            onPressed: () {},
-          )
-        ],
+          );
+        },
       ),
     );
   }

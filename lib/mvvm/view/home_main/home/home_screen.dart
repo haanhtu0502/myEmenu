@@ -272,7 +272,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             imageUrl: null,
                           ),
                         ),
-                      )
+                      ).expand(
+                        (element) => [
+                          const SizedBox(width: 12),
+                          element,
+                        ],
+                      ),
                     ],
                   ),
                 ),

@@ -48,3 +48,16 @@ class ProductModel {
         .toList();
   }
 }
+
+extension ProductModelExtension on ProductModel {
+  num getTotalPrice(int qty) {
+    final basePrice = extraItems?.fold(
+          salesPrice ?? 0,
+          (sum, extra) =>
+              (sum) + (extra.quantity ?? 0) * (extra.salePrice ?? 0),
+        ) ??
+        (salesPrice ?? 0);
+
+    return basePrice * qty;
+  }
+}

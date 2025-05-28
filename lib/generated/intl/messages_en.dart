@@ -46,6 +46,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "morning": MessageLookupByLibrary.simpleMessage("Morning"),
         "myCart": MessageLookupByLibrary.simpleMessage("My cart"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "noComponentAvailable":
+            MessageLookupByLibrary.simpleMessage("No component available"),
+        "noExtraAvailable":
+            MessageLookupByLibrary.simpleMessage("No extra available"),
         "note": MessageLookupByLibrary.simpleMessage("Note"),
         "orderFoodHear":
             MessageLookupByLibrary.simpleMessage("Order food here"),

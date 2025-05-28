@@ -559,6 +559,26 @@ class S {
       args: [],
     );
   }
+
+  /// `No extra available`
+  String get noExtraAvailable {
+    return Intl.message(
+      'No extra available',
+      name: 'noExtraAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No component available`
+  String get noComponentAvailable {
+    return Intl.message(
+      'No component available',
+      name: 'noComponentAvailable',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

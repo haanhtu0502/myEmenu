@@ -1,4 +1,6 @@
 import 'package:emenu/core/di/di.dart';
+import 'package:emenu/mvvm/data/model/category_model.dart';
+import 'package:emenu/mvvm/data/model/product_model.dart';
 import 'package:emenu/mvvm/view/cart/view/cart_screen.dart';
 import 'package:emenu/mvvm/view/home_main/home_main_screen.dart';
 import 'package:emenu/mvvm/view/list_product/list_product_screen.dart';
@@ -9,6 +11,7 @@ import 'package:emenu/mvvm/viewmodel/app_provider.dart';
 import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
 import 'package:emenu/mvvm/viewmodel/home/home_provider.dart';
 import 'package:emenu/mvvm/viewmodel/list_product/list_product_provider.dart';
+import 'package:emenu/mvvm/viewmodel/product_detail/product_detail_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -83,15 +86,28 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       parentNavigatorKey: appNavigationKey,
       path: AppPages.listProduct,
-      builder: (context, state) => ChangeNotifierProvider(
-        create: (context) => injector.get<ListProductProvider>(),
-        child: const ListProductScreen(),
-      ),
+      builder: (context, state) {
+        final categorySelected = state.extra as CategoryModel?;
+        return ChangeNotifierProvider(
+          create: (context) => injector.get<ListProductProvider>(),
+          child: ListProductScreen(
+            category: categorySelected,
+          ),
+        );
+      },
       routes: [
         GoRoute(
           parentNavigatorKey: appNavigationKey,
           path: AppPages.detailProduct,
-          builder: (context, state) => const ProductDetailScreen(),
+          builder: (context, state) {
+            final product = state.extra as ProductModel;
+            return ChangeNotifierProvider(
+              create: (context) => injector.get<ProductDetailProvider>(
+                param1: product,
+              ),
+              child: const ProductDetailScreen(),
+            );
+          },
         )
       ],
     ),
