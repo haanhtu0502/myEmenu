@@ -229,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // const Spacer(),
             ElevatedButton(
               onPressed: () {
-                context.go(AppPages.listProduct);
+                context.push(AppPages.listProduct);
               },
               style: ElevatedButton.styleFrom(
                 elevation: 0,
@@ -300,48 +300,56 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildCategoryItem(BuildContext context, CategoryModel item) {
-    return ProductCardItem(
-      imageUrl: item.imageUrl ?? ImageConst.defaultCategoryImg,
-      imageFit: BoxFit.contain,
-      width: 150,
-      content: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  item.name ?? '',
+    return InkWell(
+      onTap: () {
+        context.push(
+          AppPages.listProduct,
+          extra: item,
+        );
+      },
+      child: ProductCardItem(
+        imageUrl: item.imageUrl ?? ImageConst.defaultCategoryImg,
+        imageFit: BoxFit.contain,
+        width: 150,
+        content: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Text(
+                    item.name ?? '',
+                    style: context.titleMedium.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                Text(
+                  S.of(context).priceFrom,
                   style: context.titleMedium.copyWith(
-                    color: Colors.black,
+                    color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Row(
-            children: [
-              Text(
-                S.of(context).priceFrom,
-                style: context.titleMedium.copyWith(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.bold,
+                const Spacer(),
+                Text(
+                  item.fromPrice?.toCurrencyFormat ?? '',
+                  style: context.titleMedium.copyWith(
+                    color: Theme.of(context).dividerColor,
+                  ),
                 ),
-              ),
-              const Spacer(),
-              Text(
-                item.fromPrice?.toCurrencyFormat ?? '',
-                style: context.titleMedium.copyWith(
-                  color: Theme.of(context).dividerColor,
-                ),
-              ),
-            ],
-          )
-        ],
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

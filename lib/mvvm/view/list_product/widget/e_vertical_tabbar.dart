@@ -7,10 +7,12 @@ class EVerticalTabbar extends StatefulWidget {
     super.key,
     required this.children,
     required this.tabs,
+    this.initialIndex = 0,
   });
 
   final List<Widget> children;
   final List<CategoryModel> tabs;
+  final int initialIndex;
 
   @override
   State<EVerticalTabbar> createState() => _EVerticalTabbarState();
@@ -25,13 +27,51 @@ class _EVerticalTabbarState extends State<EVerticalTabbar>
   final ScrollOffsetListener _offsetListener = ScrollOffsetListener.create();
 
   final ValueNotifier<bool> _isScrolling = ValueNotifier<bool>(false);
+  bool _isInitialScrollDone = false;
 
   @override
   void initState() {
-    _tabController = TabController(length: widget.tabs.length, vsync: this);
+    _tabController = TabController(
+      length: widget.tabs.length,
+      vsync: this,
+    );
 
     _positionsListener.itemPositions.addListener(_handleScroll);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(
+        const Duration(milliseconds: 200),
+        () => _scrollToInitialIndex(),
+      );
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _positionsListener.itemPositions.removeListener(_handleScroll);
+
+    super.dispose();
+  }
+
+  void _scrollToInitialIndex() {
+    if (widget.initialIndex == 0) {
+      _isInitialScrollDone = true;
+      return;
+    }
+    if (_scrollController.isAttached && !_isInitialScrollDone) {
+      _isScrolling.value = true;
+
+      _scrollController.scrollTo(
+        index: widget.initialIndex,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+      );
+
+      _isScrolling.value = false;
+      _isInitialScrollDone = true;
+    }
   }
 
   void _onTabChange(int index) {
@@ -46,10 +86,11 @@ class _EVerticalTabbarState extends State<EVerticalTabbar>
   }
 
   void _handleScroll() {
-    if (_isScrolling.value) return;
+    if (_isScrolling.value || !_isInitialScrollDone) return;
     _isScrolling.value = true;
     final positions = _positionsListener.itemPositions.value;
-    final firstIndex = positions.isNotEmpty ? positions.first.index : 0;
+    final firstIndex =
+        positions.isNotEmpty ? positions.first.index : widget.initialIndex;
     if (_tabController.index != firstIndex) {
       _tabController.animateTo(firstIndex);
     }
