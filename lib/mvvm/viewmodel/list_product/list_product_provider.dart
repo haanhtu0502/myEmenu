@@ -12,6 +12,10 @@ import 'package:injectable/injectable.dart';
 class ListProductProvider extends ChangeNotifier {
   List<CategoryProductModel> listCategoryProduct = [];
   final ProductCategoryRepositories _productCategoryRepositories;
+  List<ProductModel> listProductBySearch = [];
+  int productBySearchCurrentPage = 0;
+  int productBySearchTotalPage = 0;
+  String searchText = '';
 
   ListProductViewState _state = const ListProductViewState.idle();
   ListProductViewState get state => _state;
@@ -162,6 +166,47 @@ class ListProductProvider extends ChangeNotifier {
           _state = const ListProductViewState.getMoreProductByCategorySuccess();
           notifyListeners();
         }
+      },
+    );
+  }
+
+  Future<void> getProductBySearch(String newSearchText) async {
+    if (newSearchText.isEmpty) {
+      listProductBySearch = [];
+      productBySearchCurrentPage = 0;
+      productBySearchTotalPage = 0;
+      searchText = '';
+      notifyListeners();
+      return;
+    }
+
+    _state = const ListProductViewState.loadingGetProductBySearch();
+    notifyListeners();
+    searchText = newSearchText;
+    final result = await _productCategoryRepositories.getProduct(
+      request: GetProductRequest(
+        page: productBySearchCurrentPage,
+        pageSize: 6,
+        tenantId: AppInformation().tenantId ?? 0,
+        orgId: AppInformation().orgId ?? 0,
+        posTerminalId: AppInformation().posTerminalId ?? 0,
+        name: searchText.isNotEmpty ? searchText : null,
+      ),
+    );
+
+    result.fold(
+      (l) {
+        _state = ListProductViewState.error(l.message);
+        notifyListeners();
+        return;
+      },
+      (r) {
+        listProductBySearch =
+            r.currentPage == 0 ? r.data : [...listProductBySearch, ...r.data];
+        productBySearchCurrentPage = r.currentPage;
+        productBySearchTotalPage = r.totalPages;
+        _state = const ListProductViewState.getProductBySearchSuccess();
+        notifyListeners();
       },
     );
   }

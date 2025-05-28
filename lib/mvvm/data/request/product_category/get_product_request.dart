@@ -4,7 +4,8 @@ class GetProductRequest {
   int tenantId;
   int orgId;
   int posTerminalId;
-  int productCategoryId;
+  int? productCategoryId;
+  String? name;
 
   GetProductRequest({
     required this.page,
@@ -12,17 +13,26 @@ class GetProductRequest {
     required this.tenantId,
     required this.orgId,
     required this.posTerminalId,
-    required this.productCategoryId,
+    this.productCategoryId,
+    this.name,
   });
 
   Map<String, dynamic> toMap() {
-    return {
+    Map<String, dynamic> map = {};
+    map = {
       'page': page,
       'pageSize': pageSize,
       'tenantId': tenantId,
       'orgId': orgId,
       'posTerminalId': posTerminalId,
-      'productCategoryId': productCategoryId,
     };
+    if (productCategoryId != null) {
+      map['productCategoryId'] = productCategoryId;
+    }
+    if (name != null) {
+      map['name'] = name;
+    }
+
+    return map;
   }
 }

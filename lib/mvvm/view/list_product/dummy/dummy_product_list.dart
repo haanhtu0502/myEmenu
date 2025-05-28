@@ -25,6 +25,15 @@ final List<CategoryModel> dummyCateList = [
   ),
 ];
 
+final List<ProductModel> productSkeletonList = List.generate(
+  10,
+  (index) => ProductModel(
+    productId: index + 1,
+    name: 'Product $index',
+    salesPrice: (index + 1) * 10000,
+  ),
+);
+
 final List<CategoryProductModel> dummyCateProductList = [
   CategoryProductModel(
     category: dummyCateList[0],

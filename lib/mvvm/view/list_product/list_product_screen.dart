@@ -1,9 +1,13 @@
+import 'dart:async';
+
+import 'package:emenu/app_coordinator.dart';
 import 'package:emenu/core/component/build_cart_layout.dart';
 import 'package:emenu/core/component/build_product_card_item.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/core/extensions/num_extension.dart';
 import 'package:emenu/generated/l10n.dart';
+import 'package:emenu/mvvm/data/model/category_model.dart';
 import 'package:emenu/mvvm/data/model/category_product_model.dart';
 import 'package:emenu/mvvm/data/model/product_model.dart';
 import 'package:emenu/mvvm/view/list_product/dummy/dummy_product_list.dart';
@@ -19,7 +23,12 @@ import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ListProductScreen extends StatefulWidget {
-  const ListProductScreen({super.key});
+  const ListProductScreen({
+    super.key,
+    this.category,
+  });
+
+  final CategoryModel? category;
 
   @override
   State<ListProductScreen> createState() => _ListProductScreenState();
@@ -29,6 +38,18 @@ class _ListProductScreenState extends State<ListProductScreen> {
   final TextEditingController _searchController = TextEditingController();
   ListProductProvider get _provider => context.read<ListProductProvider>();
 
+  Timer? _debounce;
+
+  void _onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(
+      const Duration(milliseconds: 300),
+      () {
+        _provider.getProductBySearch(query);
+      },
+    );
+  }
+
   @override
   void initState() {
     _provider.initData();
@@ -37,6 +58,12 @@ class _ListProductScreenState extends State<ListProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<ListProductProvider>().state;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (state.isError) {
+        context.showTopSnackbar(state.message ?? '', isError: true);
+      }
+    });
     return Scaffold(
       body: BuildCartLayout(
         child: Padding(
@@ -51,7 +78,9 @@ class _ListProductScreenState extends State<ListProductScreen> {
               children: [
                 _buildHeader(context),
                 const SizedBox(height: 12),
-                _buildListProduct(context, provider),
+                provider.searchText.isNotEmpty
+                    ? _buildListSearchProduct(context, provider: provider)
+                    : _buildListProduct(context, provider),
               ],
             );
           }),
@@ -84,6 +113,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
             child: TextField(
               style: context.titleSmall,
               controller: _searchController,
+              onChanged: _onSearchChanged,
               decoration: InputDecoration(
                 hintText: S.of(context).search,
                 hintStyle: context.titleSmall.copyWith(
@@ -104,10 +134,16 @@ class _ListProductScreenState extends State<ListProductScreen> {
                   color: Color(0xFFA0A5BA),
                   size: 18,
                 ),
-                suffixIcon: const Icon(
-                  Icons.close,
-                  color: Color(0xFFA0A5BA),
-                  size: 18,
+                suffixIcon: InkWell(
+                  onTap: () {
+                    _searchController.clear();
+                    _provider.getProductBySearch('');
+                  },
+                  child: const Icon(
+                    Icons.close,
+                    color: Color(0xFFA0A5BA),
+                    size: 18,
+                  ),
                 ),
               ),
             ),
@@ -135,6 +171,11 @@ class _ListProductScreenState extends State<ListProductScreen> {
           : EVerticalTabbar(
               tabs:
                   provider.listCategoryProduct.map((e) => e.category).toList(),
+              initialIndex: widget.category != null
+                  ? provider.listCategoryProduct.indexWhere(
+                      (e) => e.category.id == widget.category!.id,
+                    )
+                  : 0,
               children: [
                 ...provider.listCategoryProduct.map(
                   (item) => _buildProductCateItem(context, item),
@@ -160,10 +201,8 @@ class _ListProductScreenState extends State<ListProductScreen> {
         const SizedBox(height: 50),
         GridView.builder(
           shrinkWrap: true,
-          // physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            // childAspectRatio: 1.65,
             crossAxisSpacing: 12,
             mainAxisSpacing: 60,
           ),
@@ -185,7 +224,8 @@ class _ListProductScreenState extends State<ListProductScreen> {
               ),
               itemCount: 2,
               itemBuilder: (context, index) {
-                return _buildProductCardItem(context, item.products[index],
+                return _buildProductCardItem(
+                    context, productSkeletonList[index],
                     isLoading: isLoading);
               },
             ),
@@ -235,19 +275,20 @@ class _ListProductScreenState extends State<ListProductScreen> {
 
   Widget _buildProductCardItem(
     BuildContext context,
-    ProductModel item, {
+    ProductModel? item, {
     bool isLoading = false,
   }) {
     return GestureDetector(
       onTap: () {
-        context.go(
+        context.push(
           '${AppPages.listProduct}${AppPages.detailProduct}',
+          extra: item,
         );
       },
       child: ProductCardItem(
-        imageUrl: item.imageUrl ?? ImageConst.foodImage,
+        imageUrl: item?.imageUrl ?? ImageConst.foodImage,
         isBorder: true,
-        imageTopPosition: -30,
+        imageTopPosition: -25,
         imageFit: BoxFit.cover,
         width: 180,
         content: Column(
@@ -258,7 +299,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    item.name ?? '',
+                    item?.name ?? '',
                     style: context.titleMedium.copyWith(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -274,7 +315,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  '${S.of(context).description} : ${item.description ?? ''}',
+                  '${S.of(context).description} : ${item?.description ?? ''}',
                   style: context.titleSmall.copyWith(
                     color: Theme.of(context).dividerColor,
                   ),
@@ -285,7 +326,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
             Row(
               children: [
                 Text(
-                  item.salesPrice?.toCurrencyFormat ?? '',
+                  item?.salesPrice?.toCurrencyFormat ?? '',
                   style: context.titleMedium.copyWith(
                     color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
@@ -313,24 +354,98 @@ class _ListProductScreenState extends State<ListProductScreen> {
   }
 
   Widget _buildListSearchProduct(
-      BuildContext context, List<ProductModel> products,
-      {bool isLoading = false}) {
+    BuildContext context, {
+    required ListProductProvider provider,
+  }) {
+    final products = provider.listProductBySearch;
+    final state = provider.state;
     return Expanded(
-      child: GridView.builder(
-        shrinkWrap: true,
-        // physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          // childAspectRatio: 1.65,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 60,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 50),
+            state.isLoadingGetProductBySearch &&
+                    provider.productBySearchCurrentPage == 0
+                ? Skeletonizer(
+                    child: _buildGridViewProduct(
+                      context,
+                      productSkeletonList,
+                      isLoading: true,
+                    ),
+                  )
+                : _buildGridViewProduct(
+                    context,
+                    products,
+                  ),
+            if (state.isLoadingGetProductBySearch &&
+                provider.productBySearchCurrentPage > 0) ...[
+              const SizedBox(height: 60),
+              Skeletonizer(
+                child: _buildGridViewProduct(
+                  context,
+                  productSkeletonList,
+                  isLoading: true,
+                ),
+              )
+            ],
+            const SizedBox(height: 14),
+            if (!state.isLoadingGetProductBySearch &&
+                provider.productBySearchCurrentPage <
+                    provider.productBySearchTotalPage - 1 &&
+                products.isNotEmpty)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      provider.productBySearchCurrentPage++;
+                      _provider.getProductBySearch(
+                        _searchController.text,
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        Text(
+                          S.of(context).viewMoreProduct,
+                          style: context.titleMedium.copyWith(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        SvgPicture.asset(
+                          ImageConst.arrowRightIcon,
+                          width: 12,
+                          height: 12,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )
+          ],
         ),
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          return _buildProductCardItem(context, products[index],
-              isLoading: isLoading);
-        },
       ),
+    );
+  }
+
+  Widget _buildGridViewProduct(
+    BuildContext context,
+    List<ProductModel> products, {
+    bool isLoading = false,
+  }) {
+    return GridView.builder(
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 60,
+      ),
+      itemCount: products.length,
+      itemBuilder: (context, index) {
+        return _buildProductCardItem(context, products[index],
+            isLoading: isLoading);
+      },
     );
   }
 }
