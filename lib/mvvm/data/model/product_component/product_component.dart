@@ -57,4 +57,69 @@ class ProductComponent {
       'qty': quantity,
     };
   }
+
+  ProductComponent copyWith({
+    int? id,
+    String? code,
+    String? name,
+    num? salePrice,
+    num? costPrice,
+    int? taxId,
+    int? uomId,
+    String? uomCode,
+    String? uomName,
+    String? taxName,
+    num? taxRate,
+    int? quantity,
+  }) {
+    return ProductComponent(
+      id: id ?? this.id,
+      code: code ?? this.code,
+      name: name ?? this.name,
+      salePrice: salePrice ?? this.salePrice,
+      costPrice: costPrice ?? this.costPrice,
+      taxId: taxId ?? this.taxId,
+      uomId: uomId ?? this.uomId,
+      uomCode: uomCode ?? this.uomCode,
+      uomName: uomName ?? this.uomName,
+      taxName: taxName ?? this.taxName,
+      taxRate: taxRate ?? this.taxRate,
+      quantity: quantity ?? this.quantity,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is ProductComponent &&
+        other.id == id &&
+        other.code == code &&
+        other.name == name &&
+        other.salePrice == salePrice &&
+        other.costPrice == costPrice &&
+        other.taxId == taxId &&
+        other.uomId == uomId &&
+        other.uomCode == uomCode &&
+        other.uomName == uomName &&
+        other.taxName == taxName &&
+        other.taxRate == taxRate &&
+        other.quantity == quantity;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        code.hashCode ^
+        name.hashCode ^
+        salePrice.hashCode ^
+        costPrice.hashCode ^
+        taxId.hashCode ^
+        uomId.hashCode ^
+        uomCode.hashCode ^
+        uomName.hashCode ^
+        taxName.hashCode ^
+        taxRate.hashCode ^
+        quantity.hashCode;
+  }
 }

@@ -2,8 +2,8 @@ import 'package:emenu/mvvm/view/cart/widget/build_add_note_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 extension CartCoordinator on BuildContext {
-  Future<void> showAddNoteDialog() async {
-    await showModalBottomSheet(
+  Future<String?> showAddNoteDialog({String? note}) async {
+    final result = await showModalBottomSheet(
       context: this,
       isScrollControlled: true,
       isDismissible: true,
@@ -16,9 +16,17 @@ extension CartCoordinator on BuildContext {
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          child: const BuildAddNoteBottomSheet(),
+          child: BuildAddNoteBottomSheet(
+            note: note,
+          ),
         );
       },
     );
+
+    if (result is String) {
+      return result;
+    } else {
+      return null;
+    }
   }
 }

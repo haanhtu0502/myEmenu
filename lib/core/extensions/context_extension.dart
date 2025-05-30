@@ -99,37 +99,4 @@ extension ContextExtension on BuildContext {
   TextStyle get bodyMedium => Theme.of(this).textTheme.bodyMedium!.copyWith(
         fontFamily: 'Roboto',
       );
-
-  Future<void> showAlertDialog({
-    required Widget content,
-    Color? backgroundColor,
-    bool barrierDismissible = true,
-    double? width,
-    double? height,
-  }) async {
-    await showDialog(
-      context: this,
-      builder: (context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          elevation: 16,
-          backgroundColor:
-              backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            width: width,
-            height: height,
-            decoration: BoxDecoration(
-              color:
-                  backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: content,
-          ),
-        );
-      },
-    );
-  }
 }

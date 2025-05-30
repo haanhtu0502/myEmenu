@@ -1,3 +1,4 @@
+import 'package:emenu/app_coordinator.dart';
 import 'package:emenu/core/component/build_cart_layout.dart';
 import 'package:emenu/core/component/build_count_qty.dart';
 import 'package:emenu/core/component/build_custom_button.dart';
@@ -6,10 +7,13 @@ import 'package:emenu/core/component/image_render.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/core/extensions/num_extension.dart';
+import 'package:emenu/core/utils/logger.dart';
 import 'package:emenu/generated/l10n.dart';
+import 'package:emenu/mvvm/data/model/product_cart_item/product_cart_item_model.dart';
 import 'package:emenu/mvvm/data/model/product_component/product_component.dart';
 import 'package:emenu/mvvm/data/model/product_model.dart';
 import 'package:emenu/mvvm/view/product_detail/widget/build_list_row_item.dart';
+import 'package:emenu/mvvm/viewmodel/cart/cart_provider.dart';
 import 'package:emenu/mvvm/viewmodel/product_detail/product_detail_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -28,6 +32,8 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   ProductDetailProvider get _provider =>
       Provider.of<ProductDetailProvider>(context, listen: false);
+  CartProvider get _cartProvider =>
+      Provider.of<CartProvider>(context, listen: false);
 
   @override
   Widget build(BuildContext context) {
@@ -325,7 +331,24 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 text: S.of(context).addToCart,
                 textBold: false,
                 radius: 12,
-                onPressed: () {},
+                onPressed: () {
+                  final ProductCartItemModel productCardItem =
+                      ProductCartItemModel(
+                    product: provider.product.copyWith(),
+                    quantity: provider.quantity,
+                    note: provider.note,
+                    totalPrice:
+                        provider.product.getTotalPrice(provider.quantity),
+                  );
+                  _cartProvider.addToCart(
+                    productCardItem,
+                  );
+
+                  context.showTopSnackbar(
+                    S.of(context).addToCartSuccess,
+                    isError: false,
+                  );
+                },
               )
             ],
           );

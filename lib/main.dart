@@ -5,6 +5,7 @@ import 'package:emenu/core/design_system/resource/constant.dart';
 import 'package:emenu/core/di/di.dart';
 import 'package:emenu/core/services/share_preferences_service.dart';
 import 'package:emenu/mvvm/viewmodel/app_provider.dart';
+import 'package:emenu/mvvm/viewmodel/cart/cart_provider.dart';
 import 'package:emenu/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -18,12 +19,19 @@ void main() async {
   Configurations().setConfigurationValues(environmentProd);
   await configureDependencies(environment: Environment.prod);
   await SharedPreferencesService().init();
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (context) => injector.get<AppProvider>()),
-    ],
-    child: const MyApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: injector.get<AppProvider>(),
+        ),
+        ChangeNotifierProvider.value(
+          value: injector.get<CartProvider>(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

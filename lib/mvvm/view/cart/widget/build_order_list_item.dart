@@ -1,23 +1,32 @@
 import 'package:emenu/core/component/build_count_qty.dart';
+import 'package:emenu/core/component/image_render.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
+import 'package:emenu/core/extensions/num_extension.dart';
 import 'package:emenu/generated/l10n.dart';
+import 'package:emenu/mvvm/data/model/product_cart_item/product_cart_item_model.dart';
 import 'package:emenu/mvvm/view/cart/cart_coordinator.dart';
+import 'package:emenu/mvvm/viewmodel/cart/cart_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BuildOrderListItem extends StatefulWidget {
   const BuildOrderListItem({
     super.key,
     this.isLastItem = false,
+    required this.item,
   });
 
   final bool isLastItem;
+  final ProductCartItemModel item;
 
   @override
   State<BuildOrderListItem> createState() => _BuildOrderListItemState();
 }
 
 class _BuildOrderListItemState extends State<BuildOrderListItem> {
+  CartProvider get _cartProvider =>
+      Provider.of<CartProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,8 +53,10 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.asset(
-                  ImageConst.foodImage,
+                ImageRender(
+                  imageUrl:
+                      widget.item.product.imageUrl ?? ImageConst.foodImage,
+                  height: 60,
                   width: double.infinity,
                 ),
               ],
@@ -62,8 +73,13 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 BuildCountQty(
-                  value: 1,
-                  onChanged: (p0) {},
+                  value: widget.item.quantity,
+                  onChanged: (p0) {
+                    _cartProvider.updateCartItemQuantity(
+                      widget.item,
+                      p0,
+                    );
+                  },
                 ),
               ],
             ),
@@ -81,7 +97,7 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
           children: [
             Expanded(
               child: Text(
-                'Lẩu Gà Lá É Đặc Sản Phú Yên',
+                widget.item.product.name ?? '',
                 style: context.titleMedium.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -91,16 +107,37 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
           ],
         ),
         const SizedBox(height: 4),
-        Text(
-          '1 x 100.000đ',
-          style: context.titleMedium.copyWith(
-            color: Theme.of(context).dividerColor,
-          ),
-        ),
-        const SizedBox(height: 4),
+        ...widget.item.product.extraItems!
+            .map(
+              (e) => e.quantity != null && e.quantity! > 0
+                  ? Text(
+                      '${e.quantity} x ${e.name}',
+                      style: context.titleMedium.copyWith(
+                        color: Theme.of(context).dividerColor,
+                      ),
+                    )
+                  : const SizedBox(),
+            )
+            .expand(
+              (element) => [
+                element,
+                const SizedBox(
+                  height: 4,
+                )
+              ],
+            ),
         InkWell(
           onTap: () async {
-            await context.showAddNoteDialog();
+            final result = await context.showAddNoteDialog(
+              note: widget.item.note.isNotEmpty ? widget.item.note : null,
+            );
+
+            if (result != null) {
+              _cartProvider.updateCartItemNote(
+                widget.item,
+                result,
+              );
+            }
           },
           child: Row(
             children: [
@@ -111,7 +148,9 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
               ),
               const SizedBox(width: 4),
               Text(
-                S.of(context).addNote,
+                widget.item.note.isNotEmpty
+                    ? widget.item.note
+                    : S.of(context).addNote,
                 style: context.titleMedium.copyWith(
                   color: Theme.of(context).dividerColor,
                 ),
@@ -121,7 +160,7 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
         ),
         const SizedBox(height: 4),
         Text(
-          '49.000',
+          widget.item.totalPrice.toCurrencyFormat,
           style: context.titleMedium.copyWith(
             fontWeight: FontWeight.bold,
           ),

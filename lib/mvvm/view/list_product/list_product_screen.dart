@@ -12,7 +12,6 @@ import 'package:emenu/mvvm/data/model/category_product_model.dart';
 import 'package:emenu/mvvm/data/model/product_model.dart';
 import 'package:emenu/mvvm/view/list_product/dummy/dummy_product_list.dart';
 import 'package:emenu/mvvm/view/list_product/widget/e_vertical_tabbar.dart';
-import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
 import 'package:emenu/mvvm/viewmodel/list_product/list_product_provider.dart';
 import 'package:emenu/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -95,10 +94,11 @@ class _ListProductScreenState extends State<ListProductScreen> {
       children: [
         InkWell(
           onTap: () {
-            final appInfo = AppInformation();
-            String routeParam = appInfo.hashParam ??
-                '${appInfo.tenantId}/${appInfo.orgId}/${appInfo.tableId}/${appInfo.floorId}/${appInfo.posTerminalId}/${appInfo.tableNo}/${appInfo.floorNo}/${appInfo.priceListId}';
-            context.go('${AppPages.home}/$routeParam');
+            // final appInfo = AppInformation();
+            // String routeParam = appInfo.hashParam ??
+            //     '${appInfo.tenantId}/${appInfo.orgId}/${appInfo.tableId}/${appInfo.floorId}/${appInfo.posTerminalId}/${appInfo.tableNo}/${appInfo.floorNo}/${appInfo.priceListId}';
+            // context.go('${AppPages.home}/$routeParam');
+            Navigator.of(context).pop();
           },
           child: SvgPicture.asset(
             ImageConst.shopIcon,

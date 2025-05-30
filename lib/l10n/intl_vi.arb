@@ -51,5 +51,12 @@
     "tax": "Thuế",
     "pleaseInput": "Vui lòng nhập",
     "noExtraAvailable": "Không có món thêm nào",
-    "noComponentAvailable": "Không có thành phần nào"
+    "noComponentAvailable": "Không có thành phần nào",
+    "addToCartSuccess": "Đã thêm vào giỏ hàng thành công",
+    "table": "Bàn",
+    "close": "Đóng",
+    "confirm": "Xác nhận",
+    "removeItem": "Xoá món",
+    "removeItemConfirm": "Bạn có chắc chắn muốn xoá món này khỏi giỏ hàng không?",
+    "itemDeletedSuccessfully": "Món đã được xoá thành công"
 }

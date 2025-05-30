@@ -19,12 +19,14 @@ class ProductDetailProvider extends ChangeNotifier {
     if (value < 0) {
       return;
     }
-    product.extraItems = product.extraItems?.map((extra) {
-      if (extra.id == id) {
-        extra.quantity = value;
-      }
-      return extra;
-    }).toList();
+    product = product.copyWith(
+      extraItems: product.extraItems?.map((item) {
+        if (item.id == id) {
+          return item.copyWith(quantity: value);
+        }
+        return item;
+      }).toList(),
+    );
 
     notifyListeners();
   }

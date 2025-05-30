@@ -1,5 +1,6 @@
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
+import 'package:emenu/mvvm/viewmodel/cart/cart_provider.dart';
 import 'package:emenu/routes/app_pages.dart';
 import 'package:emenu/theme/theme_config.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 const double cartWidth = 50;
 const double cartHeight = 50;
@@ -85,7 +87,7 @@ class _DragableCartState extends State<DragableCart> {
 
       if (details.offset.dy < 0) {
         _positionTop = 10;
-      } else if (details.offset.dy > widget.screenHeight - _cartBubbleHeight) {
+      } else if (details.offset.dy > widget.screenHeight) {
         _positionTop = widget.screenHeight - _cartBubbleHeight - 10;
       }
     });
@@ -104,63 +106,22 @@ class _DragableCartState extends State<DragableCart> {
       duration: const Duration(milliseconds: 200),
       top: _positionTop,
       left: _positionLeft,
-      child: Draggable(
-        onDragEnd: _onDragEnd,
-        onDragUpdate: _onDragUpdate,
-        feedback: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Container(
-              height: bigCartHeight,
-              width: bigCartWidth,
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                border: Border.all(color: Colors.transparent, width: 0),
-                borderRadius: BorderRadius.circular(50),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: SvgPicture.asset(
-                ImageConst.shoppingBag,
-                width: bigCartWidth - 30,
-                height: bigCartHeight - 30,
-                fit: BoxFit.contain,
-              ),
-            ),
-            _buildItemsNumber(context),
-          ],
-        ),
-        childWhenDragging: const SizedBox(),
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            MouseRegion(
-              onEnter: (event) {
-                _onMouseEnter();
-              },
-              onExit: (event) {
-                _onMouseExit();
-              },
-              child: GestureDetector(
-                onTap: () {
-                  context.push(AppPages.cart);
-                },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 100),
-                  height: _cartBubbleHeight,
-                  width: _cartBubbleWidth,
+      child: Consumer<CartProvider>(
+        builder: (context, provider, child) {
+          return Draggable(
+            onDragEnd: _onDragEnd,
+            onDragUpdate: _onDragUpdate,
+            feedback: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  height: bigCartHeight,
+                  width: bigCartWidth,
                   padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(50),
                     border: Border.all(color: Colors.transparent, width: 0),
+                    borderRadius: BorderRadius.circular(50),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.2),
@@ -172,21 +133,68 @@ class _DragableCartState extends State<DragableCart> {
                   ),
                   child: SvgPicture.asset(
                     ImageConst.shoppingBag,
-                    width: _cartBubbleWidth - 30,
-                    height: _cartBubbleHeight - 30,
+                    width: bigCartWidth - 30,
+                    height: bigCartHeight - 30,
                     fit: BoxFit.contain,
                   ),
                 ),
-              ),
+                if (provider.cartItems.isNotEmpty)
+                  _buildItemsNumber(context, provider.cartItems.length),
+              ],
             ),
-            _buildItemsNumber(context),
-          ],
-        ),
+            childWhenDragging: const SizedBox(),
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                MouseRegion(
+                  onEnter: (event) {
+                    _onMouseEnter();
+                  },
+                  onExit: (event) {
+                    _onMouseExit();
+                  },
+                  child: GestureDetector(
+                    onTap: () {
+                      context.push(AppPages.cart);
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 100),
+                      height: _cartBubbleHeight,
+                      width: _cartBubbleWidth,
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: Colors.transparent, width: 0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: SvgPicture.asset(
+                        ImageConst.shoppingBag,
+                        width: _cartBubbleWidth - 30,
+                        height: _cartBubbleHeight - 30,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
+                if (provider.cartItems.isNotEmpty)
+                  _buildItemsNumber(context, provider.cartItems.length),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 
-  Widget _buildItemsNumber(BuildContext context) {
+  Widget _buildItemsNumber(BuildContext context, int count) {
     return Positioned(
       top: -7,
       right: 0,
@@ -200,7 +208,7 @@ class _DragableCartState extends State<DragableCart> {
         ),
         child: Center(
           child: Text(
-            '1',
+            count.toString(),
             style: context.titleSmall.copyWith(
               color: Colors.white,
               fontSize: 11,
