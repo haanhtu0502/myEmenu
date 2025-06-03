@@ -1,6 +1,13 @@
 import 'package:emenu/mvvm/data/model/product_cart_item/product_cart_item_model.dart';
+import 'package:emenu/mvvm/data/request/create_order_request.dart';
+import 'package:emenu/mvvm/repository/cart_repositories.dart';
+import 'package:emenu/mvvm/viewmodel/app_provider.dart';
+import 'package:emenu/mvvm/viewmodel/cart/view_state/cart_view_state.dart';
+import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
 import 'package:flutter/material.dart';
+import 'package:emenu/mvvm/data/model/product_model.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 
 @injectable
 @singleton
@@ -8,7 +15,15 @@ class CartProvider extends ChangeNotifier {
   final List<ProductCartItemModel> cartItems = [];
   num totalPrice = 0;
 
-  CartProvider();
+  final CartRepositories _cartRepositories;
+
+  CartViewState _cartViewState = const CartViewState.initial();
+
+  CartViewState get cartViewState => _cartViewState;
+
+  CartProvider(
+    this._cartRepositories,
+  );
 
   void addToCart(ProductCartItemModel productCart) {
     final int index = cartItems.indexWhere((item) => item == productCart);
@@ -48,7 +63,8 @@ class CartProvider extends ChangeNotifier {
       } else {
         // Update the quantity and total price of the item
         cartItems[index].quantity = quantity;
-        cartItems[index].totalPrice = productCart.totalPrice * quantity;
+        cartItems[index].totalPrice =
+            productCart.product.getTotalPrice(quantity);
       }
       notifyListeners();
     }
@@ -61,5 +77,44 @@ class CartProvider extends ChangeNotifier {
       cartItems[index].note = note;
       notifyListeners();
     }
+  }
+
+  Future<void> sendRequestOrder({required AppProvider appProvider}) async {
+    _cartViewState = const CartViewState.loadingSendRequestOrder();
+    notifyListeners();
+    final result = await _cartRepositories.saveRequestOrder(CreateOrderRequest(
+      orgId: AppInformation().orgId!,
+      priceListId: AppInformation().priceListId!,
+      cusName: appProvider.customerName ?? '',
+      cusPhone: appProvider.customerPhone ?? '',
+      orderTime: DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now()),
+      floorId: AppInformation().floorId!,
+      tableId: AppInformation().tableId!,
+      requestOrderLineDto: cartItems.map((item) {
+        return OrderLine(
+          orgId: AppInformation().orgId!,
+          productId: item.product.productId!,
+          qty: item.quantity,
+          salePrice: (item.product.salesPrice ?? 0).toDouble(),
+          totalAmount: item.totalPrice.toDouble(),
+          taxId: item.product.taxId,
+          description: item.note,
+        );
+      }).toList(),
+      posTerminalId: AppInformation().posTerminalId!,
+    ));
+    result.fold(
+      (left) {
+        _cartViewState = CartViewState.error(left.message);
+        notifyListeners();
+      },
+      (right) {
+        _cartViewState = CartViewState.sendRequestOrderSuccess(
+          right.message,
+        );
+        clearCart();
+        notifyListeners();
+      },
+    );
   }
 }

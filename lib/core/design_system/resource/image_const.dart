@@ -14,4 +14,5 @@ class ImageConst {
   static String bagIcon = 'assets/images/icons/bag.svg';
   static String defaultCategoryImg = 'assets/images/default_category_img.png';
   static String noImageImg = 'assets/images/no_image_found.jpg';
+  static String loadingImg = 'assets/images/loading_lottie.json';
 }

@@ -78,6 +78,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "removeItemConfirm": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to remove this item from the cart?"),
         "requestOrder": MessageLookupByLibrary.simpleMessage("Request order"),
+        "requestOrderSuccess":
+            MessageLookupByLibrary.simpleMessage("Request order successfully"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "startOrder": MessageLookupByLibrary.simpleMessage("Start ordering"),
         "table": MessageLookupByLibrary.simpleMessage("Table"),

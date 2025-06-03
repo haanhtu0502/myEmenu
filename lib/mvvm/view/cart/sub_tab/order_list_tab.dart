@@ -1,6 +1,7 @@
 import 'package:emenu/app_coordinator.dart';
 import 'package:emenu/core/component/build_custom_button.dart';
 import 'package:emenu/core/component/build_scaffold_footer.dart';
+import 'package:emenu/core/component/loading_overlay.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/core/extensions/num_extension.dart';
@@ -10,9 +11,11 @@ import 'package:emenu/mvvm/view/cart/widget/build_order_list_item.dart';
 import 'package:emenu/mvvm/viewmodel/app_provider.dart';
 import 'package:emenu/mvvm/viewmodel/cart/cart_provider.dart';
 import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
+import 'package:emenu/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class OrderListTab extends StatefulWidget {
@@ -29,60 +32,86 @@ class _OrderListTabState extends State<OrderListTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CartProvider>(builder: (context, provider, child) {
-      return Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14),
-              child: Column(
+    final state = context.watch<CartProvider>().cartViewState;
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        if (state.isError) {
+          context.showTopSnackbar(
+            state.message!,
+            isError: true,
+          );
+        } else if (state.isSendRequestOrderSuccess) {
+          context.showTopSnackbar(
+            S.of(context).requestOrderSuccess,
+          );
+        }
+      },
+    );
+    return Consumer<CartProvider>(
+      builder: (context, provider, child) {
+        return SafeArea(
+          child: Stack(
+            children: [
+              Column(
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        ImageConst.qrCodeIcon,
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: RichText(
-                          text: TextSpan(
-                            text:
-                                '${S.of(context).hi} ${_appProvider.customerName}, ${S.of(context).youAreSittingAt} ',
-                            style: context.titleSmall,
-                            children: <TextSpan>[
-                              TextSpan(
-                                text:
-                                    '${S.of(context).table} ${AppInformation().tableNo}',
-                                style: context.titleSmall.copyWith(
-                                  color: Theme.of(context).primaryColor,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                ImageConst.qrCodeIcon,
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: RichText(
+                                  text: TextSpan(
+                                    text:
+                                        '${S.of(context).hi} ${_appProvider.customerName}, ${S.of(context).youAreSittingAt} ',
+                                    style: context.titleSmall,
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text:
+                                            '${S.of(context).table} ${AppInformation().tableNo}',
+                                        style: context.titleSmall.copyWith(
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              SvgPicture.asset(
+                                ImageConst.bagIcon,
                               ),
                             ],
                           ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          _buildListOrderItem(context, _cartProvider),
+                        ],
                       ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      SvgPicture.asset(
-                        ImageConst.bagIcon,
-                      ),
-                    ],
+                    ),
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  _buildListOrderItem(context, _cartProvider),
+                  _buildBottom(context, provider),
                 ],
               ),
-            ),
+              LoadingOverlay(
+                isLoading: true,
+              ),
+            ],
           ),
-          _buildBottom(context, provider),
-        ],
-      );
-    });
+        );
+      },
+    );
   }
 
   Widget _buildListOrderItem(BuildContext context, CartProvider provider) {
@@ -164,7 +193,9 @@ class _OrderListTabState extends State<OrderListTab> {
                     color: Theme.of(context).primaryColor,
                   ),
                   text: S.of(context).addDish,
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context).go(AppPages.listProduct);
+                  },
                   color: Colors.white,
                   textColor: Theme.of(context).primaryColor,
                   borderColor: Theme.of(context).primaryColor,
@@ -180,7 +211,9 @@ class _OrderListTabState extends State<OrderListTab> {
                     color: Colors.white,
                   ),
                   text: S.of(context).requestOrder,
-                  onPressed: () {},
+                  onPressed: () {
+                    provider.sendRequestOrder(appProvider: _appProvider);
+                  },
                   color: Theme.of(context).primaryColor,
                   textColor: Colors.white,
                 ),

@@ -58,5 +58,6 @@
     "confirm": "Confirm",
     "removeItem": "Remove item",
     "removeItemConfirm": "Are you sure you want to remove this item from the cart?",
-    "itemDeletedSuccessfully": "Item deleted successfully"
+    "itemDeletedSuccessfully": "Item deleted successfully",
+    "requestOrderSuccess": "Request order successfully"
 }

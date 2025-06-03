@@ -42,7 +42,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
   void _onSearchChanged(String query) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(
-      const Duration(milliseconds: 300),
+      const Duration(milliseconds: 100),
       () {
         _provider.getProductBySearch(query);
       },

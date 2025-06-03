@@ -78,6 +78,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "removeItemConfirm": MessageLookupByLibrary.simpleMessage(
             "Bạn có chắc chắn muốn xoá món này khỏi giỏ hàng không?"),
         "requestOrder": MessageLookupByLibrary.simpleMessage("Gọi món"),
+        "requestOrderSuccess":
+            MessageLookupByLibrary.simpleMessage("Yêu cầu gọi món thành công"),
         "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
         "startOrder": MessageLookupByLibrary.simpleMessage("Bắt đầu gọi món"),
         "table": MessageLookupByLibrary.simpleMessage("Bàn"),

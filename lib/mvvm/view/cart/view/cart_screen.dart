@@ -35,48 +35,50 @@ class _CartScreenState extends State<CartScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          S.of(context).myCart,
-          style: context.titleLarge.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: Colors.white,
-        elevation: 0.0,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.close),
+        appBar: AppBar(
+          title: Text(
+            S.of(context).myCart,
+            style: context.titleLarge.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ],
-      ),
-      body: Column(
-        children: [
-          _buildTabBar(context),
-          const SizedBox(height: 10),
-          ValueListenableBuilder(
-            valueListenable: _selectedIndex,
-            builder: (context, value, child) {
-              switch (value) {
-                case 0:
-                  return const Expanded(
-                    child: OrderListTab(),
-                  );
-                case 1:
-                  return const Expanded(
-                    child: HistoryListTab(),
-                  );
-                default:
-                  return const SizedBox();
-              }
-            },
-          )
-        ],
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.close),
+            ),
+          ],
+        ),
+        body: Column(
+          children: [
+            _buildTabBar(context),
+            const SizedBox(height: 10),
+            ValueListenableBuilder(
+              valueListenable: _selectedIndex,
+              builder: (context, value, child) {
+                switch (value) {
+                  case 0:
+                    return const Expanded(
+                      child: OrderListTab(),
+                    );
+                  case 1:
+                    return const Expanded(
+                      child: HistoryListTab(),
+                    );
+                  default:
+                    return const SizedBox();
+                }
+              },
+            )
+          ],
+        ),
       ),
     );
   }

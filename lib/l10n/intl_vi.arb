@@ -58,5 +58,6 @@
     "confirm": "Xác nhận",
     "removeItem": "Xoá món",
     "removeItemConfirm": "Bạn có chắc chắn muốn xoá món này khỏi giỏ hàng không?",
-    "itemDeletedSuccessfully": "Món đã được xoá thành công"
+    "itemDeletedSuccessfully": "Món đã được xoá thành công",
+    "requestOrderSuccess": "Yêu cầu gọi món thành công"
 }

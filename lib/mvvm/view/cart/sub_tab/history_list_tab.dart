@@ -17,48 +17,50 @@ class HistoryListTab extends StatefulWidget {
 class _HistoryListTabState extends State<HistoryListTab> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    SvgPicture.asset(
-                      ImageConst.qrCodeIcon,
-                    ),
-                    const SizedBox(width: 10),
-                    RichText(
-                      text: TextSpan(
-                        text:
-                            '${S.of(context).hi} Duyên, ${S.of(context).youAreSittingAt} ',
-                        style: context.titleMedium,
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Bàn 20',
-                            style: context.titleMedium.copyWith(
-                                color: Theme.of(context).primaryColor),
-                          ),
-                        ],
+    return SafeArea(
+      child: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        ImageConst.qrCodeIcon,
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                _buildListOrderItem(context),
-                const SizedBox(
-                  height: 16,
-                ),
-              ],
+                      const SizedBox(width: 10),
+                      RichText(
+                        text: TextSpan(
+                          text:
+                              '${S.of(context).hi} Duyên, ${S.of(context).youAreSittingAt} ',
+                          style: context.titleMedium,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: 'Bàn 20',
+                              style: context.titleMedium.copyWith(
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  _buildListOrderItem(context),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        _buildBottom(context),
-      ],
+          _buildBottom(context),
+        ],
+      ),
     );
   }
 
