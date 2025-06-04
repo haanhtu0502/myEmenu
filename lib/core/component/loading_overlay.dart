@@ -1,3 +1,4 @@
+import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
@@ -24,9 +25,8 @@ class LoadingOverlay extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Ảnh loading (động hoặc tĩnh)
               Lottie.asset(
-                'assets/images/loading_image.png',
+                ImageConst.loadingImg,
                 width: 100,
                 height: 100,
               ),

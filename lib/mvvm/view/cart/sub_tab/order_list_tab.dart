@@ -1,7 +1,7 @@
 import 'package:emenu/app_coordinator.dart';
 import 'package:emenu/core/component/build_custom_button.dart';
 import 'package:emenu/core/component/build_scaffold_footer.dart';
-import 'package:emenu/core/component/loading_overlay.dart';
+
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/core/extensions/num_extension.dart';
@@ -50,63 +50,56 @@ class _OrderListTabState extends State<OrderListTab> {
     return Consumer<CartProvider>(
       builder: (context, provider, child) {
         return SafeArea(
-          child: Stack(
+          child: Column(
             children: [
-              Column(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14),
-                      child: Column(
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                ImageConst.qrCodeIcon,
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: RichText(
-                                  text: TextSpan(
+                          SvgPicture.asset(
+                            ImageConst.qrCodeIcon,
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: RichText(
+                              text: TextSpan(
+                                text:
+                                    '${S.of(context).hi} ${_appProvider.customerName}, ${S.of(context).youAreSittingAt} ',
+                                style: context.titleSmall,
+                                children: <TextSpan>[
+                                  TextSpan(
                                     text:
-                                        '${S.of(context).hi} ${_appProvider.customerName}, ${S.of(context).youAreSittingAt} ',
-                                    style: context.titleSmall,
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                        text:
-                                            '${S.of(context).table} ${AppInformation().tableNo}',
-                                        style: context.titleSmall.copyWith(
-                                          color: Theme.of(context).primaryColor,
-                                        ),
-                                      ),
-                                    ],
+                                        '${S.of(context).table} ${AppInformation().tableNo}',
+                                    style: context.titleSmall.copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
                                   ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                ],
                               ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              SvgPicture.asset(
-                                ImageConst.bagIcon,
-                              ),
-                            ],
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                           const SizedBox(
-                            height: 16,
+                            width: 8,
                           ),
-                          _buildListOrderItem(context, _cartProvider),
+                          SvgPicture.asset(
+                            ImageConst.bagIcon,
+                          ),
                         ],
                       ),
-                    ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      _buildListOrderItem(context, _cartProvider),
+                    ],
                   ),
-                  _buildBottom(context, provider),
-                ],
+                ),
               ),
-              LoadingOverlay(
-                isLoading: true,
-              ),
+              _buildBottom(context, provider),
             ],
           ),
         );

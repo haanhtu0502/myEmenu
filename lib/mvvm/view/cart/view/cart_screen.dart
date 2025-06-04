@@ -2,7 +2,10 @@ import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/generated/l10n.dart';
 import 'package:emenu/mvvm/view/cart/sub_tab/history_list_tab.dart';
 import 'package:emenu/mvvm/view/cart/sub_tab/order_list_tab.dart';
+import 'package:emenu/core/component/loading_overlay.dart';
+import 'package:emenu/mvvm/viewmodel/cart/cart_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -36,49 +39,58 @@ class _CartScreenState extends State<CartScreen>
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(
-            S.of(context).myCart,
-            style: context.titleLarge.copyWith(
-              fontWeight: FontWeight.bold,
+      child: Stack(
+        children: [
+          Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              title: Text(
+                S.of(context).myCart,
+                style: context.titleLarge.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor: Colors.white,
+              elevation: 0.0,
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.close),
+                ),
+              ],
+            ),
+            body: Column(
+              children: [
+                _buildTabBar(context),
+                const SizedBox(height: 10),
+                ValueListenableBuilder(
+                  valueListenable: _selectedIndex,
+                  builder: (context, value, child) {
+                    switch (value) {
+                      case 0:
+                        return const Expanded(
+                          child: OrderListTab(),
+                        );
+                      case 1:
+                        return const Expanded(
+                          child: HistoryListTab(),
+                        );
+                      default:
+                        return const SizedBox();
+                    }
+                  },
+                )
+              ],
             ),
           ),
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.close),
-            ),
-          ],
-        ),
-        body: Column(
-          children: [
-            _buildTabBar(context),
-            const SizedBox(height: 10),
-            ValueListenableBuilder(
-              valueListenable: _selectedIndex,
-              builder: (context, value, child) {
-                switch (value) {
-                  case 0:
-                    return const Expanded(
-                      child: OrderListTab(),
-                    );
-                  case 1:
-                    return const Expanded(
-                      child: HistoryListTab(),
-                    );
-                  default:
-                    return const SizedBox();
-                }
-              },
-            )
-          ],
-        ),
+          Consumer<CartProvider>(builder: (context, provider, child) {
+            return LoadingOverlay(
+              isLoading: provider.cartViewState.isLoadingSendRequestOrder,
+            );
+          }),
+        ],
       ),
     );
   }
