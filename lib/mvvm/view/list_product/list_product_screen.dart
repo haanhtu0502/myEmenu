@@ -191,10 +191,13 @@ class _ListProductScreenState extends State<ListProductScreen> {
       children: [
         const SizedBox(height: 12),
         Row(children: [
-          Text(
-            item.category.name ?? '',
-            style: context.titleLarge.copyWith(
-              fontWeight: FontWeight.bold,
+          Expanded(
+            child: Text(
+              item.category.name ?? '',
+              style: context.titleLarge.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ]),

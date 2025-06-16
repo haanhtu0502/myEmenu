@@ -1,5 +1,6 @@
 import 'package:emenu/core/services/share_preferences_service.dart';
 import 'package:emenu/mvvm/data/model/category_model.dart';
+import 'package:emenu/mvvm/data/model/org_emenu/org_emenu_model.dart';
 import 'package:emenu/mvvm/data/request/get_pos_order_request.dart';
 import 'package:emenu/mvvm/data/request/get_request_order_request.dart';
 import 'package:emenu/mvvm/data/request/get_token_request.dart';
@@ -18,6 +19,7 @@ class HomeProvider extends ChangeNotifier {
   String? customerName;
   String? customerPhone;
   String? hashParam;
+  OrgEmenuModel? orgEmenuModel;
 
   List<CategoryModel> categories = [];
 
@@ -45,7 +47,8 @@ class HomeProvider extends ChangeNotifier {
       await getToken();
     }
 
-    await getCustomerInformation();
+    getCustomerInformation();
+    getOrgEmenu();
   }
 
   Future<void> getCustomerInformation() async {
@@ -90,9 +93,10 @@ class HomeProvider extends ChangeNotifier {
         if (r.data.isNotEmpty) {
           _appProvider.setCustomerName(r.data.first.customerName ?? '');
           _appProvider.setCustomerPhone(r.data.first.phone ?? '');
-          _state = const HomeViewState.getCustomerInfomationSuccess();
+
           notifyListeners();
         }
+        _state = const HomeViewState.getCustomerInfomationSuccess();
       },
     );
   }
@@ -179,4 +183,42 @@ class HomeProvider extends ChangeNotifier {
     );
     notifyListeners();
   }
+
+  Future<void> getOrgEmenu() async {
+    _state = const HomeViewState.loadingGetOrgEmenu();
+    notifyListeners();
+    final result = await _emenuConfigRepositories.getOrgEmenu(
+      orgId: AppInformation().orgId ?? 0,
+    );
+    result.fold(
+      (l) => _state = HomeViewState.error(l.message),
+      (r) {
+        if (r.data == null) {
+          _state = HomeViewState.error(r.message);
+        } else {
+          orgEmenuModel = r.data;
+          if (AppInformation().address == null ||
+              AppInformation().address!.isEmpty) {
+            AppInformation().updateData(
+              address: r.data!.address,
+            );
+          }
+          if (AppInformation().orgName == null ||
+              AppInformation().orgName!.isEmpty) {
+            AppInformation().updateData(
+              orgName: r.data!.name,
+            );
+          }
+          _state = const HomeViewState.getOrgEmenuSuccess();
+        }
+      },
+    );
+    notifyListeners();
+  }
+
+  bool get isLoading =>
+      _state.isIdle ||
+      _state.isLoading ||
+      _state.isLoadingGetOrgEmenu ||
+      _state.isLoadingInitial;
 }

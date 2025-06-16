@@ -3,12 +3,14 @@ import 'package:emenu/core/component/build_app_popup_menu_button.dart';
 import 'package:emenu/core/component/build_cart_layout.dart';
 import 'package:emenu/core/component/build_custom_button.dart';
 import 'package:emenu/core/component/build_product_card_item.dart';
+import 'package:emenu/core/component/image_render.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/core/extensions/num_extension.dart';
 import 'package:emenu/generated/l10n.dart';
 import 'package:emenu/mvvm/data/model/category_model.dart';
 import 'package:emenu/mvvm/viewmodel/app_provider.dart';
+import 'package:emenu/mvvm/viewmodel/cart/cart_provider.dart';
 import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
 import 'package:emenu/mvvm/viewmodel/home/home_provider.dart';
 import 'package:emenu/routes/app_pages.dart';
@@ -18,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -72,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   _buildTitle(context),
                   const SizedBox(height: 12),
-                  _buildBanner(context),
+                  _buildBanner(context, provider),
                   const SizedBox(height: 18),
                   _buildButtons(context),
                   const SizedBox(height: 18),
@@ -91,14 +94,17 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Row(
           children: [
-            Text(
-              _appInformation.orgName ?? '',
-              style: context.titleLarge.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
+            Expanded(
+              child: Text(
+                _appInformation.orgName ?? '',
+                style: context.titleLarge.copyWith(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
-            const Spacer(),
+            const SizedBox(width: 8),
             const BuildAppPopupMenuButton(
               isShortLangName: true,
               width: 85,
@@ -113,10 +119,13 @@ class _HomeScreenState extends State<HomeScreen> {
             Icons.location_on,
             color: Theme.of(context).dividerColor,
           ),
-          Text(
-            ' ${_appInformation.address ?? ''}',
-            style: context.titleSmall.copyWith(
-              color: Theme.of(context).dividerColor,
+          Expanded(
+            child: Text(
+              ' ${_appInformation.address ?? ''}',
+              style: context.titleSmall.copyWith(
+                color: Theme.of(context).dividerColor,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ])
@@ -124,15 +133,62 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildBanner(BuildContext context) {
+  Widget _buildBanner(BuildContext context, HomeProvider provider) {
     return Column(
       children: [
-        Image.asset(
-          ImageConst.foodBanner,
-          width: double.infinity,
-          height: 200,
-          fit: BoxFit.cover,
-        ),
+        provider.orgEmenuModel != null &&
+                provider.orgEmenuModel!.imageEmenu != null &&
+                provider.orgEmenuModel!.imageEmenu!.isNotEmpty
+            ? CarouselSlider(
+                options: CarouselOptions(
+                  height: 200,
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 5),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  viewportFraction: 1.0,
+                ),
+                items: provider.orgEmenuModel?.imageEmenu!
+                    .map(
+                      (e) => Builder(
+                        builder: (BuildContext context) {
+                          return ImageRender(
+                            imageUrl: e.imageUrl ?? ImageConst.foodBanner,
+                            width: double.infinity,
+                            height: 200,
+                            fit: BoxFit.contain,
+                          );
+                        },
+                      ),
+                    )
+                    .toList(),
+              )
+            : CarouselSlider(
+                options: CarouselOptions(
+                  height: 200,
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 5),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  viewportFraction: 1.0,
+                ),
+                items: [0]
+                    .map(
+                      (e) => Builder(
+                        builder: (BuildContext context) {
+                          return ImageRender(
+                            imageUrl: ImageConst.foodBanner,
+                            width: double.infinity,
+                            height: 200,
+                            fit: BoxFit.contain,
+                          );
+                        },
+                      ),
+                    )
+                    .toList(),
+              ),
         const SizedBox(height: 12),
         Text(
           '${S.of(context).goodMorning} ${_appProvider.customerName} !',

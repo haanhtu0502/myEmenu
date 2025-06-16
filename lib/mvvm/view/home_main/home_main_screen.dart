@@ -25,7 +25,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
     return Consumer<AppProvider>(
       builder: (context, value, child) {
         return Consumer<HomeProvider>(builder: (context, homeValue, child) {
-          if (homeValue.state.isIdle) {
+          if (homeValue.isLoading) {
             return const SplashScreen();
           }
           return value.isLogin ? const HomeScreen() : const LoginScreen();
