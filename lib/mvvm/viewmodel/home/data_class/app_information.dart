@@ -78,8 +78,7 @@ class AppInformation {
         _tableNo != null &&
         _floorNo != null &&
         _priceListId != null &&
-        _orgName != null &&
-        _address != null;
+        _orgName != null;
   }
 
   @override

@@ -6,6 +6,8 @@ enum HomeViewStatus {
   loadingGetCategroy,
   loadingInitial,
   getCategorySuccess,
+  loadingGetOrgEmenu,
+  getOrgEmenuSuccess,
   initialSuccess,
   error,
 }
@@ -31,6 +33,10 @@ class HomeViewState {
       : this._(HomeViewStatus.initialSuccess, message);
   const HomeViewState.getCategorySuccess([String? message])
       : this._(HomeViewStatus.getCategorySuccess, message);
+  const HomeViewState.loadingGetOrgEmenu()
+      : this._(HomeViewStatus.loadingGetOrgEmenu);
+  const HomeViewState.getOrgEmenuSuccess([String? message])
+      : this._(HomeViewStatus.getOrgEmenuSuccess, message);
 
   bool get isIdle => status == HomeViewStatus.idle;
   bool get isLoading => status == HomeViewStatus.loading;
@@ -42,4 +48,6 @@ class HomeViewState {
   bool get isGetCategorySuccess => status == HomeViewStatus.getCategorySuccess;
   bool get isLoadingInitial => status == HomeViewStatus.loadingInitial;
   bool get isInitialSuccess => status == HomeViewStatus.initialSuccess;
+  bool get isLoadingGetOrgEmenu => status == HomeViewStatus.loadingGetOrgEmenu;
+  bool get isGetOrgEmenuSuccess => status == HomeViewStatus.getOrgEmenuSuccess;
 }
