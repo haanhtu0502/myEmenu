@@ -117,6 +117,10 @@ class CartProvider extends ChangeNotifier {
     );
   }
 
+  num getTotalCartPrice() {
+    return cartItems.fold(0, (sum, item) => sum + item.totalPrice);
+  }
+
   Future<void> sendRequestOrder({required AppProvider appProvider}) async {
     _cartViewState = const CartViewState.loadingSendRequestOrder();
     notifyListeners();

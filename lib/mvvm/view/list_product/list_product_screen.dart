@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:emenu/app_coordinator.dart';
 import 'package:emenu/core/component/build_cart_layout.dart';
 import 'package:emenu/core/component/build_product_card_item.dart';
+import 'package:emenu/core/component/build_scaffold_footer.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/core/extensions/num_extension.dart';
@@ -12,6 +13,7 @@ import 'package:emenu/mvvm/data/model/category_product_model.dart';
 import 'package:emenu/mvvm/data/model/product_model.dart';
 import 'package:emenu/mvvm/view/list_product/dummy/dummy_product_list.dart';
 import 'package:emenu/mvvm/view/list_product/widget/e_vertical_tabbar.dart';
+import 'package:emenu/mvvm/viewmodel/cart/cart_provider.dart';
 import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
 import 'package:emenu/mvvm/viewmodel/list_product/list_product_provider.dart';
 import 'package:emenu/routes/app_pages.dart';
@@ -81,6 +83,8 @@ class _ListProductScreenState extends State<ListProductScreen> {
                 provider.searchText.isNotEmpty
                     ? _buildListSearchProduct(context, provider: provider)
                     : _buildListProduct(context, provider),
+                const SizedBox(height: 12),
+                _buildBottom(context, provider),
               ],
             );
           }),
@@ -450,5 +454,60 @@ class _ListProductScreenState extends State<ListProductScreen> {
             isLoading: isLoading);
       },
     );
+  }
+
+  Widget _buildBottom(BuildContext context, ListProductProvider provider) {
+    return Consumer<CartProvider>(builder: (context, cartProvider, child) {
+      if (cartProvider.cartItems.isEmpty) {
+        return const SizedBox();
+      }
+      return BuildScaffoldFooter(
+        padding: const EdgeInsets.symmetric(
+          vertical: 20,
+          horizontal: 16,
+        ),
+        child: InkWell(
+          onTap: () {
+            GoRouter.of(context).push(
+              AppPages.cart,
+            );
+          },
+          child: Container(
+            width: double.infinity,
+            height: 40,
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  ImageConst.shoppingBag,
+                  width: 24,
+                  height: 24,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  "${S.of(context).dishesOrder} (${cartProvider.cartItems.length})",
+                  style: context.titleMedium.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  "${cartProvider.getTotalCartPrice().toCurrencyFormat} đ",
+                  style: context.titleMedium.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    });
   }
 }

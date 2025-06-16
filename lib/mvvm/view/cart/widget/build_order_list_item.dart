@@ -58,6 +58,7 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
                       widget.item.product.imageUrl ?? ImageConst.foodImage,
                   height: 60,
                   width: double.infinity,
+                  fit: BoxFit.contain,
                 ),
               ],
             ),

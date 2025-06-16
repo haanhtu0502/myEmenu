@@ -163,6 +163,30 @@ class _OrderListTabState extends State<OrderListTab> {
                 ],
               ),
           const SizedBox(
+            height: 12,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  S.of(context).totalAmount,
+                  style: context.titleMedium.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Text(
+                '${provider.totalPrice.toCurrencyFormat} đ',
+                style: context.titleMedium.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: Theme.of(context).primaryColor,
+                ),
+              )
+            ],
+          ),
+          const SizedBox(
             height: 14,
           ),
           Row(

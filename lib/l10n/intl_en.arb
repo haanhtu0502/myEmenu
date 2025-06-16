@@ -63,5 +63,6 @@
     "retailCustomerCannotViewHistory": "Retail customers cannot view order history",
     "noNote": "No note",
     "sendRequestSuccess": "Your request has been sent successfully and will be processed shortly.",
-    "continueOrder": "Continue ordering"
+    "continueOrder": "Continue ordering",
+    "dishesOrder": "Dishes order"
 }

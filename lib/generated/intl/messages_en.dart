@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "detail": MessageLookupByLibrary.simpleMessage("Detail"),
         "dishList": MessageLookupByLibrary.simpleMessage("Dish list"),
+        "dishesOrder": MessageLookupByLibrary.simpleMessage("Dishes order"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "evening": MessageLookupByLibrary.simpleMessage("Evening"),
         "extra": MessageLookupByLibrary.simpleMessage("Extra"),

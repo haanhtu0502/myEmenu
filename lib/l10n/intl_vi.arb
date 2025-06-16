@@ -63,5 +63,6 @@
     "retailCustomerCannotViewHistory": "Khách lẻ không thể xem lịch sử gọi món",
     "noNote": "Không có ghi chú",
     "sendRequestSuccess": "Yêu cầu gọi món của bạn đã được gửi và đang chờ xác nhận",
-    "continueOrder": "Tiếp tục gọi món"
+    "continueOrder": "Tiếp tục gọi món",
+    "dishesOrder": "Gọi món"
 }

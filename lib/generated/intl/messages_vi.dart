@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "description": MessageLookupByLibrary.simpleMessage("Mô tả"),
         "detail": MessageLookupByLibrary.simpleMessage("Chi tiết"),
         "dishList": MessageLookupByLibrary.simpleMessage("Danh sách món"),
+        "dishesOrder": MessageLookupByLibrary.simpleMessage("Gọi món"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "evening": MessageLookupByLibrary.simpleMessage("Buổi tối"),
         "extra": MessageLookupByLibrary.simpleMessage("Món thêm"),
