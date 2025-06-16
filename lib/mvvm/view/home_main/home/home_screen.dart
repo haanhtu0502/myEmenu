@@ -205,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             children: [
               TextSpan(
-                text: _appInformation.tableNo ?? '',
+                text: _appInformation.tableName ?? '',
                 style: context.titleSmall.copyWith(
                   color: Theme.of(context).primaryColor,
                 ),

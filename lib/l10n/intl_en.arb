@@ -61,5 +61,7 @@
     "itemDeletedSuccessfully": "Item deleted successfully",
     "requestOrderSuccess": "Request order successfully",
     "retailCustomerCannotViewHistory": "Retail customers cannot view order history",
-    "noNote": "No note"
+    "noNote": "No note",
+    "sendRequestSuccess": "Your request has been sent successfully and will be processed shortly.",
+    "continueOrder": "Continue ordering"
 }

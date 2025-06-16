@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "close": MessageLookupByLibrary.simpleMessage("Đóng"),
         "component": MessageLookupByLibrary.simpleMessage("Thành phần"),
         "confirm": MessageLookupByLibrary.simpleMessage("Xác nhận"),
+        "continueOrder":
+            MessageLookupByLibrary.simpleMessage("Tiếp tục gọi món"),
         "description": MessageLookupByLibrary.simpleMessage("Mô tả"),
         "detail": MessageLookupByLibrary.simpleMessage("Chi tiết"),
         "dishList": MessageLookupByLibrary.simpleMessage("Danh sách món"),
@@ -84,6 +86,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "retailCustomerCannotViewHistory": MessageLookupByLibrary.simpleMessage(
             "Khách lẻ không thể xem lịch sử gọi món"),
         "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
+        "sendRequestSuccess": MessageLookupByLibrary.simpleMessage(
+            "Yêu cầu gọi món của bạn đã được gửi và đang chờ xác nhận"),
         "startOrder": MessageLookupByLibrary.simpleMessage("Bắt đầu gọi món"),
         "table": MessageLookupByLibrary.simpleMessage("Bàn"),
         "tax": MessageLookupByLibrary.simpleMessage("Thuế"),

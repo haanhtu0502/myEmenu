@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:emenu/mvvm/data/model/emenu_param/emenu_param.dart';
 import 'package:emenu/mvvm/data/model/org_emenu/org_emenu_model.dart';
+import 'package:emenu/mvvm/data/model/organization/organization_model.dart';
 import 'package:emenu/mvvm/data/model/pos_order/pos_order_model.dart';
 import 'package:emenu/mvvm/data/model/request_order/request_order_model.dart';
 import 'package:emenu/mvvm/data/model/response/pagination_response/pagination_response_model.dart';
@@ -19,6 +20,7 @@ abstract class EmenuConfigApi {
   static const String getRequestOrderApi = '$branchv1/requestOrder/findAll';
   static const String getPosOrderApi = '$branchv1/posOrders/findAll';
   static const String getOrgEmenuApi = '$branchv1/org/getOrgEmenu';
+  static const String getTableByIdApi = '$branchv1/tables';
 
   @factoryMethod
   factory EmenuConfigApi(Dio dio) = _EmenuConfigApi;
@@ -38,4 +40,8 @@ abstract class EmenuConfigApi {
   @GET(getOrgEmenuApi)
   Future<HttpResponse<ResponseData<OrgEmenuModel>>> getOrgEmenu(
       {@Queries(encoded: true) required Map<String, dynamic> queries});
+
+  @GET('$getTableByIdApi/{id}')
+  Future<HttpResponse<ResponseData<OrganizationModel>>> getTableById(
+      @Path('id') String id);
 }

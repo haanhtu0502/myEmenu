@@ -29,6 +29,7 @@ class RequestHistoryModel {
   final ProductModel? product;
   final String? isActive;
   final List<RequestHistoryLineModel>? lineDetails;
+  final String? created;
 
   RequestHistoryModel({
     this.id,
@@ -58,6 +59,7 @@ class RequestHistoryModel {
     this.product,
     this.isActive,
     this.lineDetails,
+    this.created,
   });
 
   factory RequestHistoryModel.fromJson(Map<String, dynamic> json) {
@@ -86,13 +88,14 @@ class RequestHistoryModel {
       timeWaiting: json['timeWaiting'] as String?,
       taxRate: json['taxRate'] as int?,
       taxName: json['taxName'] as String?,
-      product: json['product'] == null
+      product: json['productDto'] == null
           ? null
-          : ProductModel.fromJson(json['product']),
+          : ProductModel.fromJson(json['productDto']),
       isActive: json['isActive'] as String?,
       lineDetails: (json['lineDetails'] as List<dynamic>?)
           ?.map((e) => RequestHistoryLineModel.fromJson(e))
           .toList(),
+      created: json['created'] as String?,
     );
   }
 }

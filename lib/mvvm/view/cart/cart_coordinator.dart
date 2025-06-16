@@ -1,4 +1,5 @@
 import 'package:emenu/mvvm/view/cart/widget/build_add_note_bottom_sheet.dart';
+import 'package:emenu/mvvm/view/cart/widget/build_send_request_success_dialog.dart';
 import 'package:flutter/material.dart';
 
 extension CartCoordinator on BuildContext {
@@ -28,5 +29,21 @@ extension CartCoordinator on BuildContext {
     } else {
       return null;
     }
+  }
+
+  Future<void> showSendRequestSuccessDialog() async {
+    await showDialog(
+      context: this,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          elevation: 16,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          child: const SendRequestSuccessDialog(),
+        );
+      },
+    );
   }
 }

@@ -110,6 +110,13 @@ class CartProvider extends ChangeNotifier {
         0, (sum, item) => sum + (item.salesPrice ?? 0));
   }
 
+  num getTotalTaxAmount() {
+    return listRequestHistory.fold(
+      0,
+      (sum, item) => sum + (item.taxRate ?? 0) / 100 * (item.salesPrice ?? 0),
+    );
+  }
+
   Future<void> sendRequestOrder({required AppProvider appProvider}) async {
     _cartViewState = const CartViewState.loadingSendRequestOrder();
     notifyListeners();

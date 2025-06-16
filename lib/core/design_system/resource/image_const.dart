@@ -15,4 +15,5 @@ class ImageConst {
   static String defaultCategoryImg = 'assets/images/default_category_img.png';
   static String noImageImg = 'assets/images/no_image_found.jpg';
   static String loadingImg = 'assets/images/loading_lottie.json';
+  static String successImg = 'assets/images/success_img.png';
 }

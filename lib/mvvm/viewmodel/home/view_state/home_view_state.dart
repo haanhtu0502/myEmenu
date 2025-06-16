@@ -8,6 +8,10 @@ enum HomeViewStatus {
   getCategorySuccess,
   loadingGetOrgEmenu,
   getOrgEmenuSuccess,
+  loadingGetCustomerInfomation,
+  getCustomerInfomation,
+  loadingGetTableById,
+  getTableByIdSuccess,
   initialSuccess,
   error,
 }
@@ -37,6 +41,14 @@ class HomeViewState {
       : this._(HomeViewStatus.loadingGetOrgEmenu);
   const HomeViewState.getOrgEmenuSuccess([String? message])
       : this._(HomeViewStatus.getOrgEmenuSuccess, message);
+  const HomeViewState.loadingGetCustomerInfomation()
+      : this._(HomeViewStatus.loadingGetCustomerInfomation);
+  const HomeViewState.getCustomerInfomation([String? message])
+      : this._(HomeViewStatus.getCustomerInfomation, message);
+  const HomeViewState.loadingGetTableById()
+      : this._(HomeViewStatus.loadingGetTableById);
+  const HomeViewState.getTableByIdSuccess([String? message])
+      : this._(HomeViewStatus.getTableByIdSuccess, message);
 
   bool get isIdle => status == HomeViewStatus.idle;
   bool get isLoading => status == HomeViewStatus.loading;
@@ -50,4 +62,12 @@ class HomeViewState {
   bool get isInitialSuccess => status == HomeViewStatus.initialSuccess;
   bool get isLoadingGetOrgEmenu => status == HomeViewStatus.loadingGetOrgEmenu;
   bool get isGetOrgEmenuSuccess => status == HomeViewStatus.getOrgEmenuSuccess;
+  bool get isLoadingGetCustomerInfomation =>
+      status == HomeViewStatus.loadingGetCustomerInfomation;
+  bool get isGetCustomerInfomation =>
+      status == HomeViewStatus.getCustomerInfomation;
+  bool get isLoadingGetTableById =>
+      status == HomeViewStatus.loadingGetTableById;
+  bool get isGetTableByIdSuccess =>
+      status == HomeViewStatus.getTableByIdSuccess;
 }

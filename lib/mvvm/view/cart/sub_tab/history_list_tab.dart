@@ -169,7 +169,7 @@ class _HistoryListTabState extends State<HistoryListTab> {
               ),
               const Spacer(),
               Text(
-                '10.000 đ',
+                '${provider.getTotalTaxAmount().toCurrencyFormat} đ',
                 style: context.titleSmall.copyWith(
                   color: Theme.of(context).dividerColor,
                 ),
@@ -191,7 +191,7 @@ class _HistoryListTabState extends State<HistoryListTab> {
               ),
               const Spacer(),
               Text(
-                '${provider.getTotalHistoryPrice().toCurrencyFormat} đ',
+                '${(provider.getTotalHistoryPrice() + provider.getTotalTaxAmount()).toCurrencyFormat} đ',
                 style: context.titleLarge.copyWith(
                   color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold,

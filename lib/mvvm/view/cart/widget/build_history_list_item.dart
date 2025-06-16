@@ -6,7 +6,6 @@ import 'package:emenu/core/extensions/string_extension.dart';
 import 'package:emenu/generated/l10n.dart';
 import 'package:emenu/mvvm/data/model/request_history/request_history_model.dart';
 import 'package:emenu/routes/app_pages.dart';
-import 'package:emenu/theme/theme_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -76,20 +75,20 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
           child: Column(
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RichText(
-                    text: TextSpan(
-                      text: '${widget.requestHistory.product?.name ?? ''} ',
+                  Expanded(
+                    child: Text(
+                      widget.requestHistory.product?.name ?? '',
                       style: context.titleMedium,
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'x${widget.requestHistory.qty ?? 0}',
-                          style: context.titleMedium.copyWith(
-                            color: Theme.of(context).hintColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 2),
+                  Text(
+                    ' x${widget.requestHistory.qty}',
+                    style: context.titleMedium.copyWith(
+                      color: const Color.fromRGBO(162, 170, 186, 1),
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
@@ -160,7 +159,7 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
                         children: <TextSpan>[
                           TextSpan(
                             text:
-                                '| 30-12, 14:50 ⋅ Đã chờ ${widget.requestHistory.timeWaiting}p',
+                                '| ${widget.requestHistory.created ?? ''} ⋅ Đã chờ ${widget.requestHistory.timeWaiting}p',
                             style: context.titleMedium.copyWith(
                               color: Theme.of(context).dividerColor,
                             ),

@@ -679,6 +679,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Your request has been sent successfully and will be processed shortly.`
+  String get sendRequestSuccess {
+    return Intl.message(
+      'Your request has been sent successfully and will be processed shortly.',
+      name: 'sendRequestSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue ordering`
+  String get continueOrder {
+    return Intl.message(
+      'Continue ordering',
+      name: 'continueOrder',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

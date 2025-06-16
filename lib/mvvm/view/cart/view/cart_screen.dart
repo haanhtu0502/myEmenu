@@ -1,6 +1,7 @@
 import 'package:emenu/app_coordinator.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/generated/l10n.dart';
+import 'package:emenu/mvvm/view/cart/cart_coordinator.dart';
 import 'package:emenu/mvvm/view/cart/sub_tab/history_list_tab.dart';
 import 'package:emenu/mvvm/view/cart/sub_tab/order_list_tab.dart';
 import 'package:emenu/core/component/loading_overlay.dart';
@@ -48,9 +49,7 @@ class _CartScreenState extends State<CartScreen>
             isError: true,
           );
         } else if (state.isSendRequestOrderSuccess) {
-          context.showTopSnackbar(
-            S.of(context).requestOrderSuccess,
-          );
+          context.showSendRequestSuccessDialog();
         } else if (state.isGetRequestHistoryFailed) {
           context.showTopSnackbar(
             state.message!,

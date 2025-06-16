@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:emenu/core/services/share_preferences_service.dart';
 import 'package:emenu/mvvm/data/model/category_model.dart';
 import 'package:emenu/mvvm/data/model/org_emenu/org_emenu_model.dart';
@@ -27,7 +29,7 @@ class HomeProvider extends ChangeNotifier {
   final EmenuConfigRepositories _emenuConfigRepositories;
   final ProductCategoryRepositories _productCategoryRepositories;
 
-  HomeViewState _state = const HomeViewState.idle();
+  HomeViewState _state = const HomeViewState.loadingInitial();
   HomeViewState get state => _state;
   final AppProvider _appProvider;
 
@@ -47,15 +49,21 @@ class HomeProvider extends ChangeNotifier {
       await getToken();
     }
 
-    getCustomerInformation();
-    getOrgEmenu();
+    await getCustomerInformation();
+
+    Future.wait([
+      getOrgEmenu(),
+      getTableById(AppInformation().tableId.toString()),
+    ]).then((_) {
+      _state = const HomeViewState.initialSuccess();
+      notifyListeners();
+    }).catchError((error) {
+      _state = HomeViewState.error(error.toString());
+      notifyListeners();
+    });
   }
 
   Future<void> getCustomerInformation() async {
-    if (_appProvider.isLogin) {
-      _state = const HomeViewState.getCustomerInfomationSuccess();
-      return;
-    }
     final result = await _emenuConfigRepositories.getRequestOrder(
         request: GetRequestOrderRequest(
       page: 0,
@@ -69,7 +77,7 @@ class HomeProvider extends ChangeNotifier {
         if (r.data.isNotEmpty) {
           _appProvider.setCustomerName(r.data.first.customer?.name ?? '');
           _appProvider.setCustomerPhone(r.data.first.customer?.phone1 ?? '');
-          _state = const HomeViewState.getCustomerInfomationSuccess();
+
           notifyListeners();
         } else {
           getPosOrderCus();
@@ -96,7 +104,6 @@ class HomeProvider extends ChangeNotifier {
 
           notifyListeners();
         }
-        _state = const HomeViewState.getCustomerInfomationSuccess();
       },
     );
   }
@@ -185,8 +192,6 @@ class HomeProvider extends ChangeNotifier {
   }
 
   Future<void> getOrgEmenu() async {
-    _state = const HomeViewState.loadingGetOrgEmenu();
-    notifyListeners();
     final result = await _emenuConfigRepositories.getOrgEmenu(
       orgId: AppInformation().orgId ?? 0,
     );
@@ -209,16 +214,28 @@ class HomeProvider extends ChangeNotifier {
               orgName: r.data!.name,
             );
           }
-          _state = const HomeViewState.getOrgEmenuSuccess();
         }
       },
     );
     notifyListeners();
   }
 
-  bool get isLoading =>
-      _state.isIdle ||
-      _state.isLoading ||
-      _state.isLoadingGetOrgEmenu ||
-      _state.isLoadingInitial;
+  Future<void> getTableById(String id) async {
+    final result = await _emenuConfigRepositories.getTableById(id: id);
+    result.fold(
+      (l) => _state = HomeViewState.error(l.message),
+      (r) {
+        if (r.data == null) {
+          _state = HomeViewState.error(r.message);
+        } else {
+          AppInformation().updateData(
+            tableName: r.data!.name,
+          );
+        }
+      },
+    );
+    notifyListeners();
+  }
+
+  bool get isLoading => _state.isLoadingInitial;
 }

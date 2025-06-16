@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "close": MessageLookupByLibrary.simpleMessage("Close"),
         "component": MessageLookupByLibrary.simpleMessage("Component"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "continueOrder":
+            MessageLookupByLibrary.simpleMessage("Continue ordering"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "detail": MessageLookupByLibrary.simpleMessage("Detail"),
         "dishList": MessageLookupByLibrary.simpleMessage("Dish list"),
@@ -84,6 +86,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "retailCustomerCannotViewHistory": MessageLookupByLibrary.simpleMessage(
             "Retail customers cannot view order history"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "sendRequestSuccess": MessageLookupByLibrary.simpleMessage(
+            "Your request has been sent successfully and will be processed shortly."),
         "startOrder": MessageLookupByLibrary.simpleMessage("Start ordering"),
         "table": MessageLookupByLibrary.simpleMessage("Table"),
         "tax": MessageLookupByLibrary.simpleMessage("Tax"),
