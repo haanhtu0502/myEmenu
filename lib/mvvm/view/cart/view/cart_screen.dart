@@ -1,3 +1,4 @@
+import 'package:emenu/app_coordinator.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/generated/l10n.dart';
 import 'package:emenu/mvvm/view/cart/sub_tab/history_list_tab.dart';
@@ -38,6 +39,26 @@ class _CartScreenState extends State<CartScreen>
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<CartProvider>().cartViewState;
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        if (state.isSendRequestOrderFailed) {
+          context.showTopSnackbar(
+            state.message!,
+            isError: true,
+          );
+        } else if (state.isSendRequestOrderSuccess) {
+          context.showTopSnackbar(
+            S.of(context).requestOrderSuccess,
+          );
+        } else if (state.isGetRequestHistoryFailed) {
+          context.showTopSnackbar(
+            state.message!,
+            isError: true,
+          );
+        }
+      },
+    );
     return SafeArea(
       child: Stack(
         children: [

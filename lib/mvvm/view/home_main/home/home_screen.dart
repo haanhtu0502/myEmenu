@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             imageUrl: e.imageUrl ?? ImageConst.foodBanner,
                             width: double.infinity,
                             height: 200,
-                            fit: BoxFit.contain,
+                            fit: BoxFit.cover,
                           );
                         },
                       ),
@@ -182,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             imageUrl: ImageConst.foodBanner,
                             width: double.infinity,
                             height: 200,
-                            fit: BoxFit.contain,
+                            fit: BoxFit.cover,
                           );
                         },
                       ),

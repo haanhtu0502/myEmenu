@@ -28,25 +28,10 @@ class OrderListTab extends StatefulWidget {
 class _OrderListTabState extends State<OrderListTab> {
   AppProvider get _appProvider => context.read<AppProvider>();
   CartProvider get _cartProvider =>
-      Provider.of<CartProvider>(context, listen: true);
+      Provider.of<CartProvider>(context, listen: false);
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<CartProvider>().cartViewState;
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        if (state.isError) {
-          context.showTopSnackbar(
-            state.message!,
-            isError: true,
-          );
-        } else if (state.isSendRequestOrderSuccess) {
-          context.showTopSnackbar(
-            S.of(context).requestOrderSuccess,
-          );
-        }
-      },
-    );
     return Consumer<CartProvider>(
       builder: (context, provider, child) {
         return SafeArea(
@@ -157,11 +142,14 @@ class _OrderListTabState extends State<OrderListTab> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                S.of(context).dishList,
-                style: context.titleMedium.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
+              Expanded(
+                child: Text(
+                  S.of(context).dishList,
+                  style: context.titleMedium.copyWith(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
@@ -224,17 +212,28 @@ class _OrderListTabState extends State<OrderListTab> {
         const SizedBox(
           width: 10,
         ),
-        Text(
-          '${item.quantity} x ${item.product.name}',
-          style: context.titleSmall.copyWith(
-            color: Theme.of(context).dividerColor,
+        Expanded(
+          flex: 2,
+          child: Text(
+            '${item.quantity} x ${item.product.name}',
+            style: context.titleSmall.copyWith(
+              color: Theme.of(context).dividerColor,
+            ),
+            overflow: TextOverflow.ellipsis,
           ),
         ),
-        const Spacer(),
-        Text(
-          '${item.totalPrice.toCurrencyFormat}đ',
-          style: context.titleSmall.copyWith(
-            color: Theme.of(context).dividerColor,
+        const SizedBox(
+          width: 10,
+        ),
+        Expanded(
+          flex: 1,
+          child: Text(
+            '${item.totalPrice.toCurrencyFormat}đ',
+            style: context.titleSmall.copyWith(
+              color: Theme.of(context).dividerColor,
+            ),
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.end,
           ),
         ),
       ],
