@@ -12,6 +12,8 @@ enum HomeViewStatus {
   getCustomerInfomation,
   loadingGetTableById,
   getTableByIdSuccess,
+  loadingSendNotification,
+  sendNotificationSuccess,
   initialSuccess,
   error,
 }
@@ -49,6 +51,10 @@ class HomeViewState {
       : this._(HomeViewStatus.loadingGetTableById);
   const HomeViewState.getTableByIdSuccess([String? message])
       : this._(HomeViewStatus.getTableByIdSuccess, message);
+  const HomeViewState.loadingSendNotification()
+      : this._(HomeViewStatus.loadingSendNotification);
+  const HomeViewState.sendNotificationSuccess([String? message])
+      : this._(HomeViewStatus.sendNotificationSuccess, message);
 
   bool get isIdle => status == HomeViewStatus.idle;
   bool get isLoading => status == HomeViewStatus.loading;
@@ -70,4 +76,8 @@ class HomeViewState {
       status == HomeViewStatus.loadingGetTableById;
   bool get isGetTableByIdSuccess =>
       status == HomeViewStatus.getTableByIdSuccess;
+  bool get isLoadingSendNotification =>
+      status == HomeViewStatus.loadingSendNotification;
+  bool get isSendNotificationSuccess =>
+      status == HomeViewStatus.sendNotificationSuccess;
 }

@@ -7,6 +7,7 @@ import 'package:emenu/mvvm/data/request/get_pos_order_request.dart';
 import 'package:emenu/mvvm/data/request/get_request_order_request.dart';
 import 'package:emenu/mvvm/data/request/get_token_request.dart';
 import 'package:emenu/mvvm/data/request/product_category/get_category_request.dart';
+import 'package:emenu/mvvm/data/request/send_notification_request.dart';
 import 'package:emenu/mvvm/repository/auth_repositories.dart';
 import 'package:emenu/mvvm/repository/emenu_config_repositories.dart';
 import 'package:emenu/mvvm/repository/product_category_repositories.dart';
@@ -79,9 +80,8 @@ class HomeProvider extends ChangeNotifier {
           _appProvider.setCustomerPhone(r.data.first.customer?.phone1 ?? '');
 
           notifyListeners();
-        } else {
-          getPosOrderCus();
         }
+        getPosOrderCus();
       },
     );
   }
@@ -98,12 +98,17 @@ class HomeProvider extends ChangeNotifier {
     result.fold(
       (l) => _state = HomeViewState.error(l.message),
       (r) {
-        if (r.data.isNotEmpty) {
+        if (r.data.isNotEmpty &&
+            _appProvider.customerName != null &&
+            _appProvider.customerPhone != null) {
           _appProvider.setCustomerName(r.data.first.customerName ?? '');
           _appProvider.setCustomerPhone(r.data.first.phone ?? '');
 
           notifyListeners();
         }
+        AppInformation().updateData(
+          posOrderId: r.data.isNotEmpty ? r.data.first.id : null,
+        );
       },
     );
   }
@@ -235,6 +240,30 @@ class HomeProvider extends ChangeNotifier {
       },
     );
     notifyListeners();
+  }
+
+  Future<void> sendNotification({required String notifyType}) async {
+    _state = const HomeViewState.loadingSendNotification();
+    notifyListeners();
+    final SendNotificationRequest queries = SendNotificationRequest(
+      orgId: AppInformation().orgId ?? 0,
+      posTerminalId: AppInformation().posTerminalId ?? 0,
+      tableId: AppInformation().tableId ?? 0,
+      floorId: AppInformation().floorId ?? 0,
+      posOrderId: AppInformation().posOrderId,
+      notifyType: notifyType,
+    );
+    final result = await _emenuConfigRepositories.sendNotification(rq: queries);
+    result.fold(
+      (l) {
+        _state = HomeViewState.error(l.message);
+        notifyListeners();
+      },
+      (r) {
+        _state = HomeViewState.sendNotificationSuccess(r.message);
+        notifyListeners();
+      },
+    );
   }
 
   bool get isLoading => _state.isLoadingInitial;

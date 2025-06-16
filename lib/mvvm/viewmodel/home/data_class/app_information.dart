@@ -11,6 +11,7 @@ class AppInformation {
   String? _address;
   String? _hashParam;
   String? _tableName;
+  int? _posOrderId;
 
   static final AppInformation _instance = AppInformation._internal();
   factory AppInformation() {
@@ -31,6 +32,7 @@ class AppInformation {
     String? address,
     String? hashParam,
     String? tableName,
+    int? posOrderId,
   }) {
     _orgId = orgId;
     _tenantId = tenantId;
@@ -44,6 +46,7 @@ class AppInformation {
     _address = address;
     _hashParam = hashParam;
     _tableName = tableName;
+    _posOrderId = posOrderId;
   }
 
   void updateData({
@@ -59,6 +62,7 @@ class AppInformation {
     String? address,
     String? hashParam,
     String? tableName,
+    int? posOrderId,
   }) {
     _orgId = orgId ?? _orgId;
     _tenantId = tenantId ?? _tenantId;
@@ -72,6 +76,7 @@ class AppInformation {
     _address = address ?? _address;
     _hashParam = hashParam ?? _hashParam;
     _tableName = tableName ?? _tableName;
+    _posOrderId = posOrderId ?? _posOrderId;
   }
 
   bool isInitialized() {
@@ -103,4 +108,5 @@ class AppInformation {
   String? get address => _address;
   String? get hashParam => _hashParam;
   String? get tableName => _tableName;
+  int? get posOrderId => _posOrderId;
 }

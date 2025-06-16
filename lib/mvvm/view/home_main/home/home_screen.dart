@@ -4,6 +4,7 @@ import 'package:emenu/core/component/build_cart_layout.dart';
 import 'package:emenu/core/component/build_custom_button.dart';
 import 'package:emenu/core/component/build_product_card_item.dart';
 import 'package:emenu/core/component/image_render.dart';
+import 'package:emenu/core/component/loading_overlay.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/core/extensions/num_extension.dart';
@@ -49,40 +50,48 @@ class _HomeScreenState extends State<HomeScreen> {
       if (state.isError) {
         context.showTopSnackbar(state.message ?? '', isError: true);
       }
+      if (state.isSendNotificationSuccess) {
+        context.showTopSnackbar(state.message ?? '', isError: false);
+      }
       if (state.isSuccess) {}
     });
 
     return BuildCartLayout(
       child: Consumer<HomeProvider>(
         builder: (context, provider, _) {
-          return Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 14,
-              vertical: 12,
-            ),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color.fromRGBO(45, 127, 249, 0.2),
-                  Color.fromRGBO(255, 255, 255, 0.2),
-                ],
+          return Stack(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 12,
+                ),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromRGBO(45, 127, 249, 0.2),
+                      Color.fromRGBO(255, 255, 255, 0.2),
+                    ],
+                  ),
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      _buildTitle(context),
+                      const SizedBox(height: 12),
+                      _buildBanner(context, provider),
+                      const SizedBox(height: 18),
+                      _buildButtons(context),
+                      const SizedBox(height: 18),
+                      _buildCategories(context, provider),
+                    ],
+                  ),
+                ),
               ),
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _buildTitle(context),
-                  const SizedBox(height: 12),
-                  _buildBanner(context, provider),
-                  const SizedBox(height: 18),
-                  _buildButtons(context),
-                  const SizedBox(height: 18),
-                  _buildCategories(context, provider),
-                ],
-              ),
-            ),
+              LoadingOverlay(isLoading: state.isLoadingSendNotification),
+            ],
           );
         },
       ),
@@ -232,7 +241,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 isVertical: true,
                 radius: 20,
                 color: ThemeConfig.greenColor,
-                onPressed: () {},
+                onPressed: () {
+                  _homeProvider.sendNotification(notifyType: "RQ_PAYMENT");
+                },
               ),
             ),
             const SizedBox(width: 12),
@@ -246,7 +257,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 radius: 20,
                 color: Theme.of(context).secondaryHeaderColor,
-                onPressed: () {},
+                onPressed: () {
+                  _homeProvider.sendNotification(notifyType: "RQ_STAFF");
+                },
               ),
             ),
           ],
@@ -264,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 radius: 20,
                 onPressed: () {
-                  context.go(AppPages.listProduct);
+                  context.push(AppPages.listProduct);
                 },
               ),
             ),

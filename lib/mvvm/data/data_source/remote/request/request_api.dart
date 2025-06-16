@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:emenu/mvvm/data/model/request_history/request_history_model.dart';
-import 'package:emenu/mvvm/data/model/response/pagination_response/pagination_response_model.dart';
 import 'package:emenu/mvvm/data/model/response/reponse_data/response_data_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';

@@ -10,6 +10,7 @@ import 'package:emenu/mvvm/data/model/response/pagination_response/pagination_re
 import 'package:emenu/mvvm/data/model/response/reponse_data/response_data_model.dart';
 import 'package:emenu/mvvm/data/request/get_pos_order_request.dart';
 import 'package:emenu/mvvm/data/request/get_request_order_request.dart';
+import 'package:emenu/mvvm/data/request/send_notification_request.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
@@ -62,6 +63,15 @@ class EmenuConfigRepositories extends ApiCallHelper {
         ResponseData<OrganizationModel>>(
       mapper: (p0) => p0,
       request: () async => await _emenuConfigApi.getTableById(id),
+    );
+  }
+
+  Future<SResult<ResponseData>> sendNotification(
+      {required SendNotificationRequest rq}) async {
+    return await apiCall<ResponseData, ResponseData>(
+      mapper: (p0) => p0,
+      request: () async =>
+          await _emenuConfigApi.sendNotification(queries: rq.toJson()),
     );
   }
 }

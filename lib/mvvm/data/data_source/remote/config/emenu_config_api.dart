@@ -21,6 +21,7 @@ abstract class EmenuConfigApi {
   static const String getPosOrderApi = '$branchv1/posOrders/findAll';
   static const String getOrgEmenuApi = '$branchv1/org/getOrgEmenu';
   static const String getTableByIdApi = '$branchv1/tables';
+  static const String sendNotificationApi = '$branchv1/requestOrder/sendNotify';
 
   @factoryMethod
   factory EmenuConfigApi(Dio dio) = _EmenuConfigApi;
@@ -44,4 +45,8 @@ abstract class EmenuConfigApi {
   @GET('$getTableByIdApi/{id}')
   Future<HttpResponse<ResponseData<OrganizationModel>>> getTableById(
       @Path('id') String id);
+
+  @POST(sendNotificationApi)
+  Future<HttpResponse<ResponseData>> sendNotification(
+      {@Body() required Map<String, dynamic> queries});
 }

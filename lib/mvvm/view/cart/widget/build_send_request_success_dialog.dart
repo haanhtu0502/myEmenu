@@ -1,4 +1,5 @@
 import 'package:emenu/core/component/build_custom_button.dart';
+import 'package:emenu/core/component/image_render.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/generated/l10n.dart';
@@ -23,8 +24,11 @@ class SendRequestSuccessDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset(
-            ImageConst.successImg,
+          ImageRender(
+            imageUrl: ImageConst.successImg,
+            width: 80,
+            height: 80,
+            fit: BoxFit.contain,
           ),
           const SizedBox(height: 16),
           Row(
@@ -40,7 +44,7 @@ class SendRequestSuccessDialog extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
