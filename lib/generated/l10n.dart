@@ -659,6 +659,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Retail customers cannot view order history`
+  String get retailCustomerCannotViewHistory {
+    return Intl.message(
+      'Retail customers cannot view order history',
+      name: 'retailCustomerCannotViewHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No note`
+  String get noNote {
+    return Intl.message(
+      'No note',
+      name: 'noNote',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

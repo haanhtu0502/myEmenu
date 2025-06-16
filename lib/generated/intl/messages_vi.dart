@@ -56,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Không có thành phần nào"),
         "noExtraAvailable":
             MessageLookupByLibrary.simpleMessage("Không có món thêm nào"),
+        "noNote": MessageLookupByLibrary.simpleMessage("Không có ghi chú"),
         "note": MessageLookupByLibrary.simpleMessage("Ghi chú"),
         "orderFoodHear":
             MessageLookupByLibrary.simpleMessage("Gọi món tại đây"),
@@ -80,6 +81,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "requestOrder": MessageLookupByLibrary.simpleMessage("Gọi món"),
         "requestOrderSuccess":
             MessageLookupByLibrary.simpleMessage("Yêu cầu gọi món thành công"),
+        "retailCustomerCannotViewHistory": MessageLookupByLibrary.simpleMessage(
+            "Khách lẻ không thể xem lịch sử gọi món"),
         "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
         "startOrder": MessageLookupByLibrary.simpleMessage("Bắt đầu gọi món"),
         "table": MessageLookupByLibrary.simpleMessage("Bàn"),

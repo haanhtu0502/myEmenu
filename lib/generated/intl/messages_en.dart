@@ -56,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No component available"),
         "noExtraAvailable":
             MessageLookupByLibrary.simpleMessage("No extra available"),
+        "noNote": MessageLookupByLibrary.simpleMessage("No note"),
         "note": MessageLookupByLibrary.simpleMessage("Note"),
         "orderFoodHear":
             MessageLookupByLibrary.simpleMessage("Order food here"),
@@ -80,6 +81,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "requestOrder": MessageLookupByLibrary.simpleMessage("Request order"),
         "requestOrderSuccess":
             MessageLookupByLibrary.simpleMessage("Request order successfully"),
+        "retailCustomerCannotViewHistory": MessageLookupByLibrary.simpleMessage(
+            "Retail customers cannot view order history"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "startOrder": MessageLookupByLibrary.simpleMessage("Start ordering"),
         "table": MessageLookupByLibrary.simpleMessage("Table"),

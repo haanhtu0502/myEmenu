@@ -59,5 +59,7 @@
     "removeItem": "Remove item",
     "removeItemConfirm": "Are you sure you want to remove this item from the cart?",
     "itemDeletedSuccessfully": "Item deleted successfully",
-    "requestOrderSuccess": "Request order successfully"
+    "requestOrderSuccess": "Request order successfully",
+    "retailCustomerCannotViewHistory": "Retail customers cannot view order history",
+    "noNote": "No note"
 }

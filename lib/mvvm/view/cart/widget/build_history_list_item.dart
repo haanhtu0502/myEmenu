@@ -1,12 +1,22 @@
 import 'package:emenu/core/component/build_custom_button.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
+import 'package:emenu/core/extensions/num_extension.dart';
+import 'package:emenu/core/extensions/string_extension.dart';
 import 'package:emenu/generated/l10n.dart';
+import 'package:emenu/mvvm/data/model/request_history/request_history_model.dart';
+import 'package:emenu/routes/app_pages.dart';
 import 'package:emenu/theme/theme_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class BuildHistoryListItem extends StatefulWidget {
-  const BuildHistoryListItem({super.key});
+  const BuildHistoryListItem({
+    super.key,
+    required this.requestHistory,
+  });
+
+  final RequestHistoryModel requestHistory;
 
   @override
   State<BuildHistoryListItem> createState() => _BuildHistoryListItemState();
@@ -21,10 +31,11 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              "Đã hoàn thành",
+              widget.requestHistory.valueStatus ?? '',
               style: context.titleMedium.copyWith(
                 fontWeight: FontWeight.bold,
-                color: ThemeConfig.greenColor,
+                color: widget
+                    .requestHistory.status?.convertRequestOrderStatusToColor,
               ),
             ),
           ],
@@ -68,11 +79,11 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
                 children: [
                   RichText(
                     text: TextSpan(
-                      text: 'Pizza Hut ',
+                      text: '${widget.requestHistory.product?.name ?? ''} ',
                       style: context.titleMedium,
                       children: <TextSpan>[
                         TextSpan(
-                          text: 'x1',
+                          text: 'x${widget.requestHistory.qty ?? 0}',
                           style: context.titleMedium.copyWith(
                             color: Theme.of(context).hintColor,
                             fontWeight: FontWeight.bold,
@@ -83,30 +94,42 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
                   ),
                 ],
               ),
+              widget.requestHistory.lineDetails != null &&
+                      widget.requestHistory.lineDetails!.isNotEmpty
+                  ? Column(
+                      children: [
+                        ...widget.requestHistory.lineDetails!
+                            .map(
+                              (lineDetail) => Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    lineDetail.product?.name ?? '',
+                                    style: context.titleMedium.copyWith(
+                                      color: Theme.of(context).dividerColor,
+                                    ),
+                                  ),
+                                  if (lineDetail.qty != null &&
+                                      lineDetail.qty! > 1)
+                                    Text(
+                                      ' x${lineDetail.qty}',
+                                      style: context.titleMedium.copyWith(
+                                        color: Theme.of(context).dividerColor,
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            )
+                            .expand(
+                              (element) => [
+                                const SizedBox(height: 4),
+                                element,
+                              ],
+                            ),
+                      ],
+                    )
+                  : const SizedBox.shrink(),
               const SizedBox(height: 4),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Sốt mè',
-                    style: context.titleMedium.copyWith(
-                      color: Theme.of(context).dividerColor,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Sốt mè cay x2',
-                    style: context.titleMedium.copyWith(
-                      color: Theme.of(context).dividerColor,
-                    ),
-                  ),
-                ],
-              ),
               Row(
                 children: [
                   Icon(
@@ -116,7 +139,7 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    'Ít ngọt',
+                    widget.requestHistory.description ?? S.of(context).noNote,
                     style: context.titleMedium.copyWith(
                       color: Theme.of(context).dividerColor,
                     ),
@@ -126,20 +149,25 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
               const SizedBox(height: 4),
               Row(
                 children: [
-                  RichText(
-                    text: TextSpan(
-                      text: '49.000  ',
-                      style: context.titleMedium.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: '|  30-12, 14:50 ⋅ Đã chờ 15p',
-                          style: context.titleMedium.copyWith(
-                            color: Theme.of(context).dividerColor,
-                          ),
+                  Expanded(
+                    child: RichText(
+                      text: TextSpan(
+                        text:
+                            '${widget.requestHistory.salesPrice.toCurrencyFormat} ',
+                        style: context.titleMedium.copyWith(
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
+                        children: <TextSpan>[
+                          TextSpan(
+                            text:
+                                '| 30-12, 14:50 ⋅ Đã chờ ${widget.requestHistory.timeWaiting}p',
+                            style: context.titleMedium.copyWith(
+                              color: Theme.of(context).dividerColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
@@ -152,11 +180,14 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
   }
 
   Widget _buildButtons(BuildContext context) {
+    final status = widget.requestHistory.status;
     return Row(
       children: [
         Expanded(
           child: BuildCustomButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(AppPages.listProduct);
+            },
             text: S.of(context).orderMore,
             color: Colors.white,
             borderColor: Theme.of(context).secondaryHeaderColor,
@@ -170,9 +201,25 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
           child: BuildCustomButton(
             onPressed: () {},
             text: S.of(context).priorityProcess,
-            color: Theme.of(context).secondaryHeaderColor,
-            textColor: Colors.white,
-            borderColor: Theme.of(context).secondaryHeaderColor,
+            color: status == "PND"
+                ? Theme.of(context).secondaryHeaderColor
+                : Colors.white,
+            textColor: status == 'PND'
+                ? Colors.white
+                : const Color.fromRGBO(
+                    116,
+                    131,
+                    161,
+                    1,
+                  ),
+            borderColor: status == 'PND'
+                ? Colors.white
+                : const Color.fromRGBO(
+                    116,
+                    131,
+                    161,
+                    1,
+                  ),
           ),
         ),
       ],

@@ -59,5 +59,7 @@
     "removeItem": "Xoá món",
     "removeItemConfirm": "Bạn có chắc chắn muốn xoá món này khỏi giỏ hàng không?",
     "itemDeletedSuccessfully": "Món đã được xoá thành công",
-    "requestOrderSuccess": "Yêu cầu gọi món thành công"
+    "requestOrderSuccess": "Yêu cầu gọi món thành công",
+    "retailCustomerCannotViewHistory": "Khách lẻ không thể xem lịch sử gọi món",
+    "noNote": "Không có ghi chú"
 }

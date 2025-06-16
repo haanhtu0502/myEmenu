@@ -1,5 +1,7 @@
 import 'package:emenu/mvvm/data/model/product_cart_item/product_cart_item_model.dart';
+import 'package:emenu/mvvm/data/model/request_history/request_history_model.dart';
 import 'package:emenu/mvvm/data/request/create_order_request.dart';
+import 'package:emenu/mvvm/data/request/get_request_history_request.dart';
 import 'package:emenu/mvvm/repository/cart_repositories.dart';
 import 'package:emenu/mvvm/viewmodel/app_provider.dart';
 import 'package:emenu/mvvm/viewmodel/cart/view_state/cart_view_state.dart';
@@ -13,6 +15,8 @@ import 'package:intl/intl.dart';
 @singleton
 class CartProvider extends ChangeNotifier {
   final List<ProductCartItemModel> cartItems = [];
+  List<RequestHistoryModel> listRequestHistory = [];
+
   num totalPrice = 0;
 
   final CartRepositories _cartRepositories;
@@ -79,6 +83,33 @@ class CartProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> getRequestHistory(String? cusPhone) async {
+    _cartViewState = const CartViewState.loadingGetRequestHistory();
+    notifyListeners();
+    final result =
+        await _cartRepositories.getRequestHistory(GetRequestHistoryRequest(
+      orgId: AppInformation().orgId,
+      cusPhone: cusPhone,
+      tableId: AppInformation().tableId,
+    ));
+    result.fold(
+      (left) {
+        _cartViewState = CartViewState.getRequestHistoryFailed(left.message);
+        notifyListeners();
+      },
+      (right) {
+        listRequestHistory = right.data ?? [];
+        _cartViewState = const CartViewState.getRequestHistorySuccess();
+        notifyListeners();
+      },
+    );
+  }
+
+  num getTotalHistoryPrice() {
+    return listRequestHistory.fold(
+        0, (sum, item) => sum + (item.salesPrice ?? 0));
+  }
+
   Future<void> sendRequestOrder({required AppProvider appProvider}) async {
     _cartViewState = const CartViewState.loadingSendRequestOrder();
     notifyListeners();
@@ -105,7 +136,7 @@ class CartProvider extends ChangeNotifier {
     ));
     result.fold(
       (left) {
-        _cartViewState = CartViewState.error(left.message);
+        _cartViewState = CartViewState.sendRequestOrderFailed(left.message);
         notifyListeners();
       },
       (right) {
