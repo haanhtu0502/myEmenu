@@ -117,6 +117,7 @@ flutter:
     - assets/images/loading_lottie.json
     - assets/images/success_img.png
     - assets/images/process_request.png
+    - assets/images/delete_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

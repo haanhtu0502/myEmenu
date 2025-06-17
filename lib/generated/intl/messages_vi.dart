@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Đã thêm vào giỏ hàng thành công"),
         "afternoon": MessageLookupByLibrary.simpleMessage("Buổi trưa"),
         "allCategory": MessageLookupByLibrary.simpleMessage("Tất cả danh mục"),
+        "allItemsDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Tất cả món đã được xoá thành công"),
         "back": MessageLookupByLibrary.simpleMessage("Quay lại"),
         "callEmployee": MessageLookupByLibrary.simpleMessage("Gọi nhân viên"),
         "callPayment": MessageLookupByLibrary.simpleMessage("Gọi thanh toán"),
@@ -41,6 +43,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmPriorityProcessing": m0,
         "continueOrder":
             MessageLookupByLibrary.simpleMessage("Tiếp tục gọi món"),
+        "deleteAllItems":
+            MessageLookupByLibrary.simpleMessage("Xoá tất cả món"),
+        "deleteAllItemsConfirm": MessageLookupByLibrary.simpleMessage(
+            "Bạn có chắc chắn muốn xoá tất cả món trong giỏ hàng không?"),
         "description": MessageLookupByLibrary.simpleMessage("Mô tả"),
         "detail": MessageLookupByLibrary.simpleMessage("Chi tiết"),
         "dishList": MessageLookupByLibrary.simpleMessage("Danh sách món"),
@@ -64,6 +70,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Không có thành phần nào"),
         "noExtraAvailable":
             MessageLookupByLibrary.simpleMessage("Không có món thêm nào"),
+        "noItemsToDelete":
+            MessageLookupByLibrary.simpleMessage("Không có món nào để xoá"),
         "noNote": MessageLookupByLibrary.simpleMessage("Không có ghi chú"),
         "note": MessageLookupByLibrary.simpleMessage("Ghi chú"),
         "orderFoodHear":

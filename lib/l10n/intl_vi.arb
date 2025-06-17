@@ -70,5 +70,9 @@
     "confirmPriorityProcessing": "Bạn có muốn ưu tiên chế biến món {name} ngay bây giờ ?",
     "inputFeedback": "Nhập phản hồi",
     "priority": "Ưu tiên",
-    "sendPriorityRequestSuccess": "Yêu cầu ưu tiên chế biến của bạn đã được gửi. Xin vui lòng đợi trong giây lát !"
+    "sendPriorityRequestSuccess": "Yêu cầu ưu tiên chế biến của bạn đã được gửi. Xin vui lòng đợi trong giây lát !",
+    "deleteAllItems": "Xoá tất cả món",
+    "deleteAllItemsConfirm": "Bạn có chắc chắn muốn xoá tất cả món trong giỏ hàng không?",
+    "allItemsDeletedSuccessfully": "Tất cả món đã được xoá thành công",
+    "noItemsToDelete": "Không có món nào để xoá"
 }

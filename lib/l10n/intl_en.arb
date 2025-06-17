@@ -70,5 +70,9 @@
     "confirmPriorityProcessing": "Do you want to prioritize processing the dish {name} right now ?",
     "inputFeedback": "Input feedback",
     "priority": "Priority",
-    "sendPriorityRequestSuccess": "Your priority request has been sent successfully and is being processed !"
+    "sendPriorityRequestSuccess": "Your priority request has been sent successfully and is being processed !",
+    "deleteAllItems": "Delete all items",
+    "deleteAllItemsConfirm": "Are you sure you want to delete all items from the cart?",
+    "allItemsDeletedSuccessfully": "All items deleted successfully",
+    "noItemsToDelete": "No items to delete"
 }

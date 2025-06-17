@@ -30,6 +30,31 @@ class _OrderListTabState extends State<OrderListTab> {
   CartProvider get _cartProvider =>
       Provider.of<CartProvider>(context, listen: false);
 
+  Future<void> _onDeleteAllItems(BuildContext context) async {
+    if (_cartProvider.cartItems.isEmpty) {
+      context.showTopSnackbar(
+        S.of(context).noItemsToDelete,
+        isError: true,
+      );
+      return;
+    }
+    final result = await context.showConfirmDialog(
+      title: S.of(context).deleteAllItems,
+      confirmText: S.of(context).deleteAllItemsConfirm,
+      width: 400,
+      onConfirm: () {
+        _cartProvider.clearCart();
+        context.showTopSnackbar(
+          S.of(context).allItemsDeletedSuccessfully,
+        );
+      },
+    );
+
+    if (result) {
+      _cartProvider.clearCart();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<CartProvider>(
@@ -71,8 +96,11 @@ class _OrderListTabState extends State<OrderListTab> {
                           const SizedBox(
                             width: 8,
                           ),
-                          SvgPicture.asset(
-                            ImageConst.bagIcon,
+                          InkWell(
+                            onTap: () => _onDeleteAllItems(context),
+                            child: SvgPicture.asset(
+                              ImageConst.bagIcon,
+                            ),
                           ),
                         ],
                       ),
@@ -113,12 +141,12 @@ class _OrderListTabState extends State<OrderListTab> {
 
               return result;
             },
-            background: Container(
-              color: Colors.red,
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsets.only(right: 16.0),
-              child: const Icon(Icons.delete, color: Colors.white),
-            ),
+            // background: Container(
+            //   color: Colors.red,
+            //   alignment: Alignment.centerRight,
+            //   padding: const EdgeInsets.only(right: 16.0),
+            //   child: const Icon(Icons.delete, color: Colors.white),
+            // ),
             key: Key("${provider.cartItems[index].product.productId}-$index"),
             onDismissed: (direction) {},
             child: BuildOrderListItem(

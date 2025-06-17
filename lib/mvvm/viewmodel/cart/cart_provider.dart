@@ -69,6 +69,10 @@ class CartProvider extends ChangeNotifier {
         cartItems[index].quantity = quantity;
         cartItems[index].totalPrice =
             productCart.product.getTotalPrice(quantity);
+        totalPrice = cartItems.fold(
+          0,
+          (sum, item) => sum + item.totalPrice,
+        );
       }
       notifyListeners();
     }

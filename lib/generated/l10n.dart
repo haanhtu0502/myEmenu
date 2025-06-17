@@ -769,6 +769,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete all items`
+  String get deleteAllItems {
+    return Intl.message(
+      'Delete all items',
+      name: 'deleteAllItems',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete all items from the cart?`
+  String get deleteAllItemsConfirm {
+    return Intl.message(
+      'Are you sure you want to delete all items from the cart?',
+      name: 'deleteAllItemsConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All items deleted successfully`
+  String get allItemsDeletedSuccessfully {
+    return Intl.message(
+      'All items deleted successfully',
+      name: 'allItemsDeletedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No items to delete`
+  String get noItemsToDelete {
+    return Intl.message(
+      'No items to delete',
+      name: 'noItemsToDelete',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

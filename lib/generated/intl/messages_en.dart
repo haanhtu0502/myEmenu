@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Added to cart successfully"),
         "afternoon": MessageLookupByLibrary.simpleMessage("Afternoon"),
         "allCategory": MessageLookupByLibrary.simpleMessage("All category"),
+        "allItemsDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "All items deleted successfully"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "callEmployee": MessageLookupByLibrary.simpleMessage("Call employee"),
         "callPayment": MessageLookupByLibrary.simpleMessage("Call payment"),
@@ -41,6 +43,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmPriorityProcessing": m0,
         "continueOrder":
             MessageLookupByLibrary.simpleMessage("Continue ordering"),
+        "deleteAllItems":
+            MessageLookupByLibrary.simpleMessage("Delete all items"),
+        "deleteAllItemsConfirm": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete all items from the cart?"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "detail": MessageLookupByLibrary.simpleMessage("Detail"),
         "dishList": MessageLookupByLibrary.simpleMessage("Dish list"),
@@ -64,6 +70,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No component available"),
         "noExtraAvailable":
             MessageLookupByLibrary.simpleMessage("No extra available"),
+        "noItemsToDelete":
+            MessageLookupByLibrary.simpleMessage("No items to delete"),
         "noNote": MessageLookupByLibrary.simpleMessage("No note"),
         "note": MessageLookupByLibrary.simpleMessage("Note"),
         "orderFoodHear":
