@@ -84,6 +84,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "paymentRequest":
             MessageLookupByLibrary.simpleMessage("Yêu cầu thanh toán"),
         "phone": MessageLookupByLibrary.simpleMessage("Số điện thoại"),
+        "pleaseAddItemToSendRequest": MessageLookupByLibrary.simpleMessage(
+            "Vui lòng thêm món để gửi yêu cầu gọi món"),
         "pleaseInput": MessageLookupByLibrary.simpleMessage("Vui lòng nhập"),
         "pleaseProvideNamePhone": MessageLookupByLibrary.simpleMessage(
             "Vui lòng cung cấp tên và số điện thoại của bạn để chúng tôi có thể phục vụ bạn tốt hơn!"),

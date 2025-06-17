@@ -9,8 +9,10 @@ import 'package:emenu/mvvm/view/cart/widget/build_history_list_item.dart';
 import 'package:emenu/mvvm/viewmodel/app_provider.dart';
 import 'package:emenu/mvvm/viewmodel/cart/cart_provider.dart';
 import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
+import 'package:emenu/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class HistoryListTab extends StatefulWidget {
@@ -211,7 +213,9 @@ class _HistoryListTabState extends State<HistoryListTab> {
                     color: Theme.of(context).primaryColor,
                   ),
                   text: S.of(context).addDish,
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context).push(AppPages.listProduct);
+                  },
                   color: Theme.of(context).primaryColor,
                   textColor: Colors.white,
                   borderColor: Theme.of(context).primaryColor,

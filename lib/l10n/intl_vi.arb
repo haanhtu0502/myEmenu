@@ -74,5 +74,6 @@
     "deleteAllItems": "Xoá tất cả món",
     "deleteAllItemsConfirm": "Bạn có chắc chắn muốn xoá tất cả món trong giỏ hàng không?",
     "allItemsDeletedSuccessfully": "Tất cả món đã được xoá thành công",
-    "noItemsToDelete": "Không có món nào để xoá"
+    "noItemsToDelete": "Không có món nào để xoá",
+    "pleaseAddItemToSendRequest": "Vui lòng thêm món để gửi yêu cầu gọi món"
 }

@@ -245,6 +245,13 @@ class _OrderListTabState extends State<OrderListTab> {
                   ),
                   text: S.of(context).requestOrder,
                   onPressed: () {
+                    if (provider.cartItems.isEmpty) {
+                      context.showTopSnackbar(
+                        S.of(context).pleaseAddItemToSendRequest,
+                        isError: true,
+                      );
+                      return;
+                    }
                     provider.sendRequestOrder(appProvider: _appProvider);
                   },
                   color: Theme.of(context).primaryColor,

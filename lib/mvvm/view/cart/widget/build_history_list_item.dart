@@ -9,6 +9,7 @@ import 'package:emenu/mvvm/view/cart/cart_coordinator.dart';
 import 'package:emenu/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 class BuildHistoryListItem extends StatefulWidget {
   const BuildHistoryListItem({
@@ -186,7 +187,7 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
         Expanded(
           child: BuildCustomButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(AppPages.listProduct);
+              GoRouter.of(context).push(AppPages.listProduct);
             },
             text: S.of(context).orderMore,
             color: Colors.white,

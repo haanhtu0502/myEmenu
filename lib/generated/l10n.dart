@@ -809,6 +809,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Please add an item to send the request`
+  String get pleaseAddItemToSendRequest {
+    return Intl.message(
+      'Please add an item to send the request',
+      name: 'pleaseAddItemToSendRequest',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
