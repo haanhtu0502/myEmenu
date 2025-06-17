@@ -66,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   horizontal: 14,
                   vertical: 12,
                 ),
+                height: MediaQuery.of(context).size.height,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -77,16 +78,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      _buildTitle(context),
-                      const SizedBox(height: 12),
-                      _buildBanner(context, provider),
-                      const SizedBox(height: 18),
-                      _buildButtons(context),
-                      const SizedBox(height: 18),
-                      _buildCategories(context, provider),
-                    ],
+                  child: Expanded(
+                    child: Column(
+                      children: [
+                        _buildTitle(context),
+                        const SizedBox(height: 12),
+                        _buildBanner(context, provider),
+                        const SizedBox(height: 18),
+                        _buildButtons(context),
+                        const SizedBox(height: 18),
+                        _buildCategories(context, provider),
+                      ],
+                    ),
                   ),
                 ),
               ),

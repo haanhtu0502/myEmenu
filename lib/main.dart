@@ -6,6 +6,7 @@ import 'package:emenu/core/di/di.dart';
 import 'package:emenu/core/services/share_preferences_service.dart';
 import 'package:emenu/mvvm/viewmodel/app_provider.dart';
 import 'package:emenu/mvvm/viewmodel/cart/cart_provider.dart';
+import 'package:emenu/mvvm/viewmodel/floating_button/floating_button_controller.dart';
 import 'package:emenu/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -27,6 +28,9 @@ void main() async {
         ),
         ChangeNotifierProvider.value(
           value: injector.get<CartProvider>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => injector.get<FloatingButtonController>(),
         ),
       ],
       child: const MyApp(),
