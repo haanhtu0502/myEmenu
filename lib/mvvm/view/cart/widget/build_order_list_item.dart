@@ -55,7 +55,7 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
               children: [
                 ImageRender(
                   imageUrl:
-                      widget.item.product.imageUrl ?? ImageConst.foodImage,
+                      widget.item.product.imageUrl ?? ImageConst.noImageImg,
                   height: 60,
                   width: double.infinity,
                   fit: BoxFit.contain,

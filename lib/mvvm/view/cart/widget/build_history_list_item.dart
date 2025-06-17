@@ -67,7 +67,10 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
         Expanded(
           flex: 1,
           child: Image.asset(
-            ImageConst.foodImage,
+            widget.requestHistory.product?.imageUrl == null ||
+                    widget.requestHistory.product!.imageUrl!.isEmpty
+                ? ImageConst.noImageImg
+                : widget.requestHistory.product!.imageUrl!,
             width: double.infinity,
           ),
         ),

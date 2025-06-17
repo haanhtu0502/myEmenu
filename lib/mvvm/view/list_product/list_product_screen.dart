@@ -293,7 +293,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
         );
       },
       child: ProductCardItem(
-        imageUrl: item?.imageUrl ?? ImageConst.foodImage,
+        imageUrl: item?.imageUrl ?? ImageConst.noImageImg,
         isBorder: true,
         imageTopPosition: -25,
         imageFit: BoxFit.cover,

@@ -136,7 +136,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         Radius.circular(32),
                       ),
                       child: ImageRender(
-                        imageUrl: product.imageUrl ?? ImageConst.foodImage,
+                        imageUrl: product.imageUrl ?? ImageConst.noImageImg,
                         width: double.infinity,
                         height: 230,
                         fit: BoxFit.cover,
