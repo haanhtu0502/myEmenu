@@ -1,4 +1,6 @@
+import 'package:emenu/mvvm/data/model/request_history/request_history_model.dart';
 import 'package:emenu/mvvm/view/cart/widget/build_add_note_bottom_sheet.dart';
+import 'package:emenu/mvvm/view/cart/widget/build_send_processing_request_dialog.dart';
 import 'package:emenu/mvvm/view/cart/widget/build_send_request_success_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +33,12 @@ extension CartCoordinator on BuildContext {
     }
   }
 
-  Future<void> showSendRequestSuccessDialog() async {
+  Future<void> showSendRequestSuccessDialog({
+    String? imageUrl,
+    String? title,
+    bool isShowCloseButton = true,
+    bool isShowCloseIcon = false,
+  }) async {
     await showDialog(
       context: this,
       builder: (context) {
@@ -41,7 +48,31 @@ extension CartCoordinator on BuildContext {
           ),
           elevation: 16,
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          child: const SendRequestSuccessDialog(),
+          child: SendRequestSuccessDialog(
+            imageUrl: imageUrl,
+            title: title,
+            isShowCloseButton: isShowCloseButton,
+            isShowCloseIcon: isShowCloseIcon,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> showSendProcessingRequestDialog(
+      {required RequestHistoryModel requestHistoryModel}) async {
+    await showDialog(
+      context: this,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          elevation: 16,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          child: BuildSendProcessingRequestDialog(
+            requestHistory: requestHistoryModel,
+          ),
         );
       },
     );

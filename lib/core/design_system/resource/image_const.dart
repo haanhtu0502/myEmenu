@@ -17,4 +17,5 @@ class ImageConst {
   static String noImageImg = 'assets/images/no_image_found.jpg';
   static String loadingImg = 'assets/images/loading_lottie.json';
   static String successImg = 'assets/images/success_img.png';
+  static String processRequestImg = 'assets/images/process_request.png';
 }

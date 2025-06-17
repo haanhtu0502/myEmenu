@@ -64,5 +64,11 @@
     "noNote": "Không có ghi chú",
     "sendRequestSuccess": "Yêu cầu gọi món của bạn đã được gửi và đang chờ xác nhận",
     "continueOrder": "Tiếp tục gọi món",
-    "dishesOrder": "Gọi món"
+    "dishesOrder": "Gọi món",
+    "priorityProcessing": "Ưu tiên chế biến",
+    "sorryForLate": "Chúng tôi xin lỗi vì sự chậm trễ này!",
+    "confirmPriorityProcessing": "Bạn có muốn ưu tiên chế biến món {name} ngay bây giờ ?",
+    "inputFeedback": "Nhập phản hồi",
+    "priority": "Ưu tiên",
+    "sendPriorityRequestSuccess": "Yêu cầu ưu tiên chế biến của bạn đã được gửi. Xin vui lòng đợi trong giây lát !"
 }

@@ -64,5 +64,11 @@
     "noNote": "No note",
     "sendRequestSuccess": "Your request has been sent successfully and will be processed shortly.",
     "continueOrder": "Continue ordering",
-    "dishesOrder": "Dishes order"
+    "dishesOrder": "Dishes order",
+    "priorityProcessing": "Priority processing",
+    "sorryForLate": "We apologize for the delay!",
+    "confirmPriorityProcessing": "Do you want to prioritize processing the dish {name} right now ?",
+    "inputFeedback": "Input feedback",
+    "priority": "Priority",
+    "sendPriorityRequestSuccess": "Your priority request has been sent successfully and is being processed !"
 }

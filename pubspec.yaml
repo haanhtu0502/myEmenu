@@ -116,6 +116,7 @@ flutter:
     - assets/images/no_image_found.jpg
     - assets/images/loading_lottie.json
     - assets/images/success_img.png
+    - assets/images/process_request.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

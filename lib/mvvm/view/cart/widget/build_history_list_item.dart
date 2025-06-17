@@ -5,6 +5,7 @@ import 'package:emenu/core/extensions/num_extension.dart';
 import 'package:emenu/core/extensions/string_extension.dart';
 import 'package:emenu/generated/l10n.dart';
 import 'package:emenu/mvvm/data/model/request_history/request_history_model.dart';
+import 'package:emenu/mvvm/view/cart/cart_coordinator.dart';
 import 'package:emenu/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -198,7 +199,19 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
         ),
         Expanded(
           child: BuildCustomButton(
-            onPressed: () {},
+            onPressed: () async {
+              if (status == 'PND') {
+                await context.showSendProcessingRequestDialog(
+                  requestHistoryModel: widget.requestHistory,
+                );
+                await context.showSendRequestSuccessDialog(
+                  imageUrl: ImageConst.processRequestImg,
+                  title: S.of(context).sendPriorityRequestSuccess,
+                  isShowCloseButton: false,
+                  isShowCloseIcon: true,
+                );
+              }
+            },
             text: S.of(context).priorityProcess,
             color: status == "PND"
                 ? Theme.of(context).secondaryHeaderColor

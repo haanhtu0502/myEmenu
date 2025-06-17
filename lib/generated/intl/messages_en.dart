@@ -20,6 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(name) =>
+      "Do you want to prioritize processing the dish ${name} right now ?";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addDish": MessageLookupByLibrary.simpleMessage("Add dish"),
@@ -35,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "close": MessageLookupByLibrary.simpleMessage("Close"),
         "component": MessageLookupByLibrary.simpleMessage("Component"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "confirmPriorityProcessing": m0,
         "continueOrder":
             MessageLookupByLibrary.simpleMessage("Continue ordering"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
@@ -49,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "goodMorning": MessageLookupByLibrary.simpleMessage("Good morning"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello"),
         "hi": MessageLookupByLibrary.simpleMessage("Hi"),
+        "inputFeedback": MessageLookupByLibrary.simpleMessage("Input feedback"),
         "inputNote": MessageLookupByLibrary.simpleMessage("Input note"),
         "itemDeletedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Item deleted successfully"),
@@ -76,8 +81,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please provide your name and phone number so we can serve you better!"),
         "poweredBy": MessageLookupByLibrary.simpleMessage("Powered by"),
         "priceFrom": MessageLookupByLibrary.simpleMessage("From"),
+        "priority": MessageLookupByLibrary.simpleMessage("Priority"),
         "priorityProcess":
             MessageLookupByLibrary.simpleMessage("Priority process"),
+        "priorityProcessing":
+            MessageLookupByLibrary.simpleMessage("Priority processing"),
         "removeItem": MessageLookupByLibrary.simpleMessage("Remove item"),
         "removeItemConfirm": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to remove this item from the cart?"),
@@ -87,8 +95,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "retailCustomerCannotViewHistory": MessageLookupByLibrary.simpleMessage(
             "Retail customers cannot view order history"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "sendPriorityRequestSuccess": MessageLookupByLibrary.simpleMessage(
+            "Your priority request has been sent successfully and is being processed !"),
         "sendRequestSuccess": MessageLookupByLibrary.simpleMessage(
             "Your request has been sent successfully and will be processed shortly."),
+        "sorryForLate":
+            MessageLookupByLibrary.simpleMessage("We apologize for the delay!"),
         "startOrder": MessageLookupByLibrary.simpleMessage("Start ordering"),
         "table": MessageLookupByLibrary.simpleMessage("Table"),
         "tax": MessageLookupByLibrary.simpleMessage("Tax"),

@@ -7,7 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class SendRequestSuccessDialog extends StatelessWidget {
-  const SendRequestSuccessDialog({super.key});
+  const SendRequestSuccessDialog({
+    super.key,
+    this.imageUrl,
+    this.title,
+    this.isShowCloseButton = true,
+    this.isShowCloseIcon = false,
+  });
+
+  final String? imageUrl;
+  final String? title;
+  final bool isShowCloseButton;
+  final bool isShowCloseIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +35,19 @@ class SendRequestSuccessDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (isShowCloseIcon)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.close, size: 24),
+                  onPressed: () => Navigator.of(context).pop(),
+                  color: Theme.of(context).dividerColor,
+                ),
+              ],
+            ),
           ImageRender(
-            imageUrl: ImageConst.successImg,
+            imageUrl: imageUrl ?? ImageConst.successImg,
             width: 80,
             height: 80,
             fit: BoxFit.contain,
@@ -36,7 +58,7 @@ class SendRequestSuccessDialog extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  S.of(context).sendRequestSuccess,
+                  title ?? S.of(context).sendRequestSuccess,
                   textAlign: TextAlign.center,
                   style: context.titleMedium,
                   softWrap: true,
@@ -44,23 +66,25 @@ class SendRequestSuccessDialog extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                  child: BuildCustomButton(
-                width: double.infinity,
-                text: S.of(context).continueOrder,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                color: Theme.of(context).primaryColor,
-                textColor: Colors.white,
-                borderColor: Theme.of(context).primaryColor,
-              )),
-            ],
-          ),
+          if (isShowCloseButton) ...[
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                    child: BuildCustomButton(
+                  width: double.infinity,
+                  text: S.of(context).continueOrder,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
+                  borderColor: Theme.of(context).primaryColor,
+                )),
+              ],
+            ),
+          ]
         ],
       ),
     );

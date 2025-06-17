@@ -709,6 +709,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Priority processing`
+  String get priorityProcessing {
+    return Intl.message(
+      'Priority processing',
+      name: 'priorityProcessing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We apologize for the delay!`
+  String get sorryForLate {
+    return Intl.message(
+      'We apologize for the delay!',
+      name: 'sorryForLate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to prioritize processing the dish {name} right now ?`
+  String confirmPriorityProcessing(Object name) {
+    return Intl.message(
+      'Do you want to prioritize processing the dish $name right now ?',
+      name: 'confirmPriorityProcessing',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Input feedback`
+  String get inputFeedback {
+    return Intl.message(
+      'Input feedback',
+      name: 'inputFeedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Priority`
+  String get priority {
+    return Intl.message(
+      'Priority',
+      name: 'priority',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your priority request has been sent successfully and is being processed !`
+  String get sendPriorityRequestSuccess {
+    return Intl.message(
+      'Your priority request has been sent successfully and is being processed !',
+      name: 'sendPriorityRequestSuccess',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -20,6 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'vi';
 
+  static String m0(name) =>
+      "Bạn có muốn ưu tiên chế biến món ${name} ngay bây giờ ?";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addDish": MessageLookupByLibrary.simpleMessage("Thêm món"),
@@ -35,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "close": MessageLookupByLibrary.simpleMessage("Đóng"),
         "component": MessageLookupByLibrary.simpleMessage("Thành phần"),
         "confirm": MessageLookupByLibrary.simpleMessage("Xác nhận"),
+        "confirmPriorityProcessing": m0,
         "continueOrder":
             MessageLookupByLibrary.simpleMessage("Tiếp tục gọi món"),
         "description": MessageLookupByLibrary.simpleMessage("Mô tả"),
@@ -49,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "goodMorning": MessageLookupByLibrary.simpleMessage("Chào buổi sáng"),
         "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
         "hi": MessageLookupByLibrary.simpleMessage("Chào"),
+        "inputFeedback": MessageLookupByLibrary.simpleMessage("Nhập phản hồi"),
         "inputNote": MessageLookupByLibrary.simpleMessage("Nhập ghi chú"),
         "itemDeletedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Món đã được xoá thành công"),
@@ -76,7 +81,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Vui lòng cung cấp tên và số điện thoại của bạn để chúng tôi có thể phục vụ bạn tốt hơn!"),
         "poweredBy": MessageLookupByLibrary.simpleMessage("Powered by"),
         "priceFrom": MessageLookupByLibrary.simpleMessage("Giá từ"),
+        "priority": MessageLookupByLibrary.simpleMessage("Ưu tiên"),
         "priorityProcess":
+            MessageLookupByLibrary.simpleMessage("Ưu tiên chế biến"),
+        "priorityProcessing":
             MessageLookupByLibrary.simpleMessage("Ưu tiên chế biến"),
         "removeItem": MessageLookupByLibrary.simpleMessage("Xoá món"),
         "removeItemConfirm": MessageLookupByLibrary.simpleMessage(
@@ -87,8 +95,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "retailCustomerCannotViewHistory": MessageLookupByLibrary.simpleMessage(
             "Khách lẻ không thể xem lịch sử gọi món"),
         "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
+        "sendPriorityRequestSuccess": MessageLookupByLibrary.simpleMessage(
+            "Yêu cầu ưu tiên chế biến của bạn đã được gửi. Xin vui lòng đợi trong giây lát !"),
         "sendRequestSuccess": MessageLookupByLibrary.simpleMessage(
             "Yêu cầu gọi món của bạn đã được gửi và đang chờ xác nhận"),
+        "sorryForLate": MessageLookupByLibrary.simpleMessage(
+            "Chúng tôi xin lỗi vì sự chậm trễ này!"),
         "startOrder": MessageLookupByLibrary.simpleMessage("Bắt đầu gọi món"),
         "table": MessageLookupByLibrary.simpleMessage("Bàn"),
         "tax": MessageLookupByLibrary.simpleMessage("Thuế"),

@@ -457,57 +457,59 @@ class _ListProductScreenState extends State<ListProductScreen> {
   }
 
   Widget _buildBottom(BuildContext context, ListProductProvider provider) {
-    return Consumer<CartProvider>(builder: (context, cartProvider, child) {
-      if (cartProvider.cartItems.isEmpty) {
-        return const SizedBox();
-      }
-      return BuildScaffoldFooter(
-        padding: const EdgeInsets.symmetric(
-          vertical: 20,
-          horizontal: 16,
-        ),
-        child: InkWell(
-          onTap: () {
-            GoRouter.of(context).push(
-              AppPages.cart,
-            );
-          },
-          child: Container(
-            width: double.infinity,
-            height: 40,
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  ImageConst.shoppingBag,
-                  width: 24,
-                  height: 24,
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  "${S.of(context).dishesOrder} (${cartProvider.cartItems.length})",
-                  style: context.titleMedium.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+    return Consumer<CartProvider>(
+      builder: (context, cartProvider, child) {
+        if (cartProvider.cartItems.isEmpty) {
+          return const SizedBox();
+        }
+        return BuildScaffoldFooter(
+          padding: const EdgeInsets.symmetric(
+            vertical: 20,
+            horizontal: 16,
+          ),
+          child: InkWell(
+            onTap: () {
+              GoRouter.of(context).push(
+                AppPages.cart,
+              );
+            },
+            child: Container(
+              width: double.infinity,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    ImageConst.shoppingBag,
+                    width: 24,
+                    height: 24,
                   ),
-                ),
-                const Spacer(),
-                Text(
-                  "${cartProvider.getTotalCartPrice().toCurrencyFormat} đ",
-                  style: context.titleMedium.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                  const SizedBox(width: 8),
+                  Text(
+                    "${S.of(context).dishesOrder} (${cartProvider.cartItems.length})",
+                    style: context.titleMedium.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
+                  const Spacer(),
+                  Text(
+                    "${cartProvider.getTotalCartPrice().toCurrencyFormat} đ",
+                    style: context.titleMedium.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
