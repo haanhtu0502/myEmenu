@@ -1,4 +1,5 @@
 import 'package:emenu/app_coordinator.dart';
+import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/generated/l10n.dart';
 import 'package:emenu/mvvm/view/cart/cart_coordinator.dart';
@@ -50,11 +51,20 @@ class _CartScreenState extends State<CartScreen>
           );
         } else if (state.isSendRequestOrderSuccess) {
           context.showSendRequestSuccessDialog();
+          context.read<CartProvider>().resetState();
         } else if (state.isGetRequestHistoryFailed) {
           context.showTopSnackbar(
             state.message!,
             isError: true,
           );
+        } else if (state.isSendRequestOrderRemindSuccess) {
+          context.showSendRequestSuccessDialog(
+            imageUrl: ImageConst.processRequestImg,
+            title: S.of(context).sendPriorityRequestSuccess,
+            isShowCloseButton: false,
+            isShowCloseIcon: true,
+          );
+          context.read<CartProvider>().resetState();
         }
       },
     );
@@ -107,7 +117,8 @@ class _CartScreenState extends State<CartScreen>
           ),
           Consumer<CartProvider>(builder: (context, provider, child) {
             return LoadingOverlay(
-              isLoading: provider.cartViewState.isLoadingSendRequestOrder,
+              isLoading: provider.cartViewState.isLoadingSendRequestOrder ||
+                  provider.cartViewState.isLoadingSendNotifyRemind,
             );
           }),
         ],

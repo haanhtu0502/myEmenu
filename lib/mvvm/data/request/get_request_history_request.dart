@@ -2,11 +2,13 @@ class GetRequestHistoryRequest {
   final int? orgId;
   final String? cusPhone;
   final int? tableId;
+  final int? floorId;
 
   GetRequestHistoryRequest({
     this.orgId,
     this.cusPhone,
     this.tableId,
+    this.floorId,
   });
 
   Map<String, dynamic> toJson() {
@@ -19,6 +21,9 @@ class GetRequestHistoryRequest {
     }
     if (tableId != null) {
       data['tableId'] = tableId;
+    }
+    if (floorId != null) {
+      data['floorId'] = floorId;
     }
     return data;
   }

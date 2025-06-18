@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Expanded(
                     child: Column(
                       children: [
-                        _buildTitle(context),
+                        _buildTitle(context, provider),
                         const SizedBox(height: 12),
                         _buildBanner(context, provider),
                         const SizedBox(height: 18),
@@ -101,14 +101,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildTitle(BuildContext context) {
+  Widget _buildTitle(BuildContext context, HomeProvider provider) {
     return Column(
       children: [
         Row(
           children: [
             Expanded(
               child: Text(
-                _appInformation.orgName ?? '',
+                provider.orgEmenuModel?.name ?? '',
                 style: context.titleLarge.copyWith(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Expanded(
             child: Text(
-              ' ${_appInformation.address ?? ''}',
+              ' ${provider.orgEmenuModel?.address ?? ''}',
               style: context.titleSmall.copyWith(
                 color: Theme.of(context).dividerColor,
               ),
@@ -217,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             children: [
               TextSpan(
-                text: _appInformation.tableName ?? '',
+                text: AppInformation().tableName ?? '',
                 style: context.titleSmall.copyWith(
                   color: Theme.of(context).primaryColor,
                 ),

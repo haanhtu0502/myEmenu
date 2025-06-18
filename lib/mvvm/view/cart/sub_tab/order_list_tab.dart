@@ -83,7 +83,7 @@ class _OrderListTabState extends State<OrderListTab> {
                                 children: <TextSpan>[
                                   TextSpan(
                                     text:
-                                        '${S.of(context).table} ${AppInformation().tableNo}',
+                                        '${S.of(context).table} ${AppInformation().tableName}',
                                     style: context.titleSmall.copyWith(
                                       color: Theme.of(context).primaryColor,
                                     ),

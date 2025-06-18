@@ -2,6 +2,7 @@ import 'package:emenu/mvvm/data/model/product_cart_item/product_cart_item_model.
 import 'package:emenu/mvvm/data/model/request_history/request_history_model.dart';
 import 'package:emenu/mvvm/data/request/create_order_request.dart';
 import 'package:emenu/mvvm/data/request/get_request_history_request.dart';
+import 'package:emenu/mvvm/data/request/send_notify_remind_request.dart';
 import 'package:emenu/mvvm/repository/cart_repositories.dart';
 import 'package:emenu/mvvm/viewmodel/app_provider.dart';
 import 'package:emenu/mvvm/viewmodel/cart/view_state/cart_view_state.dart';
@@ -43,6 +44,11 @@ class CartProvider extends ChangeNotifier {
       notifyListeners();
     }
     totalPrice += productCart.totalPrice;
+    notifyListeners();
+  }
+
+  void resetState() {
+    _cartViewState = const CartViewState.initial();
     notifyListeners();
   }
 
@@ -95,6 +101,7 @@ class CartProvider extends ChangeNotifier {
       orgId: AppInformation().orgId,
       cusPhone: cusPhone,
       tableId: AppInformation().tableId,
+      floorId: AppInformation().floorId,
     ));
     result.fold(
       (left) {
@@ -145,6 +152,18 @@ class CartProvider extends ChangeNotifier {
           totalAmount: item.totalPrice.toDouble(),
           taxId: item.product.taxId,
           description: item.note,
+          lineDetail: item.product.extraItems?.map((extra) {
+            return LineDetailModel(
+              orgId: AppInformation().orgId!,
+              productId: item.product.productId!,
+              qty: extra.quantity ?? 0,
+              salePrice: (extra.salePrice ?? 0).toDouble(),
+              totalAmount:
+                  ((extra.salePrice ?? 0) * (extra.quantity ?? 0)).toDouble(),
+              taxId: extra.taxId,
+              description: item.note,
+            );
+          }).toList(),
         );
       }).toList(),
       posTerminalId: AppInformation().posTerminalId!,
@@ -159,6 +178,36 @@ class CartProvider extends ChangeNotifier {
           right.message,
         );
         clearCart();
+        notifyListeners();
+      },
+    );
+  }
+
+  Future<void> sendNotifyRemind({
+    required int kitchenOrderLineId,
+    String? note,
+    String? waitingTime,
+    required ProductModel product,
+    required int quantity,
+  }) async {
+    _cartViewState = const CartViewState.loadingSendNotifyRemind();
+    notifyListeners();
+    final result = await _cartRepositories.sendNotifyRemind(
+      SendNotifyRemindRequest(
+        kitchenOrderLineId: kitchenOrderLineId,
+        priorityLevel: 'IMM',
+        cookingTime: int.tryParse(waitingTime ?? '0') ?? 0,
+        note:
+            "[Bàn ${AppInformation().tableName}] Nhắc chế biến món: ${product.name} - SL: $quantity - Thời gian đã đợi: $waitingTime",
+      ),
+    );
+    result.fold(
+      (left) {
+        _cartViewState = CartViewState.error(left.message);
+        notifyListeners();
+      },
+      (right) {
+        _cartViewState = const CartViewState.sendRequestOrderRemindSuccess();
         notifyListeners();
       },
     );

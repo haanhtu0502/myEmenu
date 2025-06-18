@@ -3,12 +3,14 @@ class GetPosOrderRequest {
   int pageSize;
   int tableId;
   int floorId;
+  int orgId;
 
   GetPosOrderRequest({
     required this.page,
     required this.pageSize,
     required this.tableId,
     required this.floorId,
+    required this.orgId,
   });
 
   Map<String, dynamic> toMap() {
@@ -18,6 +20,7 @@ class GetPosOrderRequest {
       'tableId': tableId,
       'floorId': floorId,
       'orderStatus': 'DRA',
+      'orgId': orgId,
     };
   }
 }

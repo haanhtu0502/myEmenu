@@ -5,7 +5,7 @@ final Map<String, dynamic> environmentDev = {
   'environment': 'dev',
   "openAiUrl": "https://api.openai.com/v1",
   // 'baseUrl': 'https://dbizpos-be.digitalbiz.com.vn',
-  'baseUrl': 'https://pos-dev-be.digitalbiz.com.vn',
+  'baseUrl': 'https://posapi-dev.dbiz.com',
   'tenantUrl': 'https://pos-dev.digitalbiz.com.vn/',
   // 'baseUrl': 'https://posapi.dbiz.com',
   // 'baseUrl': 'https://flight-booking-390802.as.r.appspot.com/',

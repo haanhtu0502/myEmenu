@@ -1,10 +1,9 @@
-import 'package:emenu/mvvm/data/model/product_model.dart';
 import 'package:emenu/mvvm/data/model/uom/uom_model.dart';
 
 class RequestHistoryLineModel {
   final int? id;
   final int? orgId;
-  final ProductModel? product;
+  final String? productName;
   final UOMModel? uom;
   final num? qty;
   final String? description;
@@ -13,13 +12,11 @@ class RequestHistoryLineModel {
   final int? taxId;
   final String? taxName;
   final int? taxRate;
-  final int? requestOrder;
-  final String? imageUrl;
 
   RequestHistoryLineModel({
     this.id,
     this.orgId,
-    this.product,
+    this.productName,
     this.uom,
     this.qty,
     this.description,
@@ -28,17 +25,13 @@ class RequestHistoryLineModel {
     this.taxId,
     this.taxName,
     this.taxRate,
-    this.requestOrder,
-    this.imageUrl,
   });
 
   factory RequestHistoryLineModel.fromJson(Map<String, dynamic> json) {
     return RequestHistoryLineModel(
       id: json['id'] as int?,
       orgId: json['orgId'] as int?,
-      product: json['product'] != null
-          ? ProductModel.fromJson(json['product'] as Map<String, dynamic>)
-          : null,
+      productName: json['productName'] as String?,
       uom: json['uom'] != null
           ? UOMModel.fromJson(json['uom'] as Map<String, dynamic>)
           : null,
@@ -49,8 +42,6 @@ class RequestHistoryLineModel {
       taxId: json['taxId'] as int?,
       taxName: json['taxName'] as String?,
       taxRate: json['taxRate'] as int?,
-      requestOrder: json['requestOrder'] as int?,
-      imageUrl: json['imageUrl'] as String?,
     );
   }
 }

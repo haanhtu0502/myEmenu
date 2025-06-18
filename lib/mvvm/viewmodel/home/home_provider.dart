@@ -71,6 +71,7 @@ class HomeProvider extends ChangeNotifier {
       pageSize: 1,
       tableId: AppInformation().tableId ?? 0,
       floorId: AppInformation().floorId ?? 0,
+      orgId: AppInformation().orgId ?? 0,
     ));
     result.fold(
       (l) => _state = HomeViewState.error(l.message),
@@ -80,8 +81,9 @@ class HomeProvider extends ChangeNotifier {
           _appProvider.setCustomerPhone(r.data.first.customer?.phone1 ?? '');
 
           notifyListeners();
+        } else {
+          getPosOrderCus();
         }
-        getPosOrderCus();
       },
     );
   }
@@ -93,6 +95,7 @@ class HomeProvider extends ChangeNotifier {
         pageSize: 1,
         tableId: AppInformation().tableId ?? 0,
         floorId: AppInformation().floorId ?? 0,
+        orgId: AppInformation().orgId ?? 0,
       ),
     );
     result.fold(
@@ -245,6 +248,33 @@ class HomeProvider extends ChangeNotifier {
   Future<void> sendNotification({required String notifyType}) async {
     _state = const HomeViewState.loadingSendNotification();
     notifyListeners();
+    if (notifyType == "RQ_PAYMENT" && AppInformation().posOrderId == null) {
+      final result = await _emenuConfigRepositories.getPosOrder(
+        request: GetPosOrderRequest(
+          page: 0,
+          pageSize: 1,
+          tableId: AppInformation().tableId ?? 0,
+          floorId: AppInformation().floorId ?? 0,
+          orgId: AppInformation().orgId ?? 0,
+        ),
+      );
+      if (result.isLeft()) {
+        _state = HomeViewState.error(result.fold((l) => l.message, (_) => ''));
+        notifyListeners();
+        return;
+      }
+
+      final r = result.fold((_) => null, (right) => right)!;
+      if (r.data.isNotEmpty && r.data.first.id == null) {
+        _state =
+            const HomeViewState.error("Không có đơn hàng nào để thanh toán");
+        notifyListeners();
+        return;
+      }
+
+      AppInformation().updateData(posOrderId: r.data.first.id);
+    }
+
     final SendNotificationRequest queries = SendNotificationRequest(
       orgId: AppInformation().orgId ?? 0,
       posTerminalId: AppInformation().posTerminalId ?? 0,

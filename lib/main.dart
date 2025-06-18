@@ -1,6 +1,7 @@
 import 'package:emenu/core/component/custom_scroll_behavior.dart';
 import 'package:emenu/core/configurations/configuration.dart';
 import 'package:emenu/core/configurations/env/env_prod.dart';
+import 'package:emenu/core/configurations/env/env_dev.dart';
 import 'package:emenu/core/design_system/resource/constant.dart';
 import 'package:emenu/core/di/di.dart';
 import 'package:emenu/core/services/share_preferences_service.dart';
@@ -17,7 +18,7 @@ import 'generated/l10n.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  Configurations().setConfigurationValues(environmentProd);
+  Configurations().setConfigurationValues(environmentDev);
   await configureDependencies(environment: Environment.prod);
   await SharedPreferencesService().init();
   runApp(

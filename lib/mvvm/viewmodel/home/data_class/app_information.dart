@@ -34,19 +34,19 @@ class AppInformation {
     String? tableName,
     int? posOrderId,
   }) {
-    _orgId = orgId;
-    _tenantId = tenantId;
-    _tableId = tableId;
-    _floorId = floorId;
-    _posTerminalId = posTerminalId;
-    _tableNo = tableNo;
-    _floorNo = floorNo;
-    _priceListId = priceListId;
-    _orgName = orgName;
-    _address = address;
-    _hashParam = hashParam;
-    _tableName = tableName;
-    _posOrderId = posOrderId;
+    _orgId = orgId ?? _orgId;
+    _tenantId = tenantId ?? _tenantId;
+    _tableId = tableId ?? _tableId;
+    _floorId = floorId ?? _floorId;
+    _posTerminalId = posTerminalId ?? _posTerminalId;
+    _tableNo = tableNo ?? _tableNo;
+    _floorNo = floorNo ?? _floorNo;
+    _priceListId = priceListId ?? _priceListId;
+    _orgName = orgName ?? _orgName;
+    _address = address ?? _address;
+    _hashParam = hashParam ?? _hashParam;
+    _tableName = tableName ?? _tableName;
+    _posOrderId = posOrderId ?? _posOrderId;
   }
 
   void updateData({

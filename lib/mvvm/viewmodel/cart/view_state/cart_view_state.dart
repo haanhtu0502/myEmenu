@@ -6,6 +6,8 @@ enum CartViewStatus {
   loadingGetRequestHistory,
   getRequestHistorySuccess,
   getRequestHistoryFailed,
+  loadingSendNotifyRemind,
+  sendRequestOrderRemindSuccess,
   error,
 }
 
@@ -28,6 +30,10 @@ class CartViewState {
       : this._(CartViewStatus.getRequestHistorySuccess, message);
   const CartViewState.getRequestHistoryFailed([String? message])
       : this._(CartViewStatus.getRequestHistoryFailed, message);
+  const CartViewState.loadingSendNotifyRemind()
+      : this._(CartViewStatus.loadingSendNotifyRemind);
+  const CartViewState.sendRequestOrderRemindSuccess([String? message])
+      : this._(CartViewStatus.sendRequestOrderRemindSuccess, message);
   const CartViewState.error(String message)
       : this._(CartViewStatus.error, message);
 
@@ -45,4 +51,8 @@ class CartViewState {
       state == CartViewStatus.getRequestHistorySuccess;
   bool get isGetRequestHistoryFailed =>
       state == CartViewStatus.getRequestHistoryFailed;
+  bool get isLoadingSendNotifyRemind =>
+      state == CartViewStatus.loadingSendNotifyRemind;
+  bool get isSendRequestOrderRemindSuccess =>
+      state == CartViewStatus.sendRequestOrderRemindSuccess;
 }

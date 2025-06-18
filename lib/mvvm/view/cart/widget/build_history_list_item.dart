@@ -1,4 +1,5 @@
 import 'package:emenu/core/component/build_custom_button.dart';
+import 'package:emenu/core/component/image_render.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/core/extensions/num_extension.dart';
@@ -66,12 +67,13 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
       children: [
         Expanded(
           flex: 1,
-          child: Image.asset(
-            widget.requestHistory.product?.imageUrl == null ||
+          child: ImageRender(
+            imageUrl: widget.requestHistory.product?.imageUrl == null ||
                     widget.requestHistory.product!.imageUrl!.isEmpty
                 ? ImageConst.noImageImg
                 : widget.requestHistory.product!.imageUrl!,
             width: double.infinity,
+            height: 60,
           ),
         ),
         const SizedBox(width: 6),
@@ -108,7 +110,7 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    lineDetail.product?.name ?? '',
+                                    lineDetail.productName ?? '',
                                     style: context.titleMedium.copyWith(
                                       color: Theme.of(context).dividerColor,
                                     ),
@@ -204,23 +206,17 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
         Expanded(
           child: BuildCustomButton(
             onPressed: () async {
-              if (status == 'PND') {
+              if (widget.requestHistory.kitchenOrderLineId != null) {
                 await context.showSendProcessingRequestDialog(
                   requestHistoryModel: widget.requestHistory,
-                );
-                await context.showSendRequestSuccessDialog(
-                  imageUrl: ImageConst.processRequestImg,
-                  title: S.of(context).sendPriorityRequestSuccess,
-                  isShowCloseButton: false,
-                  isShowCloseIcon: true,
                 );
               }
             },
             text: S.of(context).priorityProcess,
-            color: status == "PND"
+            color: widget.requestHistory.kitchenOrderLineId != null
                 ? Theme.of(context).secondaryHeaderColor
                 : Colors.white,
-            textColor: status == 'PND'
+            textColor: widget.requestHistory.kitchenOrderLineId != null
                 ? Colors.white
                 : const Color.fromRGBO(
                     116,
@@ -228,7 +224,7 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
                     161,
                     1,
                   ),
-            borderColor: status == 'PND'
+            borderColor: widget.requestHistory.kitchenOrderLineId != null
                 ? Colors.white
                 : const Color.fromRGBO(
                     116,

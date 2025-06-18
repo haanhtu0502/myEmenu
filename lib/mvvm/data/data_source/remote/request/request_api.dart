@@ -14,6 +14,8 @@ abstract class RequestApi {
   static const String saveRequestApi = '$branchv1/requestOrder/saveAll';
   static const String getRequestHistoryApi =
       '$branchv1/requestOrder/getHistoryRequestOrder';
+  static const String sendNotifyRemindApi =
+      '$branchv1/kitchenOrderLines/sendNotifyRemind';
 
   @factoryMethod
   factory RequestApi(Dio dio) = _RequestApi;
@@ -26,4 +28,8 @@ abstract class RequestApi {
   Future<HttpResponse<ResponseData<List<RequestHistoryModel>>>>
       getRequestHistory(
           {@Queries(encoded: true) required Map<String, dynamic> queries});
+
+  @POST(sendNotifyRemindApi)
+  Future<HttpResponse<ResponseData>> sendNotifyRemind(
+      {@Body() required Map<String, dynamic> queries});
 }

@@ -10,7 +10,7 @@ class ProductComponent {
   String? uomName;
   String? taxName;
   num? taxRate;
-  int? quantity;
+  num? quantity;
 
   ProductComponent({
     required this.id,

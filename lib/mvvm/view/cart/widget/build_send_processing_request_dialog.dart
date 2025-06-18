@@ -1,7 +1,9 @@
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/generated/l10n.dart';
 import 'package:emenu/mvvm/data/model/request_history/request_history_model.dart';
+import 'package:emenu/mvvm/viewmodel/cart/cart_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BuildSendProcessingRequestDialog extends StatelessWidget {
   const BuildSendProcessingRequestDialog({
@@ -102,6 +104,13 @@ class BuildSendProcessingRequestDialog extends StatelessWidget {
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
+              context.read<CartProvider>().sendNotifyRemind(
+                    kitchenOrderLineId: requestHistory.kitchenOrderLineId!,
+                    note: "",
+                    waitingTime: requestHistory.timeWaiting,
+                    product: requestHistory.product!,
+                    quantity: requestHistory.qty ?? 0,
+                  );
               Navigator.of(context).pop();
             },
             style: ElevatedButton.styleFrom(

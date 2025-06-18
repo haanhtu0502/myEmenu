@@ -29,20 +29,7 @@ class _HistoryListTabState extends State<HistoryListTab> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        if (_appProvider.customerPhone?.isEmpty ?? false) {
-          context.showTopSnackbar(
-            S.of(context).retailCustomerCannotViewHistory,
-            isError: true,
-          );
-          return;
-        }
-      },
-    );
-    if (_appProvider.customerPhone?.isNotEmpty ?? false) {
-      _cartProvider.getRequestHistory(_appProvider.customerPhone);
-    }
+    _cartProvider.getRequestHistory(_appProvider.customerPhone);
 
     super.initState();
   }
@@ -72,7 +59,7 @@ class _HistoryListTabState extends State<HistoryListTab> {
                             children: <TextSpan>[
                               TextSpan(
                                 text:
-                                    '${S.of(context).table} ${AppInformation().tableNo}',
+                                    '${S.of(context).table} ${AppInformation().tableName}',
                                 style: context.titleSmall.copyWith(
                                   color: Theme.of(context).primaryColor,
                                 ),

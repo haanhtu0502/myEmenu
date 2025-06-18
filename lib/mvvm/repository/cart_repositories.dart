@@ -5,6 +5,7 @@ import 'package:emenu/mvvm/data/model/request_history/request_history_model.dart
 import 'package:emenu/mvvm/data/model/response/reponse_data/response_data_model.dart';
 import 'package:emenu/mvvm/data/request/create_order_request.dart';
 import 'package:emenu/mvvm/data/request/get_request_history_request.dart';
+import 'package:emenu/mvvm/data/request/send_notify_remind_request.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
@@ -31,6 +32,17 @@ class CartRepositories extends ApiCallHelper {
       mapper: (response) => response,
       request: () async =>
           await _requestApi.getRequestHistory(queries: request.toJson()),
+    );
+    return result;
+  }
+
+  Future<SResult<ResponseData>> sendNotifyRemind(
+      SendNotifyRemindRequest request) async {
+    final result =
+        await callHandleResponseDataNoNullCheck<ResponseData, ResponseData>(
+      mapper: (response) => response,
+      request: () async =>
+          await _requestApi.sendNotifyRemind(queries: request.toJson()),
     );
     return result;
   }
