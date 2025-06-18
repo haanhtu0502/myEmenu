@@ -51,9 +51,11 @@ class _HomeScreenState extends State<HomeScreen> {
       if (state.isLoading) {}
       if (state.isError) {
         context.showTopSnackbar(state.message ?? '', isError: true);
+        _homeProvider.resetState();
       }
       if (state.isSendNotificationSuccess) {
         context.showTopSnackbar(state.message ?? '', isError: false);
+        _homeProvider.resetState();
       }
       if (state.isSuccess) {}
     });

@@ -64,6 +64,11 @@ class HomeProvider extends ChangeNotifier {
     });
   }
 
+  void resetState() {
+    _state = const HomeViewState.idle();
+    notifyListeners();
+  }
+
   Future<void> getCustomerInformation() async {
     final result = await _emenuConfigRepositories.getRequestOrder(
         request: GetRequestOrderRequest(
