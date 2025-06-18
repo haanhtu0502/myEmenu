@@ -208,6 +208,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
         const SizedBox(height: 50),
         GridView.builder(
           shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 12,
@@ -443,6 +444,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
   }) {
     return GridView.builder(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 12,

@@ -25,11 +25,8 @@ class LoadingOverlay extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Lottie.asset(
-                ImageConst.loadingImg,
-                width: 100,
-                height: 100,
-              ),
+              Lottie.asset(ImageConst.loadingImg,
+                  width: 100, height: 100, animate: true),
 
               const SizedBox(height: 20),
 

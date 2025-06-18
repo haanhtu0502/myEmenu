@@ -5,6 +5,7 @@ import 'package:emenu/core/design_system/resource/image_const.dart';
 import 'package:emenu/core/extensions/context_extension.dart';
 import 'package:emenu/core/extensions/num_extension.dart';
 import 'package:emenu/generated/l10n.dart';
+import 'package:emenu/mvvm/view/cart/dummy/request_history_placeholder.dart';
 import 'package:emenu/mvvm/view/cart/widget/build_history_list_item.dart';
 import 'package:emenu/mvvm/viewmodel/app_provider.dart';
 import 'package:emenu/mvvm/viewmodel/cart/cart_provider.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class HistoryListTab extends StatefulWidget {
   const HistoryListTab({super.key});
@@ -89,15 +91,29 @@ class _HistoryListTabState extends State<HistoryListTab> {
 
   Widget _buildListOrderItem(BuildContext context, CartProvider provider) {
     return Expanded(
-      child: ListView.separated(
-        itemCount: provider.listRequestHistory.length,
-        separatorBuilder: (context, index) => const SizedBox(height: 20),
-        itemBuilder: (context, index) {
-          return BuildHistoryListItem(
-            requestHistory: provider.listRequestHistory[index],
-          );
-        },
-      ),
+      child: provider.cartViewState.isLoadingGetRequestHistory
+          ? Skeletonizer(
+              child: ListView.separated(
+                itemCount: 3,
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 20),
+                itemBuilder: (context, index) {
+                  return BuildHistoryListItem(
+                    requestHistory: requestHistoryItemPlaceholder,
+                    isLoading: true,
+                  );
+                },
+              ),
+            )
+          : ListView.separated(
+              itemCount: provider.listRequestHistory.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 20),
+              itemBuilder: (context, index) {
+                return BuildHistoryListItem(
+                  requestHistory: provider.listRequestHistory[index],
+                );
+              },
+            ),
     );
   }
 

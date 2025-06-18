@@ -155,7 +155,7 @@ class CartProvider extends ChangeNotifier {
           lineDetail: item.product.extraItems?.map((extra) {
             return LineDetailModel(
               orgId: AppInformation().orgId!,
-              productId: item.product.productId!,
+              productId: extra.id,
               qty: extra.quantity ?? 0,
               salePrice: (extra.salePrice ?? 0).toDouble(),
               totalAmount:

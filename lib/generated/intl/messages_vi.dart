@@ -57,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "goodAfternoon": MessageLookupByLibrary.simpleMessage("Chào buổi trưa"),
         "goodEvening": MessageLookupByLibrary.simpleMessage("Chào buổi tối"),
         "goodMorning": MessageLookupByLibrary.simpleMessage("Chào buổi sáng"),
+        "goodNight": MessageLookupByLibrary.simpleMessage("Chào buổi đêm"),
         "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
         "hi": MessageLookupByLibrary.simpleMessage("Chào"),
         "inputFeedback": MessageLookupByLibrary.simpleMessage("Nhập phản hồi"),

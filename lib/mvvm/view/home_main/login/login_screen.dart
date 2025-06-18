@@ -109,7 +109,6 @@ class _LoginScreenState extends State<LoginScreen> {
             label: S.of(context).phone,
             hint: S.of(context).yourPhone,
             controller: _phoneController,
-            isRequired: true,
           ),
           const SizedBox(height: 20),
           BuildCustomButton(

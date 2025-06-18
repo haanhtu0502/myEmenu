@@ -25,13 +25,39 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="emenu">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="dbiz_logo.png" />
+  <link rel="preload" href="assets/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
 
   <title>emenu</title>
   <link rel="manifest" href="manifest.json">
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #flutter_view {
+      display: block;
+      min-height: 150vh;
+      /* <--- ép dài hơn màn hình */
+    }
+
+    flt-glass-pane {
+      min-height: 150vh !important;
+    }
+  </style>
 
   <script>
     // The value below is injected by flutter build, do not touch.

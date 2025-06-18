@@ -16,6 +16,7 @@ import 'package:emenu/mvvm/viewmodel/home/data_class/app_information.dart';
 import 'package:emenu/mvvm/viewmodel/home/home_provider.dart';
 import 'package:emenu/routes/app_pages.dart';
 import 'package:emenu/theme/theme_config.dart';
+import 'package:emenu/utils/get_time_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -34,12 +35,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   HomeProvider get _homeProvider => context.read<HomeProvider>();
   AppProvider get _appProvider => context.read<AppProvider>();
-  final AppInformation _appInformation = AppInformation();
 
   @override
   void initState() {
     super.initState();
-    _homeProvider.getCategory();
+    Future.microtask(() {
+      context.read<HomeProvider>().getCategory();
+    });
   }
 
   @override
@@ -78,18 +80,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 child: SingleChildScrollView(
-                  child: Expanded(
-                    child: Column(
-                      children: [
-                        _buildTitle(context, provider),
-                        const SizedBox(height: 12),
-                        _buildBanner(context, provider),
-                        const SizedBox(height: 18),
-                        _buildButtons(context),
-                        const SizedBox(height: 18),
-                        _buildCategories(context, provider),
-                      ],
-                    ),
+                  child: Column(
+                    children: [
+                      _buildTitle(context, provider),
+                      const SizedBox(height: 12),
+                      _buildBanner(context, provider),
+                      const SizedBox(height: 18),
+                      _buildButtons(context),
+                      const SizedBox(height: 18),
+                      _buildCategories(context, provider),
+                    ],
                   ),
                 ),
               ),
@@ -203,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
         const SizedBox(height: 12),
         Text(
-          '${S.of(context).goodMorning} ${_appProvider.customerName} !',
+          '${GetTimeUtils.getGreetingByTime(context)} ${_appProvider.customerName} !',
           style: context.titleMedium.copyWith(
             color: Colors.black,
           ),

@@ -16,9 +16,11 @@ class BuildHistoryListItem extends StatefulWidget {
   const BuildHistoryListItem({
     super.key,
     required this.requestHistory,
+    this.isLoading = false,
   });
 
   final RequestHistoryModel requestHistory;
+  final bool isLoading;
 
   @override
   State<BuildHistoryListItem> createState() => _BuildHistoryListItemState();
@@ -145,7 +147,10 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    widget.requestHistory.description ?? S.of(context).noNote,
+                    (widget.requestHistory.description == null ||
+                            widget.requestHistory.description!.isEmpty)
+                        ? S.of(context).noNote
+                        : widget.requestHistory.description!,
                     style: context.titleMedium.copyWith(
                       color: Theme.of(context).dividerColor,
                     ),
@@ -186,7 +191,6 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
   }
 
   Widget _buildButtons(BuildContext context) {
-    final status = widget.requestHistory.status;
     return Row(
       children: [
         Expanded(
@@ -196,7 +200,9 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
             },
             text: S.of(context).orderMore,
             color: Colors.white,
-            borderColor: Theme.of(context).secondaryHeaderColor,
+            borderColor: widget.isLoading
+                ? null
+                : Theme.of(context).secondaryHeaderColor,
             textColor: Theme.of(context).secondaryHeaderColor,
           ),
         ),
@@ -224,14 +230,16 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
                     161,
                     1,
                   ),
-            borderColor: widget.requestHistory.kitchenOrderLineId != null
-                ? Colors.white
-                : const Color.fromRGBO(
-                    116,
-                    131,
-                    161,
-                    1,
-                  ),
+            borderColor: widget.isLoading
+                ? null
+                : widget.requestHistory.kitchenOrderLineId != null
+                    ? Colors.white
+                    : const Color.fromRGBO(
+                        116,
+                        131,
+                        161,
+                        1,
+                      ),
           ),
         ),
       ],

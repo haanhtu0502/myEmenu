@@ -220,6 +220,16 @@ class S {
     );
   }
 
+  /// `Chào buổi đêm`
+  String get goodNight {
+    return Intl.message(
+      'Chào buổi đêm',
+      name: 'goodNight',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `You are sitting at`
   String get youAreSitAt {
     return Intl.message(

@@ -15,17 +15,15 @@ class BuildCartLayout extends StatefulWidget {
 class _BuildCartLayoutState extends State<BuildCartLayout> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            widget.child,
-            DragableCart(
-              screenHeight: context.heightDevice,
-              screenWidth: context.widthDevice,
-            )
-          ],
-        ),
+    return Scaffold(
+      body: Stack(
+        children: [
+          widget.child,
+          DragableCart(
+            screenHeight: context.heightDevice,
+            screenWidth: context.widthDevice,
+          )
+        ],
       ),
     );
   }
