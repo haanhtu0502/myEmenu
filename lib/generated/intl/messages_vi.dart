@@ -54,7 +54,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "evening": MessageLookupByLibrary.simpleMessage("Buổi tối"),
         "extra": MessageLookupByLibrary.simpleMessage("Món thêm"),
-        "goodAfternoon": MessageLookupByLibrary.simpleMessage("Chào buổi trưa"),
+        "goodAfternoon":
+            MessageLookupByLibrary.simpleMessage("Chào buổi chiều"),
         "goodEvening": MessageLookupByLibrary.simpleMessage("Chào buổi tối"),
         "goodMorning": MessageLookupByLibrary.simpleMessage("Chào buổi sáng"),
         "goodNight": MessageLookupByLibrary.simpleMessage("Chào buổi đêm"),
@@ -62,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "hi": MessageLookupByLibrary.simpleMessage("Chào"),
         "inputFeedback": MessageLookupByLibrary.simpleMessage("Nhập phản hồi"),
         "inputNote": MessageLookupByLibrary.simpleMessage("Nhập ghi chú"),
+        "inputNoteIfHas":
+            MessageLookupByLibrary.simpleMessage("Nhập ghi chú (Nếu có)"),
         "itemDeletedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Món đã được xoá thành công"),
         "morning": MessageLookupByLibrary.simpleMessage("Buổi sáng"),

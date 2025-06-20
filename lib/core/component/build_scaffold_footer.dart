@@ -5,15 +5,18 @@ class BuildScaffoldFooter extends StatelessWidget {
     super.key,
     this.padding,
     required this.child,
+    this.height,
   });
 
   final EdgeInsetsGeometry? padding;
   final Widget child;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      height: height,
       padding: padding ??
           const EdgeInsets.symmetric(
             horizontal: 20,

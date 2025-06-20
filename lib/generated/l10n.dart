@@ -829,6 +829,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Input note (if any)`
+  String get inputNoteIfHas {
+    return Intl.message(
+      'Input note (if any)',
+      name: 'inputNoteIfHas',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

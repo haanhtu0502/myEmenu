@@ -118,6 +118,7 @@ flutter:
     - assets/images/success_img.png
     - assets/images/process_request.png
     - assets/images/delete_icon.png
+    - assets/images/note.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

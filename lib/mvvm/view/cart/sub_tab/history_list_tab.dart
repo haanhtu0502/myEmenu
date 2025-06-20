@@ -1,4 +1,3 @@
-import 'package:emenu/app_coordinator.dart';
 import 'package:emenu/core/component/build_custom_button.dart';
 import 'package:emenu/core/component/build_scaffold_footer.dart';
 import 'package:emenu/core/design_system/resource/image_const.dart';
@@ -53,20 +52,23 @@ class _HistoryListTabState extends State<HistoryListTab> {
                           ImageConst.qrCodeIcon,
                         ),
                         const SizedBox(width: 10),
-                        RichText(
-                          text: TextSpan(
-                            text:
-                                '${S.of(context).hi} ${_appProvider.customerName}, ${S.of(context).youAreSittingAt} ',
-                            style: context.titleSmall,
-                            children: <TextSpan>[
-                              TextSpan(
-                                text:
-                                    '${S.of(context).table} ${AppInformation().tableName}',
-                                style: context.titleSmall.copyWith(
-                                  color: Theme.of(context).primaryColor,
+                        Expanded(
+                          child: RichText(
+                            text: TextSpan(
+                              text:
+                                  '${S.of(context).hi} ${_appProvider.customerName}, ${S.of(context).youAreSittingAt} ',
+                              style: context.titleSmall,
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text:
+                                      '${S.of(context).table} ${AppInformation().tableName}',
+                                  style: context.titleSmall.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ],
@@ -217,7 +219,7 @@ class _HistoryListTabState extends State<HistoryListTab> {
                   ),
                   text: S.of(context).addDish,
                   onPressed: () {
-                    GoRouter.of(context).push(AppPages.listProduct);
+                    GoRouter.of(context).go(AppPages.listProduct);
                   },
                   color: Theme.of(context).primaryColor,
                   textColor: Colors.white,

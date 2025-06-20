@@ -50,13 +50,13 @@ class HomeProvider extends ChangeNotifier {
       await getToken();
     }
 
-    await getCustomerInformation();
-
     Future.wait([
+      getCustomerInformation(),
       getOrgEmenu(),
       getTableById(AppInformation().tableId.toString()),
-    ]).then((_) {
+    ]).then((p0) {
       _state = const HomeViewState.initialSuccess();
+      getCategory();
       notifyListeners();
     }).catchError((error) {
       _state = HomeViewState.error(error.toString());
@@ -107,8 +107,8 @@ class HomeProvider extends ChangeNotifier {
       (l) => _state = HomeViewState.error(l.message),
       (r) {
         if (r.data.isNotEmpty &&
-            _appProvider.customerName != null &&
-            _appProvider.customerPhone != null) {
+            _appProvider.customerName == null &&
+            _appProvider.customerPhone == null) {
           _appProvider.setCustomerName(r.data.first.customerName ?? '');
           _appProvider.setCustomerPhone(r.data.first.phone ?? '');
 

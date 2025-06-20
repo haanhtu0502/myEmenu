@@ -44,72 +44,79 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
+                child: Consumer<ProductDetailProvider>(
+                    builder: (context, value, child) {
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        child: _buildProductInformation(
+                          context,
+                        ),
                       ),
-                      child: _buildProductInformation(
-                        context,
-                      ),
-                    ),
-                    const SizedBox(height: 18),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      child: _buildProductComponent(
-                        context,
-                      ),
-                    ),
-                    const SizedBox(height: 18),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      child: _buildProductExtra(
-                        context,
-                      ),
-                    ),
-                    const SizedBox(height: 18),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      child: TextField(
-                        maxLines: 4,
-                        onChanged: (value) {
-                          _provider.note = value;
-                        },
-                        decoration: InputDecoration(
-                          hintText: S.of(context).note,
-                          hintStyle: TextStyle(
-                            color: Theme.of(context).hintColor,
+                      if (value.product.components?.isNotEmpty ?? false) ...[
+                        const SizedBox(height: 18),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
                           ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(
-                              color: Colors.grey[300]!,
+                          child: _buildProductComponent(
+                            context,
+                          ),
+                        ),
+                      ],
+                      if (value.product.extraItems?.isNotEmpty ?? false) ...[
+                        const SizedBox(height: 18),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          child: _buildProductExtra(
+                            context,
+                          ),
+                        ),
+                      ],
+                      const SizedBox(height: 18),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        child: TextField(
+                          maxLines: 4,
+                          onChanged: (value) {
+                            _provider.note = value;
+                          },
+                          decoration: InputDecoration(
+                            hintText: S.of(context).inputNoteIfHas,
+                            hintStyle: TextStyle(
+                              color: Theme.of(context).hintColor,
                             ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(
-                              color: Colors.grey[300]!,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(
+                                color: Colors.grey[300]!,
+                              ),
                             ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(
-                              color: Colors.grey[300]!,
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(
+                                color: Colors.grey[300]!,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(
+                                color: Colors.grey[300]!,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  );
+                }),
               ),
             ),
             const SizedBox(height: 12),
@@ -272,6 +279,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         textAlign: TextAlign.end,
                       ),
                     ),
+                    const SizedBox(width: 8),
                     Expanded(
                       flex: 2,
                       child: Row(

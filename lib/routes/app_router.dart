@@ -98,6 +98,13 @@ final GoRouter appRouter = GoRouter(
       routes: [
         GoRoute(
           parentNavigatorKey: appNavigationKey,
+          redirect: (context, state) {
+            final product = state.extra as ProductModel?;
+            if (product == null) {
+              return AppPages.listProduct;
+            }
+            return null; // No redirect needed
+          },
           path: AppPages.detailProduct,
           builder: (context, state) {
             final product = state.extra as ProductModel;

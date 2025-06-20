@@ -165,6 +165,7 @@ class _OrderListTabState extends State<OrderListTab> {
         vertical: 10,
         horizontal: 12,
       ),
+      height: 180,
       child: Column(
         children: [
           Row(
@@ -182,14 +183,22 @@ class _OrderListTabState extends State<OrderListTab> {
               ),
             ],
           ),
-          ...provider.cartItems.map((e) => _buildItemFooter(e)).expand(
-                (element) => [
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  element,
-                ],
-              ),
+          Expanded(
+              child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: provider.cartItems.length,
+            itemBuilder: (context, index) {
+              return _buildItemFooter(provider.cartItems[index]);
+            },
+          )),
+          // ...provider.cartItems.map((e) => _buildItemFooter(e)).expand(
+          //       (element) => [
+          //         const SizedBox(
+          //           height: 8,
+          //         ),
+          //         element,
+          //       ],
+          //     ),
           const SizedBox(
             height: 12,
           ),

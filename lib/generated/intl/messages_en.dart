@@ -62,6 +62,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "hi": MessageLookupByLibrary.simpleMessage("Hi"),
         "inputFeedback": MessageLookupByLibrary.simpleMessage("Input feedback"),
         "inputNote": MessageLookupByLibrary.simpleMessage("Input note"),
+        "inputNoteIfHas":
+            MessageLookupByLibrary.simpleMessage("Input note (if any)"),
         "itemDeletedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Item deleted successfully"),
         "morning": MessageLookupByLibrary.simpleMessage("Morning"),

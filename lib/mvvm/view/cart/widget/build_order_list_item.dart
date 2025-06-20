@@ -8,6 +8,7 @@ import 'package:emenu/mvvm/data/model/product_cart_item/product_cart_item_model.
 import 'package:emenu/mvvm/view/cart/cart_coordinator.dart';
 import 'package:emenu/mvvm/viewmodel/cart/cart_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class BuildOrderListItem extends StatefulWidget {
@@ -68,23 +69,6 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
             flex: 3,
             child: _buildOrderInfo(context),
           ),
-          Expanded(
-            flex: 2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                BuildCountQty(
-                  value: widget.item.quantity,
-                  onChanged: (p0) {
-                    _cartProvider.updateCartItemQuantity(
-                      widget.item,
-                      p0,
-                    );
-                  },
-                ),
-              ],
-            ),
-          )
         ],
       ),
     );
@@ -95,6 +79,7 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: Text(
@@ -104,6 +89,17 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
                 ),
                 softWrap: true,
               ),
+            ),
+            const SizedBox(width: 8),
+            BuildCountQty(
+              minValue: 1,
+              value: widget.item.quantity,
+              onChanged: (p0) {
+                _cartProvider.updateCartItemQuantity(
+                  widget.item,
+                  p0,
+                );
+              },
             ),
           ],
         ),
@@ -141,19 +137,23 @@ class _BuildOrderListItemState extends State<BuildOrderListItem> {
             }
           },
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
-                Icons.book,
-                size: 18,
-                color: Theme.of(context).dividerColor,
+              SvgPicture.asset(
+                ImageConst.noteIcon,
+                width: 18,
+                height: 18,
               ),
               const SizedBox(width: 4),
-              Text(
-                widget.item.note.isNotEmpty
-                    ? widget.item.note
-                    : S.of(context).addNote,
-                style: context.titleMedium.copyWith(
-                  color: Theme.of(context).dividerColor,
+              Expanded(
+                child: Text(
+                  widget.item.note.isNotEmpty
+                      ? widget.item.note
+                      : S.of(context).addNote,
+                  style: context.titleMedium.copyWith(
+                    color: Theme.of(context).dividerColor,
+                  ),
+                  softWrap: true,
                 ),
               ),
             ],

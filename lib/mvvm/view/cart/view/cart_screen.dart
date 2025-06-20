@@ -74,6 +74,7 @@ class _CartScreenState extends State<CartScreen>
           Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               title: Text(
                 S.of(context).myCart,
                 style: context.titleLarge.copyWith(

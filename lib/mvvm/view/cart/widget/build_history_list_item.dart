@@ -196,7 +196,7 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
         Expanded(
           child: BuildCustomButton(
             onPressed: () {
-              GoRouter.of(context).push(AppPages.listProduct);
+              GoRouter.of(context).go(AppPages.listProduct);
             },
             text: S.of(context).orderMore,
             color: Colors.white,
@@ -212,17 +212,20 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
         Expanded(
           child: BuildCustomButton(
             onPressed: () async {
-              if (widget.requestHistory.kitchenOrderLineId != null) {
+              if (widget.requestHistory.kitchenOrderLineId != null &&
+                  widget.requestHistory.valueStatus == "WTP") {
                 await context.showSendProcessingRequestDialog(
                   requestHistoryModel: widget.requestHistory,
                 );
               }
             },
             text: S.of(context).priorityProcess,
-            color: widget.requestHistory.kitchenOrderLineId != null
+            color: widget.requestHistory.kitchenOrderLineId != null &&
+                    widget.requestHistory.valueStatus == "WTP"
                 ? Theme.of(context).secondaryHeaderColor
                 : Colors.white,
-            textColor: widget.requestHistory.kitchenOrderLineId != null
+            textColor: widget.requestHistory.kitchenOrderLineId != null &&
+                    widget.requestHistory.valueStatus == "WTP"
                 ? Colors.white
                 : const Color.fromRGBO(
                     116,
@@ -232,7 +235,8 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
                   ),
             borderColor: widget.isLoading
                 ? null
-                : widget.requestHistory.kitchenOrderLineId != null
+                : widget.requestHistory.kitchenOrderLineId != null &&
+                        widget.requestHistory.valueStatus == "WTP"
                     ? Colors.white
                     : const Color.fromRGBO(
                         116,

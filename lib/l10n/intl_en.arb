@@ -76,5 +76,6 @@
     "deleteAllItemsConfirm": "Are you sure you want to delete all items from the cart?",
     "allItemsDeletedSuccessfully": "All items deleted successfully",
     "noItemsToDelete": "No items to delete",
-    "pleaseAddItemToSendRequest": "Please add an item to send the request"
+    "pleaseAddItemToSendRequest": "Please add an item to send the request",
+    "inputNoteIfHas": "Input note (if any)"
 }

@@ -14,7 +14,7 @@
     "afternoon": "Buổi trưa",
     "evening": "Buổi tối",
     "goodMorning": "Chào buổi sáng",
-    "goodAfternoon": "Chào buổi trưa",
+    "goodAfternoon": "Chào buổi chiều",
     "goodEvening": "Chào buổi tối",
     "goodNight": "Chào buổi đêm",
     "youAreSitAt": "Bạn đang ngồi tại",
@@ -76,5 +76,6 @@
     "deleteAllItemsConfirm": "Bạn có chắc chắn muốn xoá tất cả món trong giỏ hàng không?",
     "allItemsDeletedSuccessfully": "Tất cả món đã được xoá thành công",
     "noItemsToDelete": "Không có món nào để xoá",
-    "pleaseAddItemToSendRequest": "Vui lòng thêm món để gửi yêu cầu gọi món"
+    "pleaseAddItemToSendRequest": "Vui lòng thêm món để gửi yêu cầu gọi món",
+    "inputNoteIfHas": "Nhập ghi chú (Nếu có)"
 }
