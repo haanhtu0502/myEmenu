@@ -35,7 +35,7 @@ class _BuildHistoryListItemState extends State<BuildHistoryListItem> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              widget.requestHistory.valueStatus ?? '',
+              widget.requestHistory.status ?? '',
               style: context.titleMedium.copyWith(
                 fontWeight: FontWeight.bold,
                 color: widget
